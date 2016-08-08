@@ -1,0 +1,248 @@
+@import '../css/two_doors/bootstrap.min.css';
+@import '../css/two_doors/font-awesome.min.css';
+@import '../css/two_doors/font.css';
+@import '../css/two_doors/prettyPhoto.css';
+@import '../css/two_doors/main.css';
+@import '../css/two_doors/responsive.css';
+/**
+ * Variable Overrides.
+ *
+ * Modify this file to override the Bootstrap Framework variables. You can copy
+ * these variables directly from ../bootstrap/less/variables.less to this file.
+ */
+/*
+@import "component/alert";
+@import "component/ajax";
+@import "component/field";
+@import "component/file";
+@import "component/filter";
+@import "component/form";
+@import "component/icon";
+@import "component/navbar";
+@import "component/node";
+@import "component/panel";
+@import "component/progress-bar";
+@import "component/table-drag";
+@import "component/tabs";
+@import "component/toolbar";
+
+// jQuery UI style overrides.
+@import "jquery-ui/autocomplete";
+
+ol, ul {
+  padding-left: 1.5em;
+  .popover &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Page header.
+.page-header {
+  margin-top: 0;
+}
+
+// Footer.
+.footer {
+  margin-top: 45px;
+  padding-top: 35px;
+  padding-bottom: 36px;
+  border-top: 1px solid #E5E5E5;
+}
+
+// Paragraphs.
+p:last-child,
+.form-group:last-child,
+.panel:last-child {
+  margin-bottom: 0;
+}
+
+// Help region.
+.region-help {
+  > .glyphicon {
+    font-size: @font-size-large;
+    float: left;
+    margin: -0.05em 0.5em 0 0;
+  }
+  .block {
+    overflow: hidden;
+  }
+}
+
+
+.help-block, .control-group .help-inline {
+  color: @gray-light;
+  font-size: 12px;
+  margin: 5px 0 10px;
+  padding: 0;
+  &:first-child {
+    margin-top: 0;
+  }
+}
+*/
+/*
+html.html.twig (header, footer...)
+*/
+.navbar-brand {
+  background-color: transparent !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+.navbar-header {
+  background-color: transparent !important;
+}
+.navbar-header:before {
+  background-color: transparent !important;
+}
+@media (min-width: 768px) {
+  .navbar-brand img {
+    position: relative;
+    top: -42px;
+  }
+}
+.container-top {
+  min-height: 45px;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: rgba(1, 1, 1, 0.7);
+}
+#block-transferhub-account-menu ul {
+  margin-right: 0 !important;
+}
+.main-blog-no-node {
+  padding-top: 50px !important;
+}
+@media (min-width: 768px) {
+  #footer ul.menu li {
+    float: left;
+  }
+}
+#footer a {
+  color: white;
+}
+.user-register-form .filter-help {
+  display: none;
+}
+/*@media (min-width: @screen-sm) {
+  .user-login-form
+  {
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}*/
+button span.icon:before {
+  content: "";
+}
+.nav-tabs > li.active > a {
+  cursor: default;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+}
+nav.tabs.container {
+  margin-bottom: 30px;
+}
+body.user-logged-in h4.label {
+  color: black;
+  font-size: 100%;
+}
+body.user-logged-in img {
+  margin-bottom: 10px;
+}
+form.search-page-form {
+  display: none;
+}
+a {
+  color: #000000;
+}
+a:hover {
+  color: #008000;
+}
+#navigation .topbar-icons span i:hover {
+  color: #008000;
+}
+#footer a:hover {
+  color: #008000;
+}
+#navigation .navbar-right li a:hover {
+  color: #008000;
+}
+#navigation .navbar-right .dropdown-menu li a:hover {
+  background-color: #008000;
+}
+#get-touch .contact-social li a:hover {
+  color: #008000;
+}
+#get-touch .btn.btn-primary:hover {
+  border-color: #008000;
+}
+#get-touch .form-control:focus {
+  border-color: #008000;
+}
+.nav-tabs > li.active > a:visited {
+  color: #008000;
+}
+.form-control:focus {
+  border-color: #008000;
+}
+.user-register-form .search-page-form {
+  display: none;
+}
+#navigation .navbar-static-top {
+  background-color: rgba(69, 124, 44, 0.5);
+}
+.region-navigation-top .block-language ul li {
+  float: left;
+  margin-left: 6px;
+}
+.region-navigation .block-language ul li.is-active,
+.region-navigation-top .block-language ul li.is-active {
+  font-weight: bold;
+}
+.region-navigation .block-language ul li {
+  float: left;
+  margin-left: -2px;
+}
+.region-navigation .block-language {
+  padding: 10px;
+}
+@media (min-width: 768px) {
+  div.region-navigation-collapsible nav {
+    float: left;
+  }
+}
+#block-transferhub-account-menu ul,
+#block-reutilitza-account-menu ul {
+  margin-right: 0 !important;
+}
+a.user-dropdown-toggle {
+  padding: 0;
+}
+/*
+
+#service .section-title h2:before {
+  background-image: url(/reutilitza/themes/custom/transferhub/images/home/icons/shop-title-icon2.png); //todo
+}
+//view bloc front
+.path-frontpage #screenshots
+{
+  margin-top: 30px;
+  padding-top: 30px;
+}
+.path-frontpage #screenshots p {
+  font-family: 'Raleway', sans-serif;
+  color: #454545;
+}
+.path-frontpage #screenshots h2 {
+  font-family: 'Raleway', sans-serif;
+
+}
+.path-frontpage #screenshots h2 a
+{
+  font-size: 26px;
+  text-decoration: none;
+}
+*/
+/*# sourceMappingURL=style.css.map */

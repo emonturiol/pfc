@@ -1,0 +1,27 @@
+<div id="screenshots" class="padding-bottom">
+    <div class="container text-center">
+        <div class="app-section-title">
+            <h2>Els nostres projectes</h2>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto.</p>
+        </div>
+    </div>
+    <div id="screenshots-carousel" class="container-fluid carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#screenshots-carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#screenshots-carousel" data-slide-to="1"></li>
+            <li data-target="#screenshots-carousel" data-slide-to="2"></li>
+            <li data-target="#screenshots-carousel" data-slide-to="3"></li>
+        </ol>
+        <div class="text-center carousel-inner">
+            <div class="item active">
+                <div class="row">
+                    {% for row in rows %}
+                        {{ row }}
+                        <!--div class="col-sm-3">
+                        </div-->
+                    {% endfor %}
+                </div>
+             </div>
+        </div>
+    </div>
+</div>

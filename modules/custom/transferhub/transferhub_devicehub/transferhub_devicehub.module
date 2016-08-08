@@ -1,0 +1,34 @@
+<?php
+
+function transferhub_devicehub_action_info() {
+    return array(
+        'transferhub_devicehub_workflow_action' => array(
+        'type' => 'node',
+        'description' => t('Notify.'),
+        'configurable' => TRUE,
+        'behavior' => array('changes_node_property'),
+        ),
+    );
+}
+
+function transferhub_devicehub_user_insert($account)
+{
+    $api = new  \Drupal\transferhub_devicehub\transferhub_DeviceHubRestClient();
+
+    $host = (strpos(\Drupal::request()->getHost(), "localhost") === false)?  \Drupal::request()->getHost() : "www.reutilitza.cat"; //TODO
+
+    //Call DeviceHub and log
+    $user_url = "http://". $host . base_path(). "user/".$account->id();
+    \Drupal::logger("transferhub_devicehub")->info("user created: ". $user_url. " - ". $account->getEmail());
+    $api->createUser( $user_url, $account->getEmail());
+
+}
+
+function transferhub_devicehub_node_insert(\Drupal\Core\Entity\EntityInterface $node)
+{
+    if ($node->getType() == "project") {
+
+      
+    }
+}
+

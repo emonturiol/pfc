@@ -1,0 +1,17 @@
+<?php
+/**
+ * Theme hook
+ */
+function examplemodule_theme($existing, $type, $theme, $path) {
+    
+    return array('sample_block' =>
+        array(
+            'variables' => array(
+                'title' => 'Default title',
+                'description' => "Default description",
+                "votes" => "100"
+            ),
+            'template' => 'block--sampleblock'
+        )
+    );
+}

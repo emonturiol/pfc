@@ -1,0 +1,19 @@
+{% if votes == 0 %}
+    {% trans %}No one voted for this project yet. Be the first!{% endtrans %}
+{% else %}
+    {% trans %} {{ votes }} person(s) voted for this project {% endtrans %}
+{% endif  %}
+
+{% if form %}
+    <p>{{ form }}</p>
+{% endif %}
+
+{% if voted %}
+    <p>{% trans %}You voted for this project{% endtrans %}</p>
+{% endif %}
+<br/>
+<!--
+<a onclick="javascript:ga('send', 'event', 'vote', 'web', 'project-nom projecte');">dispara event</a>
+<br/>
+<p onclick="alert('here');">dispara alert</p>
+-->

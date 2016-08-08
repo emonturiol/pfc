@@ -1,0 +1,8 @@
+name: TransferHub Contact block
+type: module
+description: 'Provides a block based on Contact form'
+package: TransferHub
+core: 8.x
+#configure: reuse_migrate.form
+
+#dependencies: TransferHub Project

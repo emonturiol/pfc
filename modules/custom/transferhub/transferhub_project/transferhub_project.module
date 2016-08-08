@@ -1,0 +1,15 @@
+<?php
+
+function transferhub_project_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
+{
+    if ($form_id == "node_project_edit_form")
+    {
+        //Receivers can not edit list of ALLOCATED or RECEIVED devices in project node edition form
+        $user = \Drupal::currentUser();
+        if ( !in_array("manager",array_values($user->getRoles())) &&  !in_array("administrator",array_values($user->getRoles())) )
+        {
+            unset($form["field_allocated_devices"]);
+            unset($form["field_received_devices"]);
+        }
+    }
+}

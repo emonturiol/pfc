@@ -1,0 +1,258 @@
+<?php
+/**
+ * @file
+ * Bootstrap sub-theme.
+ *
+ * Place your custom PHP code in this file.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Theme\ThemeSettings;
+use Drupal\system\Form\ThemeSettingsForm;
+use Drupal\Core\Form;
+
+function transferhub_preprocess_page(&$variables)
+{
+    //THEME variables
+    //Bootstrap settings
+    if ($variables["theme"]["settings"]["logo"]["use_default"] != 1)
+    {
+        //$variables["theme"]["settings"]["logo"]["realpath"] = \Drupal::service("file_system")->realpath($variables["theme"]["settings"]["logo"]["path"]);
+        $variables["theme"]["settings"]["logo"]["url"] = file_create_url($variables["theme"]["settings"]["logo"]["path"]);
+    }
+    //Transferhub settings
+    //home banner
+    $variables["theme"]["settings"]["home_banner"]['title'] = theme_get_setting('title','transferhub');
+    $variables["theme"]["settings"]["home_banner"]['subtitle'] = theme_get_setting('subtitle','transferhub');    
+    $variables["theme"]["settings"]["home_banner"]['background_image'] = theme_get_setting('background_image','transferhub');
+    $variables["theme"]["settings"]["home_banner"]['side_image'] = theme_get_setting('side_image','transferhub');
+    $variables["theme"]["settings"]["home_banner"]['include_button'] = theme_get_setting('include_button','transferhub');
+    $variables["theme"]["settings"]["home_banner"]['button_link'] = theme_get_setting('button_link','transferhub');
+    $variables["theme"]["settings"]["home_banner"]['button_caption'] = theme_get_setting('button_caption','transferhub');
+    //social
+    $variables["theme"]["settings"]["social"]['facebook_url'] = theme_get_setting('facebook_url','transferhub');
+    $variables["theme"]["settings"]["social"]['twitter_url'] = theme_get_setting('twitter_url','transferhub');
+    $variables["theme"]["settings"]["social"]['google_plus_url'] = theme_get_setting('google_plus_url','transferhub');
+    $variables["theme"]["settings"]["social"]['linkedin_url'] = theme_get_setting('linkedin_url','transferhub');
+
+    //Search block
+    //$variables['last_projects'] = \Drupal::service('renderer')->render(views_embed_view('projectes','block_1'));
+    $active_theme = \Drupal::service('theme.manager')->getActiveTheme();
+    $block = \Drupal\block\BlockViewBuilder::lazyBuilder($active_theme->getName()."_search","full");
+    $variables['search_block'] = Drupal::service('renderer')->render($block);
+
+    //is node? (otherwise it is system form, node form, workflow node form, view page...)
+    //kint(\Drupal::request()->attributes);
+    $variables["is_node"] = \Drupal::routeMatch()->getParameter("node") && !in_array(\Drupal::request()->attributes->get("_route"),array("entity.node.edit_form","entity.node.workflow_history"));
+    //\Drupal::request()->attributes->get("_entity_form") != "node.edit" ;
+    //todo treure xivato
+    if ($variables["is_node"])
+        drupal_set_message("page is: node");
+    else
+        drupal_set_message("page is: system, edit, view page... (?)");
+}
+
+function transferhub_preprocess_block(&$variables)
+{
+    //make installation base path available in block templates
+    $variables["base_path"] = base_path();
+}
+
+function transferhub_preprocess_node(&$variables)
+{    
+    //load voting Block
+    if ( \Drupal::routeMatch()->getParameter('node') && \Drupal::routeMatch()->getParameter('node')->getType() == "project" && \Drupal::moduleHandler()->moduleExists('transferhub_vote'))
+    {
+        $block = \Drupal\block\BlockViewBuilder::lazyBuilder("transferhubvotingblock","full");
+        $variables['vote_block'] = Drupal::service('renderer')->render($block);
+    }
+}
+
+//THEME Settings
+function transferhub_form_system_theme_settings_alter(&$form, Drupal\Core\Form\FormStateInterface $form_state) {
+
+
+    $form['transferhub_settings'] = array(
+        '#type' => 'vertical_tabs',
+        "#title" => t("Transferhub Settings"),
+        '#default_tab' => 'edit-slideshow'
+    ) ;
+
+    //HOME BANNER
+    //text
+    $form['home_banner'] = array(
+        '#type' => 'details',
+        '#title' => t('Home banner'),
+        '#collapsible' => TRUE,
+        '#collapsed' => FALSE,
+        '#group' => 'transferhub_settings',
+    );
+    $form['home_banner']['title'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Title'),
+        '#default_value' => theme_get_setting('title', 'transferhub'),
+        //'#field_prefix' => '#',
+    );
+    $form['home_banner']['subtitle'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Subtitle'),
+        '#default_value' => theme_get_setting('subtitle', 'transferhub'),
+        //'#field_prefix' => '#',
+    );
+    //images
+    $form['home_banner']['background_image'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Background image'),
+        '#default_value' => theme_get_setting('background_image', 'transferhub'),
+        '#description' => t("Indicate the path of the uploaded image relative to theme's base path (size: 1600 x 1067 px)"),
+    );
+    $form['home_banner']['side_image'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Side image'),
+        '#default_value' => theme_get_setting('side_image', 'transferhub'),
+        '#description' => t("Indicate the path of the uploaded image relative to theme's base path (size: 409 x 532 px)"),
+    );
+    //button
+    $form['home_banner']['include_button'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Include button'),
+        '#default_value' => theme_get_setting('include_button', 'transferhub'),
+    );
+    $form['home_banner']['button_link'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Button link'),
+        '#default_value' => theme_get_setting('button_link', 'transferhub'),
+    );
+    $form['home_banner']['button_caption'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Button caption'),
+        '#default_value' => theme_get_setting('button_caption', 'transferhub'),
+    );
+
+    //SOCIAL
+    $form['social'] = array(
+        '#type' => 'details',
+        '#title' => t('Social icons'),
+        '#collapsible' => TRUE,
+        '#collapsed' => FALSE,
+        '#group' => 'transferhub_settings',
+        '#description' => t("Links to be used in the footer icons"),
+    );
+    $form['social']['facebook_url'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Facebook link'),
+        '#default_value' => theme_get_setting('facebook_url', 'transferhub'),
+        //'#field_prefix' => '#',
+    );
+    $form['social']['twitter_url'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Twitter link'),
+        '#default_value' => theme_get_setting('twitter_url', 'transferhub'),
+        //'#field_prefix' => '#',
+    );
+    $form['social']['google_plus_url'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Google+ link'),
+        '#default_value' => theme_get_setting('google_plus_url', 'transferhub'),
+        //'#field_prefix' => '#',
+    );
+    $form['social']['linkedin_url'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Linkedin link'),
+        '#default_value' => theme_get_setting('linkedin_url', 'transferhub'),
+        //'#field_prefix' => '#',
+    );
+}
+
+function transferhub_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
+{
+    drupal_set_message($form_id);
+    //Drupal forms
+
+    //USER
+    //login (user_login_form)
+    if ($form_id == 'user_login_form')
+    {
+        unset($form['actions']['submit']['#attributes']['class']['btn-default']);
+        $form['actions']['submit']['#attributes']['class'][] = 'btn-success';
+    }
+    //register (user_register_form)
+    //passord (user_pass)
+    if ($form_id == 'user_pass')
+    {
+        unset($form['actions']['submit']['#attributes']['class']['btn-primary']);
+        $form['actions']['submit']['#attributes']['class'][] = 'btn-success';
+    }
+    //profile edit (user_form)
+
+    //NODE
+    //edit (node_project_edit_form)
+    //workflow (workflow-transition-field-workflow-form--2)
+    if ($form_id == 'workflow-transition-field-workflow-form--2')
+    {
+        unset($form['actions']['submit']['#attributes']['class']['btn-primary']);
+        $form['actions']['submit']['#attributes']['class'][] = 'btn-success';
+    }
+
+    //views
+    //exposed filters (views_exposed_form)
+    if ($form_id == 'views_exposed_form')
+    {
+        unset($form['actions']['submit']['#attributes']['class']['btn-primary']);
+        $form['actions']['submit']['#attributes']['class'][] = 'btn-success';
+    }
+}
+
+//Contact form
+//hook suggestions
+function transferhub_form_contact_message_feedback_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
+{
+
+
+    // Name
+    $form['name']['#prefix'] = '<div class="form-group">';
+    $form['name']['#suffix'] = '</div>';
+    $form['name']['#attributes']['placeholder'][] = $form['name']['#title'].'*';
+    $form['name']['#attributes']['class'][] = 'form-control';
+    unset($form['name']['#title']);
+
+    // Mail
+    $form['mail']['#prefix'] = '<div class="form-group">';
+    $form['mail']['#suffix'] = '</div>';
+    $form['mail']['#attributes']['placeholder'][] = $form['mail']['#title'].'*';
+    $form['mail']['#attributes']['class'][] = 'form-control';
+    unset($form['mail']['#title']);
+
+    // Message
+    $form['message']['widget'][0]['value']['#attributes']['class'][] = 'form-control';
+    $form['message']['widget'][0]['value']['#attributes']['placeholder'][] = $form['message']['widget'][0]['#title'].'*';
+    $form['message']['widget'][0]['#title'] = '';
+    unset($form['message']['widget'][0]['value']['#title']);
+    $form['message']['widget'][0]['#prefix'] = '<div class="form-group">';
+    $form['message']['widget'][0]['#suffix'] = '</div>';
+
+    // Submit
+    $form['actions']['#prefix'] = "<div class='form-group'>";
+    $form['actions']['#suffix'] = '</div>';
+    $form['actions']['submit']['#attributes']['class'][] = 'btn';
+    //$form['actions']['submit']['#attributes']['class'][] = 'btn-success';
+    $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
+    $form['actions']['submit']['#attributes']['class'][] = 'hidden';
+    //$form['actions']['submit']['#attributes']['class'][] = 'pull-right';
+
+    //preview
+    unset($form["actions"]["preview"]);
+
+}
+
+//template form
+function transferhub_theme_suggestions_alter(array &$suggestions, array $variables)
+{
+    if (isset($variables['element']) && isset($variables['element']['#type']) && $variables['element']['#type'] == 'form') {
+
+        $original_theme_hook = $variables['theme_hook_original'];
+        $suggestions[] = $original_theme_hook . '__' . str_replace('-', '_', $variables['element']['#id']);
+
+    }
+}
+
