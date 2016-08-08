@@ -53,17 +53,33 @@ class TransferhubAllocateResource extends ResourceBase {
      * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      *   Thrown when no log entry was provided.
      */
+
+    public function put($node_type = null, $request) {
+
+        var_dump($node_type);
+        var_dump($request);
+
+        //$request_content_array =  json_decode($request->getContent(), true);
+        //$data = $request_content_array["data"];
+
+
+
+        $response["status"] = "test OK";
+
+        return new ResourceResponse($response, 201);
+
+    }
     public function post($node_type, $request) {
 
-       $request_content_array =  json_decode($request->getContent(), true);
-       $data = $request_content_array["data"];
+        $request_content_array =  json_decode($request->getContent(), true);
+        $data = $request_content_array["data"];
 
-       \Drupal::logger("transferhub_devicehub")->info("REST SERVER: Request: ".$request->getContent());
+        \Drupal::logger("transferhub_devicehub")->info("REST SERVER: Request: ".$request->getContent());
 
-       //debug
-       //$response["byUser"] = $data["byUser"];
-       //$response["@type"] = $data["@type"];
-       // debug*******************
+        //debug
+        //$response["byUser"] = $data["byUser"];
+        //$response["@type"] = $data["@type"];
+        // debug*******************
 
         //VALIDATION
         /*
@@ -95,7 +111,7 @@ class TransferhubAllocateResource extends ResourceBase {
 
         //workflow state
         $current_state =  $node->get("field_workflow")->getValue()[0]["value"];
-        if ($current_state != "project_workflow_waiting_for_assignment")
+        if ($current_state != "project_workflow_waiting_for_assignment" && $current_state != "project_workflow_devices_allocated" && $current_state != "project_workflow_devices_received")
         {
             return $this->_raiseError("Cannot allocate devices because project is in state @state", array("@state" => $current_state), 422);
         }
@@ -113,12 +129,12 @@ class TransferhubAllocateResource extends ResourceBase {
 
         foreach($data["devices"] as $device)
         {
-           $did = $device["_id"];
-           $dtype = $device["@type"];
-           $dsubtype = $device["type"];
-           $dmanufacturer = $device["manufacturer"];
-           $dmodel = $device["model"];
-           $durl = $device["url"];
+            $did = $device["_id"];
+            $dtype = $device["@type"];
+            $dsubtype = $device["type"];
+            $dmanufacturer = $device["manufacturer"];
+            $dmodel = $device["model"];
+            $durl = $device["url"];
 
             $fieldCollectionItem = \Drupal\field_collection\Entity\FieldCollectionItem::create(['field_name' => 'field_allocated_devices']);
             $fieldCollectionItem->setHostEntity($node);
@@ -133,22 +149,29 @@ class TransferhubAllocateResource extends ResourceBase {
         }
 
         //CHANGE WORKFLOW STATE
-        //execute transition (save in history)
-        $next_state = "project_workflow_devices_allocated";
-        $transition =  WorkflowTransition::create([$current_state]);
-        $transition->setValues($next_state, $uid = NULL, $timestamp = REQUEST_TIME, t("Devicehub: devices allocated"));
-        $transition->setTargetEntity($node);
-        $transition->execute(true);
-        //change node state
-        $node->get("field_workflow")->setValue($next_state);
-
+        $change_state = ($current_state != "project_workflow_devices_allocated");
+        if ($change_state)
+        {
+            //execute transition (save in history)
+            $next_state = "project_workflow_devices_allocated";
+            $transition =  WorkflowTransition::create([$current_state]);
+            $transition->setValues($next_state, $uid = NULL, $timestamp = REQUEST_TIME, t("Devicehub: devices allocated"));
+            $transition->setTargetEntity($node);
+            $transition->execute(true);
+            //change node state
+            $node->get("field_workflow")->setValue($next_state);
+        }
 
         //save node
         $node->save();
 
+        //response data
         $response["status"] = "OK";
-        $response["message"] = t("@n devices allocated | Project state changed to: @s", array("@n" => count($data["devices"]), "@s" => $next_state));
+        $response["message"] = t("@n devices allocated", array("@n" => count($data["devices"])));
+        if ($change_state)
+            $response["message"] .= " | " . t("Project state changed to: @s",array("@s" => $next_state));
 
+        //LOG
         \Drupal::logger("transferhub_devicehub")->info("REST SERVER: SUCCESS: ".$response["message"]);
         return new ResourceResponse($response, 201);
     }
