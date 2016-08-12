@@ -83,8 +83,8 @@ class TransferHubDeviceHubController extends ControllerBase {
 
 
 
-        /*
-         * $nid = 6628;
+
+        $nid = 6628;
         $node = \Drupal\node\Entity\Node::load($nid);
          //kint($node); die;
         
@@ -157,7 +157,7 @@ class TransferHubDeviceHubController extends ControllerBase {
             //address
             $addr_country, $addr_locality, $addr_region, $addr_zip, $addr_street);
 
-        */
+
 
         $return = array(
             "#type" => "markup",

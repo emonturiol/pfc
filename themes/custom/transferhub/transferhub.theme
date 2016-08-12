@@ -11,67 +11,6 @@ use Drupal\Core\Theme\ThemeSettings;
 use Drupal\system\Form\ThemeSettingsForm;
 use Drupal\Core\Form;
 
-function transferhub_preprocess_page(&$variables)
-{
-    //THEME variables
-    //Bootstrap settings
-    if ($variables["theme"]["settings"]["logo"]["use_default"] != 1)
-    {
-        //$variables["theme"]["settings"]["logo"]["realpath"] = \Drupal::service("file_system")->realpath($variables["theme"]["settings"]["logo"]["path"]);
-        $variables["theme"]["settings"]["logo"]["url"] = file_create_url($variables["theme"]["settings"]["logo"]["path"]);
-    }
-    //Transferhub settings
-    //home banner
-    $variables["theme"]["settings"]["home_banner"]['title'] = theme_get_setting('title','transferhub');
-    $variables["theme"]["settings"]["home_banner"]['subtitle'] = theme_get_setting('subtitle','transferhub');    
-    $variables["theme"]["settings"]["home_banner"]['background_image'] = theme_get_setting('background_image','transferhub');
-    $variables["theme"]["settings"]["home_banner"]['side_image'] = theme_get_setting('side_image','transferhub');
-    $variables["theme"]["settings"]["home_banner"]['include_button'] = theme_get_setting('include_button','transferhub');
-    $variables["theme"]["settings"]["home_banner"]['button_link'] = theme_get_setting('button_link','transferhub');
-    $variables["theme"]["settings"]["home_banner"]['button_caption'] = theme_get_setting('button_caption','transferhub');
-    //social
-    $variables["theme"]["settings"]["social"]['facebook_url'] = theme_get_setting('facebook_url','transferhub');
-    $variables["theme"]["settings"]["social"]['twitter_url'] = theme_get_setting('twitter_url','transferhub');
-    $variables["theme"]["settings"]["social"]['google_plus_url'] = theme_get_setting('google_plus_url','transferhub');
-    $variables["theme"]["settings"]["social"]['linkedin_url'] = theme_get_setting('linkedin_url','transferhub');
-
-    //Search block
-    //$variables['last_projects'] = \Drupal::service('renderer')->render(views_embed_view('projectes','block_1'));
-    $active_theme = \Drupal::service('theme.manager')->getActiveTheme();
-    $block = \Drupal\block\BlockViewBuilder::lazyBuilder($active_theme->getName()."_search","full");
-    $variables['search_block'] = Drupal::service('renderer')->render($block);
-
-    //is node? (otherwise it is system form, node form, workflow node form, view page...)
-    //kint(\Drupal::request()->attributes);
-    $variables["is_node"] = \Drupal::routeMatch()->getParameter("node") && !in_array(\Drupal::request()->attributes->get("_route"),array("entity.node.edit_form","entity.node.workflow_history"));
-    //\Drupal::request()->attributes->get("_entity_form") != "node.edit" ;
-    //todo treure xivato
-    if ($variables["is_node"])
-        drupal_set_message("page is: node");
-    else
-        drupal_set_message("page is: system, edit, view page... (?)");
-}
-
-function transferhub_preprocess_block(&$variables)
-{
-    //make installation base path available in block templates
-    $variables["base_path"] = base_path();
-
-    //language
-    /*$variables["language"] = \Drupal::languageManager()->getCurrentLanguage()->getId();
-    drupal_set_message(\Drupal::languageManager()->getCurrentLanguage()->getId());*/
-}
-
-function transferhub_preprocess_node(&$variables)
-{    
-    //load voting Block
-    if ( \Drupal::routeMatch()->getParameter('node') && \Drupal::routeMatch()->getParameter('node')->getType() == "project" && \Drupal::moduleHandler()->moduleExists('transferhub_vote'))
-    {
-        $block = \Drupal\block\BlockViewBuilder::lazyBuilder("transferhubvotingblock","full");
-        $variables['vote_block'] = Drupal::service('renderer')->render($block);
-    }
-}
-
 //THEME Settings
 function transferhub_form_system_theme_settings_alter(&$form, Drupal\Core\Form\FormStateInterface $form_state) {
 
@@ -168,9 +107,155 @@ function transferhub_form_system_theme_settings_alter(&$form, Drupal\Core\Form\F
     );
 }
 
+//Preprocess functions
+function transferhub_preprocess_page(&$variables)
+{
+    //THEME variables
+    //Bootstrap settings
+    if ($variables["theme"]["settings"]["logo"]["use_default"] != 1)
+    {
+        //$variables["theme"]["settings"]["logo"]["realpath"] = \Drupal::service("file_system")->realpath($variables["theme"]["settings"]["logo"]["path"]);
+        $variables["theme"]["settings"]["logo"]["url"] = file_create_url($variables["theme"]["settings"]["logo"]["path"]);
+    }
+    //Transferhub settings
+    //home banner
+    $variables["theme"]["settings"]["home_banner"]['title'] = theme_get_setting('title','transferhub');
+    $variables["theme"]["settings"]["home_banner"]['subtitle'] = theme_get_setting('subtitle','transferhub');    
+    $variables["theme"]["settings"]["home_banner"]['background_image'] = theme_get_setting('background_image','transferhub');
+    $variables["theme"]["settings"]["home_banner"]['side_image'] = theme_get_setting('side_image','transferhub');
+    $variables["theme"]["settings"]["home_banner"]['include_button'] = theme_get_setting('include_button','transferhub');
+    $variables["theme"]["settings"]["home_banner"]['button_link'] = theme_get_setting('button_link','transferhub');
+    $variables["theme"]["settings"]["home_banner"]['button_caption'] = theme_get_setting('button_caption','transferhub');
+    //social
+    $variables["theme"]["settings"]["social"]['facebook_url'] = theme_get_setting('facebook_url','transferhub');
+    $variables["theme"]["settings"]["social"]['twitter_url'] = theme_get_setting('twitter_url','transferhub');
+    $variables["theme"]["settings"]["social"]['google_plus_url'] = theme_get_setting('google_plus_url','transferhub');
+    $variables["theme"]["settings"]["social"]['linkedin_url'] = theme_get_setting('linkedin_url','transferhub');
+
+    //Search block
+    //$variables['last_projects'] = \Drupal::service('renderer')->render(views_embed_view('projectes','block_1'));
+    $active_theme = \Drupal::service('theme.manager')->getActiveTheme();
+    $block = \Drupal\block\BlockViewBuilder::lazyBuilder($active_theme->getName()."_search","full");
+    $variables['search_block'] = Drupal::service('renderer')->render($block);
+
+    //is node? (otherwise it is system form, node form, workflow node form, view page...)
+    //kint(\Drupal::request()->attributes);
+    $variables["is_node"] = \Drupal::routeMatch()->getParameter("node") && !in_array(\Drupal::request()->attributes->get("_route"),array("entity.node.edit_form","entity.node.workflow_history"));
+    //\Drupal::request()->attributes->get("_entity_form") != "node.edit" ;
+    //todo treure xivato
+    /*if ($variables["is_node"])
+        drupal_set_message("page is: node");
+    else
+        drupal_set_message("page is: system, edit, view page... (?)");*/
+}
+
+function transferhub_preprocess_block(&$variables)
+{
+    //make installation base path available in block templates
+    $variables["base_path"] = base_path();
+
+    //language
+    /*$variables["language"] = \Drupal::languageManager()->getCurrentLanguage()->getId();
+    drupal_set_message(\Drupal::languageManager()->getCurrentLanguage()->getId());*/
+
+    //Disable cache for specific blocks
+    $excluded_blocks = array("views_block:advertisments-block_1");
+    
+    if (in_array($variables["plugin_id"],$excluded_blocks))
+    {
+       $variables["content"]["#cache"]["max-age"] = 0;
+    }
+}
+
+function transferhub_preprocess_node(&$variables)
+{
+    //make installation base path available in node templates
+    $variables["base_path"] = base_path();
+    
+    //Loading information for project template
+    if ( \Drupal::routeMatch()->getParameter('node') && \Drupal::routeMatch()->getParameter('node')->getType() == "project") {
+
+        //load node info
+        $node= \Drupal\node\Entity\Node::load(\Drupal::routeMatch()->getParameter('node')->id());
+
+        //is manager?
+        $variables["is_manager"] = in_array("manager",array_values(\Drupal::currentUser()->getRoles()));
+        //current user id
+        $variables["current_uid"] = \Drupal::currentUser()->id();
+        //node author uid
+        $variables["author_uid"] = $node->getOwnerId();              
+        
+        //Allocated devices
+        foreach ($node->field_allocated_devices->getValue() as $entity_id)
+        {
+            //kint($entity_id["value"]); die;
+            $device = \Drupal\field_collection\Entity\FieldCollectionItem::load($entity_id["value"]);
+            $variables["allocated"][] = array(
+              "id" =>  $device->get("field_id"),  
+              "type" =>  $device->get("field_type"),
+              "subtype" =>  $device->get("field_subtype"),
+              "manufacturer" =>  $device->get("field_manufacturer"),
+              "model" =>  $device->get("field_model"),
+              "url" =>  $device->get("field_url"),               
+            );
+        }
+
+        //load voting block
+        if (\Drupal::moduleHandler()->moduleExists('transferhub_vote')) {
+            $block = \Drupal\block\BlockViewBuilder::lazyBuilder("transferhubvotingblock", "full");
+            $variables['vote_block'] = Drupal::service('renderer')->render($block);
+        }
+    }
+    
+    //Make regions available in node.html.twig
+    // Allowed view modes
+    $view_mode = $variables['view_mode']; // Retrieve view mode
+    $allowed_view_modes = ['full']; // Array of allowed view modes (for performance so as to not execute on unneeded nodes)
+
+    // If view mode is in allowed view modes list, pass to THEME_add_regions_to_node()
+    if (in_array($view_mode, $allowed_view_modes)) {
+        // Allowed regions (for performance so as to not execute for unneeded region)
+        $allowed_regions = ['sidebar_project'];
+        transferhub_add_regions_to_node($allowed_regions, $variables);
+    }
+}
+
+function transferhub_add_regions_to_node($allowed_regions, &$variables) {
+    // Retrieve active theme
+    $theme = \Drupal::theme()->getActiveTheme()->getName();
+
+    // Retrieve theme regions
+    $available_regions = system_region_list($theme, 'REGIONS_ALL');
+
+    // Validate allowed regions with available regions
+    $regions = array_intersect(array_keys($available_regions), $allowed_regions);
+
+    // For each region
+    foreach ($regions as $key => $region) {
+
+        // Load region blocks
+        $blocks = entity_load_multiple_by_properties('block', array('theme' => $theme, 'region' => $region));
+
+        // Sort ‘em
+        uasort($blocks, 'Drupal\block\Entity\Block::sort');
+
+        // Capture viewable blocks and their settings to $build
+        $build = array();
+        foreach ($blocks as $key => $block) {
+            if ($block->access('view')) {
+                $build[$key] = entity_view($block, 'block');
+            }
+        }
+
+        // Add build to region
+        $variables[$region] = $build;
+    }
+}
+
+//Form ALTERS
 function transferhub_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
 {
-    drupal_set_message($form_id);
+    //drupal_set_message($form_id);
     //Drupal forms
 
     //USER

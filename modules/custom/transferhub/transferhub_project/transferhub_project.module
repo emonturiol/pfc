@@ -8,7 +8,9 @@ function transferhub_project_form_alter(&$form, \Drupal\Core\Form\FormStateInter
         $user = \Drupal::currentUser();
         if ( !in_array("manager",array_values($user->getRoles())) &&  !in_array("administrator",array_values($user->getRoles())) )
         {
+            unset($form["field_last_allocation"]);
             unset($form["field_allocated_devices"]);
+            unset($form["field_last_reception"]);
             unset($form["field_received_devices"]);
         }
     }

@@ -105,7 +105,7 @@ view_mode ? view_mode|clean_class,
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <img src="/reutilitza/sites/default/files/project.png" />
+                <img class="responsive" src="/reutilitza/sites/default/files/project.png" /><!--todo -->
             </div>
             <div class="col-md-4" style="color: white;">
                 {{ vote_block }}
@@ -119,24 +119,188 @@ view_mode ? view_mode|clean_class,
     <div class="container">
         <div class="row">
             <div id="content" class="site-content col-md-8">
+
                 <div class="post">
                     <div class="post-content">
                         <h2 class="entry-title">
-                            <a href="blog-detail.html">Descripció de la iniciativa</a>
+                            <a href="blog-detail.html">{% trans %}Project description{% endtrans %}</a>
                         </h2>
-                        <!--div class="entry-meta">
-                            <ul>
-                                <li class="author"><i class="fa fa-user"></i><a href="#">Admin</a></li>
-                                <li class="publish-date"><i class="fa fa-calendar"></i><a href="#">24 Feb 2015</a></li>
-                                <li class="tag"><i class="fa fa-tags"></i><a href="#">Business</a></li>
-                                <li class="comments"><i class="fa fa-comments-o"></i><a href="#">9 Comments</a></li>
-                            </ul>
-                        </div-->
                         <div class="entry-summary">
                             <p>{{ content.field_description }}</p>
                         </div>
+
+                        <div class="entry-summary">
+                            <p>{{ content.field_address }}</p>
+                        </div>
                     </div>
-                </div><!--/post-->
+                </div><!--/description-->
+
+                <div class="post">
+                    <div class="post-content">
+                        <h2 class="entry-title">
+                            <a href="blog-detail.html">{% trans %}Requiered devices{% endtrans %}</a>
+                        </h2>
+                        <div class="entry-summary">
+                            <div class="text-center client-content">
+
+                                <ul>
+                                    {% if content.field_devices_servers %}
+                                        <li><img class="img-responsive" src="{{ base_path }}/themes/custom/transferhub/images/devices/118.png" alt="">{% trans %}Desktops{% endtrans %} ({{ content.field_devices_desktops.value|raw }})</li>
+                                    {% endif %}
+                                    {% if content.field_devices_servers %}
+                                        <li><img class="img-responsive" src="{{ base_path }}/themes/custom/transferhub/images/devices/118.png" alt="">{% trans %}Desktops{% endtrans %} ({{ content.field_devices_desktops }})</li>
+                                    {% endif %}
+                                    {% if content.field_devices_servers %}
+                                        <li><img class="img-responsive" src="{{ base_path }}/themes/custom/transferhub/images/devices/118.png" alt="">{% trans %}Desktops{% endtrans %} ({{ content.field_devices_desktops }})</li>
+                                    {% endif %}
+                                    {% if content.field_devices_servers %}
+                                        <li><img class="img-responsive" src="{{ base_path }}/themes/custom/transferhub/images/devices/118.png" alt="">{% trans %}Desktops{% endtrans %} ({{ content.field_devices_desktops }})</li>
+                                    {% endif %}
+                                    {% if content.field_devices_servers %}
+                                        <li><img class="img-responsive" src="{{ base_path }}/themes/custom/transferhub/images/devices/118.png" alt="">{% trans %}Desktops{% endtrans %} ({{ content.field_devices_desktops }})</li>
+                                    {% endif %}
+                                    {% if content.field_devices_servers %}
+                                        <li><img class="img-responsive" src="{{ base_path }}/themes/custom/transferhub/images/devices/118.png" alt="">{% trans %}Desktops{% endtrans %} ({{ content.field_devices_desktops }})</li>
+                                    {% endif %}
+                                    {% if content.field_devices_servers %}
+                                        <li><img class="img-responsive" src="{{ base_path }}/themes/custom/transferhub/images/devices/118.png" alt="">{% trans %}Desktops{% endtrans %} ({{ content.field_devices_desktops }})</li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/devices-->
+
+                {% if current_uid == author_uid or is_admin or is_manager  %}
+                    <div class="post">
+                        <div class="post-content">
+                            <h2 class="entry-title">
+                                <a href="blog-detail.html">{% trans %}Allocated devices{% endtrans %}</a>
+                            </h2>
+                            <div class="entry-summary">
+                                {% if not allocated %}
+                                    <p>{% trans %}There is no device allocated for this project yet.{% endtrans %}</p>
+                                {% else %}
+                                    <p>
+                                        <strong>{% trans %}Last allocation date{% endtrans %}:</strong> {{ content.field_last_allocation.value|date("m/d/Y") }}
+                                    </p>
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            {% if is_admin or is_manager %}
+                                                <th>ID</th>
+                                            {% endif %}
+                                            <th>{% trans %}Category{% endtrans %}</th>
+                                            <th>{% trans %}Type{% endtrans %}</th>
+                                            <th>{% trans %}Manufacturer{% endtrans %}</th>
+                                            <th>{% trans %}Model{% endtrans %}</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {%  for device in allocated %}
+                                            <tr>
+                                                {% if is_admin or is_manager %}
+                                                    <th scope="row">{{ device.id.value }}</th>
+                                                {% endif %}
+                                                <td>{{ device.type.value }}</td>
+                                                <td>{{ device.subtype.value }}</td>
+                                                <td>{{ device.manufacturer.value }}</td>
+                                                <td>{{ device.model.value }}</td>
+                                                <td><a href="{{ device.url.value }}" target="_blank">{% trans %}view in DeviceHub{% endtrans %}</a></td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div><!--/allocated-->
+
+                    <div class="post">
+                        <div class="post-content">
+                            <h2 class="entry-title">
+                                <a href="blog-detail.html">{% trans %}Received devices{% endtrans %}</a>
+                            </h2>
+                            <div class="entry-summary">
+                                {% if not received %}
+                                    <p>{% trans %}This project hasn't received any device yet.{% endtrans %}</p>
+                                {% else %}
+                                    <p>
+                                        <strong>{% trans %}Last reception date{% endtrans %}:</strong> {{ content.field_last_reception.value|date("m/d/Y") }}
+                                    </p>
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            {% if is_admin or is_manager %}
+                                                <th>ID</th>
+                                            {% endif %}
+                                            <th>{% trans %}Category{% endtrans %}</th>
+                                            <th>{% trans %}Type{% endtrans %}</th>
+                                            <th>{% trans %}Manufacturer{% endtrans %}</th>
+                                            <th>{% trans %}Model{% endtrans %}</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {%  for device in allocated %}
+                                            <tr>
+                                                {% if is_admin or is_manager %}
+                                                    <th scope="row">{{ device.id.value }}</th>
+                                                {% endif %}
+                                                <td>{{ device.type.value }}</td>
+                                                <td>{{ device.subtype.value }}</td>
+                                                <td>{{ device.manufacturer.value }}</td>
+                                                <td>{{ device.model.value }}</td>
+                                                <td><a href="{{ device.url.value }}" target="_blank">{% trans %}view in DeviceHub{% endtrans %}</a></td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div><!--/received-->
+                {% endif %}
+
+                <div class="post">
+                    <div class="post-content">
+                        <h2 class="entry-title">
+                            <a href="blog-detail.html">{% trans %}Donors{% endtrans %}</a>
+                        </h2>
+                        <div class="entry-summary">
+                            <div class="widget">
+                                <div class="latest-posts">
+                                    <div class="media">
+                                        <div class="pull-left">
+                                            <a href="#"><img class="img-responsive" style="max-height: 70px" src="{{ base_path }}/themes/custom/transferhub/images/blog/girl.jpg" alt=""></a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h3 class="entry-title" style="float: right; font-size: 28px;"><strong>5</strong> desktops</h3>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="pull-left">
+                                            <a href="#"><img class="img-responsive" style="max-height: 70px" src="{{ base_path }}/themes/custom/transferhub/images/blog/post2.jpg" alt=""></a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h3 class="entry-title" style="float: right;font-size: 28px;"><strong>5</strong> desktops</h3>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="pull-left">
+                                            <a href="#"><img class="img-responsive" style="max-height: 70px"  src="{{ base_path }}/themes/custom/transferhub/images/blog/post3.jpg" alt=""></a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h3 class="entry-title" style="float: right;font-size: 28px;"><strong>5</strong> desktops</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/donations-->
+
             </div><!--/content-->
 
             <div id="sidebar" class="col-md-4">
@@ -151,6 +315,7 @@ view_mode ? view_mode|clean_class,
                         </p>
                     </div>
 
+                    {{ sidebar_project }}
                     {#
                     <div class="widget widget_search">
                         <form role="form" id="search" method="get" name="contact-form" action="#">
@@ -308,7 +473,18 @@ view_mode ? view_mode|clean_class,
 </div><!--/#main-blog-->
 
 
-
+<div id="blog-breadcrumb" class="text-center page-breadcrumb">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <img src="/reutilitza/sites/default/files/project.png" />
+            </div>
+            <div class="col-md-4" style="color: white;">
+                {{ vote_block }}
+            </div>
+        </div>
+    </div>
+</div><!--/.page-breadcrumb-->
 
 
 
