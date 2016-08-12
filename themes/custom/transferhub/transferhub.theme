@@ -56,6 +56,10 @@ function transferhub_preprocess_block(&$variables)
 {
     //make installation base path available in block templates
     $variables["base_path"] = base_path();
+
+    //language
+    /*$variables["language"] = \Drupal::languageManager()->getCurrentLanguage()->getId();
+    drupal_set_message(\Drupal::languageManager()->getCurrentLanguage()->getId());*/
 }
 
 function transferhub_preprocess_node(&$variables)
