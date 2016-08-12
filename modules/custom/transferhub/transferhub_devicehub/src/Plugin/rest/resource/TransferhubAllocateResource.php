@@ -2,6 +2,11 @@
 
 namespace Drupal\transferhub_devicehub\Plugin\rest\resource;
 
+//*   serialization_class = "Drupal\node\Entity\Node",
+//*  serialization_class = "Drupal\serialization\Normalizer\NullNormalizer"
+//*  serialization_class = "Symfony\Component\Serializer\Normalizer\ArrayDenormalizer"
+//*     "https://www.drupal.org/link-relations/create" = "/transferhub/events/devices/allocate"
+
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -21,7 +26,7 @@ use \Drupal\workflow\Entity\WorkflowTransition;
  *     "canonical" = "/transferhub/events/devices/allocate",
  *     "https://www.drupal.org/link-relations/create" = "/transferhub/events/devices/allocate"
  *   },
- *   serialization_class = "Drupal\node\Entity\Node",
+ *  serialization_class = "Drupal\file\Entity\File",
  * )
  */
 class TransferhubAllocateResource extends ResourceBase {
@@ -53,26 +58,9 @@ class TransferhubAllocateResource extends ResourceBase {
      * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      *   Thrown when no log entry was provided.
      */
+    public function post($type, $request) {
 
-    public function put($node_type = null, $request) {
-
-        var_dump($node_type);
-        var_dump($request);
-
-        //$request_content_array =  json_decode($request->getContent(), true);
-        //$data = $request_content_array["data"];
-
-
-
-        $response["status"] = "test OK";
-
-        return new ResourceResponse($response, 201);
-
-    }
-    public function post($node_type, $request) {
-
-        $request_content_array =  json_decode($request->getContent(), true);
-        $data = $request_content_array["data"];
+        $data =  json_decode($request->getContent(), true);
 
         \Drupal::logger("transferhub_devicehub")->info("REST SERVER: Request: ".$request->getContent());
 
@@ -108,21 +96,18 @@ class TransferhubAllocateResource extends ResourceBase {
         {
             return $this->_raiseError("Project with id @nid does not exist",array("@nid" => $nid),422);
         }
-
         //workflow state
         $current_state =  $node->get("field_workflow")->getValue()[0]["value"];
         if ($current_state != "project_workflow_waiting_for_assignment" && $current_state != "project_workflow_devices_allocated" && $current_state != "project_workflow_devices_received")
         {
             return $this->_raiseError("Cannot allocate devices because project is in state @state", array("@state" => $current_state), 422);
         }
-
         //devices
         if (!$data["devices"] || count($data["devices"]) == 0) {
 
             return $this->_raiseError("No devices sent", NULL , 422);
         }
-
-        //set update date
+        //set update date //TODO
 
         //set devices
         $node->field_allocated_devices = \Drupal\Core\Field\FieldItemList::createInstance(\Drupal\field_collection\Entity\FieldCollectionItem::class);
@@ -200,5 +185,20 @@ class TransferhubAllocateResource extends ResourceBase {
         }
         //throw new BadRequestHttpException(t('Something went wrong'));
         return new ResourceResponse($record);
+    }
+
+    public function put($type = null, $request) {
+        //var_dump($type);
+        //var_dump($request);
+
+        //$response["type"] = $type;
+        $response["data"] = json_decode($request->getContent(), true);
+
+        //$request_content_array =  json_decode($request->getContent(), true);
+        //$data = $request_content_array["data"];
+
+        $response["status"] = "test OK";
+
+        return new ResourceResponse($response, 201);
     }
 }
