@@ -27,8 +27,7 @@ function transferhub_devicehub_user_insert($account)
 function transferhub_devicehub_node_insert(\Drupal\Core\Entity\EntityInterface $node)
 {
     if ($node->getType() == "project") {
-
-      
+        //todo cridar DeviceHub
     }
 }
 
