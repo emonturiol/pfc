@@ -3,6 +3,11 @@ global-styling:
     theme:
       css/style.css: {}
 
+bootstrap-social:
+  css:
+    theme:
+      bootstrap/bootstrap-social/bootstrap-social.css: {}
+
 bootstrap-scripts:
   js:
     bootstrap/js/affix.js: {}
@@ -17,15 +22,6 @@ bootstrap-scripts:
     bootstrap/js/scrollspy.js: {}
     bootstrap/js/tab.js: {}
     bootstrap/js/transition.js: {}
-
-#two-doors-styling:
-#  css:
-#    theme:
-#      css/two_doors/font-awesome.min.css: {}
-#      css/two_doors/font.css: {}
-#      css/two_doors/prettyPhoto.css: {}
-#      css/two_doors/main.css: {}
-#      css/two_doors/responsive.css: {}
 
 two-doors-scripts:
   js:
@@ -43,4 +39,12 @@ two-doors-scripts:
     js/two_doors/smooth-scroll.js: { scope: footer}
     js/two_doors/main.js: { scope: footer}
 
+#two-doors-styling: //todo
+#  css:
+#    theme:
+#      css/two_doors/font-awesome.min.css: {}
+#      css/two_doors/font.css: {}
+#      css/two_doors/prettyPhoto.css: {}
+#      css/two_doors/main.css: {}
+#      css/two_doors/responsive.css: {}
 

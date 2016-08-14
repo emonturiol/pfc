@@ -23,7 +23,10 @@ regions:
   page_bottom: 'Page bottom'
 
 libraries:
+  #styles
   - 'transferhub/global-styling'
+  - 'transferhub/bootstrap-social'
+  #scripts
   - 'transferhub/bootstrap-scripts'
   - 'transferhub/two-doors-scripts'
 
