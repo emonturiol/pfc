@@ -57,10 +57,8 @@ class TransferHubDeviceHubController extends ControllerBase {
     public function projectTest() //todo delete
     {
         
-        
         /*
-
-        $nid = 6628;
+         $nid = 6628;
         $node = \Drupal\node\Entity\Node::load($nid);
 
         //record transition (history)
@@ -73,16 +71,6 @@ class TransferHubDeviceHubController extends ControllerBase {
         $node->get("field_workflow")->setValue("project_workflow_draft");
         $node->save();
         */
-    
-
-
-
-
-
-
-
-
-
 
         $nid = 6628;
         $node = \Drupal\node\Entity\Node::load($nid);
@@ -104,7 +92,7 @@ class TransferHubDeviceHubController extends ControllerBase {
         $desc = $node->get("field_description")->getValue();
         $shortDesc = $node->get("field_short_description")->getValue();
         $url = $base_url . "/node/".$node->id();
-        foreach($node->get("blog_tags") as $term)
+        foreach($node->get("field_tags") as $term)
         {
             $term_id = $term->toArray()["target_id"];
             $term_name = \Drupal\taxonomy\Entity\Term::load($term_id)->toArray()["name"][0]["value"];
@@ -120,23 +108,22 @@ class TransferHubDeviceHubController extends ControllerBase {
         else
             $votes = 0;
 
-        $image_id = $node->get("field_image_dp")->getValue()[0]["target_id"]; //canviar nom?
+        $image_id = $node->get("field_image")->getValue()[0]["target_id"];
         $image = file_create_url(\Drupal\file\Entity\File::load($image_id)->getFileUri());
         $image = str_replace("localhost/reutilitza","www.reutilitza.cat", $image); //todo ESBORRAR
 
         //social
         $link_web = $node->get("field_website")->getValue()[0]["uri"];
-        $link_fb = $node->get("field_facebook_link")->getValue()[0]["uri"]; //todo canviar nom?
-        $link_twitter = $node->get("field_twitter_link")->getValue()[0]["uri"]; //todo canviar nom?
+        $link_fb = $node->get("field_facebook")->getValue()[0]["uri"];
+        $link_twitter = $node->get("field_twitter")->getValue()[0]["uri"];
 
         //requipred equipment
-        $count_desktop = $node->get("field_devices_desktops")->getValue()[0]["value"]; //todo canviar nom?
+        $count_desktop = $node->get("field_desktop")->getValue()[0]["value"];
         $count_desktop_peripherals = $node->get("field_desktop_with_peripherals")->getValue()[0]["value"];
-        $count_desktop = $node->get("field_devices_servers")->getValue()[0]["value"]; //todo canviar nom?
-        $count_laptop = $node->get("field_devices_laptops")->getValue()[0]["value"]; //todo canviar nom? Laptop
-        $count_phone = $node->get("field_devices_smartphones")->getValue()[0]["value"]; //todo canviar nom? MobilePhone
-        $count_tablet = $node->get("field_devices_tablets")->getValue()[0]["value"]; //todo canviar nom? TabletComputer
-        $count_monitor = $node->get("field_devices_screens")->getValue()[0]["value"]; //todo canviar nom? ComputerMonitor
+        $count_laptop = $node->get("field_laptop")->getValue()[0]["value"];
+        $count_phone = $node->get("field_mobile_phone")->getValue()[0]["value"];
+        $count_tablet = $node->get("field_tablet_computer")->getValue()[0]["value"];
+        $count_monitor = $node->get("field_computer_monitor")->getValue()[0]["value"]; 
 
         //address
         $addr_country = $node->get("field_address")->getValue()[0]["country_code"];
@@ -156,7 +143,6 @@ class TransferHubDeviceHubController extends ControllerBase {
             $count_desktop, $count_desktop_peripherals, $count_laptop, $count_phone, $count_tablet, $count_monitor,
             //address
             $addr_country, $addr_locality, $addr_region, $addr_zip, $addr_street);
-
 
 
         $return = array(
