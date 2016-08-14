@@ -117,6 +117,7 @@ function transferhub_preprocess_page(&$variables)
         //$variables["theme"]["settings"]["logo"]["realpath"] = \Drupal::service("file_system")->realpath($variables["theme"]["settings"]["logo"]["path"]);
         $variables["theme"]["settings"]["logo"]["url"] = file_create_url($variables["theme"]["settings"]["logo"]["path"]);
     }
+
     //Transferhub settings
     //home banner
     $variables["theme"]["settings"]["home_banner"]['title'] = theme_get_setting('title','transferhub');
@@ -169,54 +170,149 @@ function transferhub_preprocess_block(&$variables)
 
 function transferhub_preprocess_node(&$variables)
 {
+    /*drupal_set_message($variables["view_mode"]); //todo treure xivatus
+    drupal_set_message($variables["node"]->getType());
+    drupal_set_message($variables["teaser"]);*/
+
     //make installation base path available in node templates
     $variables["base_path"] = base_path();
-    
-    //Loading information for project template
-    if ( \Drupal::routeMatch()->getParameter('node') && \Drupal::routeMatch()->getParameter('node')->getType() == "project") {
 
-        //load node info
-        $node= \Drupal\node\Entity\Node::load(\Drupal::routeMatch()->getParameter('node')->id());
+    if ($variables["node"]->getType() == "project")
+    {
+        //todo esborrar -> $node= \Drupal\node\Entity\Node::load(\Drupal::routeMatch()->getParameter('node')->id());
+        $node = $variables["node"];
 
-        //is manager?
-        $variables["is_manager"] = in_array("manager",array_values(\Drupal::currentUser()->getRoles()));
-        //current user id
-        $variables["current_uid"] = \Drupal::currentUser()->id();
-        //node author uid
-        $variables["author_uid"] = $node->getOwnerId();              
-        
-        //Allocated devices
-        foreach ($node->field_allocated_devices->getValue() as $entity_id)
-        {
-            //kint($entity_id["value"]); die;
-            $device = \Drupal\field_collection\Entity\FieldCollectionItem::load($entity_id["value"]);
-            $variables["allocated"][] = array(
-              "id" =>  $device->get("field_id"),  
-              "type" =>  $device->get("field_type"),
-              "subtype" =>  $device->get("field_subtype"),
-              "manufacturer" =>  $device->get("field_manufacturer"),
-              "model" =>  $device->get("field_model"),
-              "url" =>  $device->get("field_url"),               
-            );
+        switch($variables["view_mode"]){ //view mode, full ...
+            case "teaser": {
+                //Required devices
+                $variables["required_devices"] = $node->get("field_desktop")->getValue()[0]["value"]
+                                                    + $node->get("field_desktop_with_peripherals")->getValue()[0]["value"]
+                                                    + $node->get("field_laptop")->getValue()[0]["value"]
+                                                    + $node->get("field_mobile_phone")->getValue()[0]["value"]
+                                                    + $node->get("field_tablet_computer")->getValue()[0]["value"]
+                                                    + $node->get("field_computer_monitor")->getValue()[0]["value"];
+
+                //is current page "My projectes?
+                if (\Drupal::routeMatch()->getRouteName() == "view.projects.page_2"){
+                    $variables["is_my_projects_page"] = true;
+
+                    //Get workflow info
+                    $state = $node->get("field_workflow")->getValue()[0]["value"];
+                    switch($state)
+                    {
+                        case "project_workflow_creation": { }
+                        case "project_workflow_draft": {
+                            $variables["state_lbl_class"] = "label-default";
+                            $variables["state_text"] = t("Draft");
+                            break;
+                        }
+                        case "project_workflow_rejected": {
+                            $variables["state_lbl_class"] = "label-warning";
+                            $variables["state_text"] = t("Rejected");
+                            break;
+                        }
+                        case "project_workflow_waiting_for_assignment": {
+                            $variables["state_lbl_class"] = "label-info";
+                            $variables["state_text"] = t("Waiting for assignment");
+                            break;
+                        }
+                        case "project_workflow_devices_allocated": {
+                            $variables["state_lbl_class"] = "label-warning";
+                            $variables["state_text"] = t("Allocated devices");
+                            break;
+                        }
+                        case "project_workflow_devecies_received": {
+                            $variables["state_lbl_class"] = "label-primary";
+                            $variables["state_text"] = t("Received devices");
+                            break;
+                        }
+                        case "project_workflow_cancelled": {
+                            $variables["state_lbl_class"] = "label-danger";
+                            $variables["state_text"] = t("Cancelled");
+                            break;
+                        }
+                        case "project_workflow_finished": {
+                            $variables["state_lbl_class"] = "label-success";
+                            $variables["state_text"] = t("Finished");
+                            break;
+                        }
+                    }
+                }
+                break;
+            }
+            default: { // full... //todo esborrar -> if ( \Drupal::routeMatch()->getParameter('node') && \Drupal::routeMatch()->getParameter('node')->getType() == "project") {
+
+                //kint($variables); die;
+                //is manager?
+                $variables["is_manager"] = in_array("manager",array_values(\Drupal::currentUser()->getRoles()));
+
+                //current user id
+                $variables["current_uid"] = \Drupal::currentUser()->id();
+
+                //node author uid
+                $variables["author_uid"] = $node->getOwnerId();
+
+                //load Allocated devices
+                foreach ($node->field_allocated_devices->getValue() as $entity_id)
+                {
+                    //kint($entity_id["value"]); die;
+                    $device = \Drupal\field_collection\Entity\FieldCollectionItem::load($entity_id["value"]);
+                    $variables["allocated"][] = array(
+                        "id" =>  $device->get("field_id"),
+                        "type" =>  $device->get("field_type"),
+                        "subtype" =>  $device->get("field_subtype"),
+                        "manufacturer" =>  $device->get("field_manufacturer"),
+                        "model" =>  $device->get("field_model"),
+                        "url" =>  $device->get("field_url"),
+                    );
+                }
+
+                //load voting block
+                if (\Drupal::moduleHandler()->moduleExists('transferhub_vote')) {
+                    $block = \Drupal\block\BlockViewBuilder::lazyBuilder("transferhubvotingblock", "full");
+                    $block["#configuration"]["label"] = null;
+                    $variables['vote_block'] = Drupal::service('renderer')->render($block);
+                }
+
+                //Organization
+                $variables["organization"]["display"] = false;
+                if ($node->get("field_use_existing_organization")->getValue()[0]["value"])
+                    $org = \Drupal\node\Entity\Node::load($node->get("field_organization_existing")->getValue()[0]["target_id"]);
+                else
+                    $org = \Drupal\node\Entity\Node::load($node->get("field_organization_new")->getValue()[0]["target_id"]);
+
+                if ($org) {
+                    $variables["organization"]["display"] = true;
+                    $variables["organization"]["title"] = $org->getTitle();
+                    $variables["organization"]["short_description"] = $org->get("field_short_description")->getValue()[0]["value"];
+                    $img_file = \Drupal\file\Entity\File::load($org->get("field_image")->getValue()[0]["target_id"]);
+                    $variables["organization"]["image_url"] = file_create_url($img_file->getFileUri());
+                }
+
+                //Required devices
+                $variables["desktop"] = $node->get("field_desktop")->getValue()[0]["value"];
+                $variables["desktop_with_peripherals"] =  $node->get("field_desktop_with_peripherals")->getValue()[0]["value"];
+                $variables["laptop"] =  $node->get("field_laptop")->getValue()[0]["value"];
+                $variables["mobile_phone"] =  $node->get("field_mobile_phone")->getValue()[0]["value"];
+                $variables["tablet_computer"] =  $node->get("field_tablet_computer")->getValue()[0]["value"];
+                $variables["computer_monitor"] =  $node->get("field_computer_monitor")->getValue()[0]["value"];
+
+                //Donors //todo
+                
+                //Make regions available in node.html.twig
+                // Allowed view modes
+                $view_mode = $variables['view_mode']; // Retrieve view mode
+                $allowed_view_modes = ['full']; // Array of allowed view modes (for performance so as to not execute on unneeded nodes)
+
+                // If view mode is in allowed view modes list, pass to THEME_add_regions_to_node()
+                if (in_array($view_mode, $allowed_view_modes)) {
+                    // Allowed regions (for performance so as to not execute for unneeded region)
+                    $allowed_regions = ['sidebar_project'];
+                    transferhub_add_regions_to_node($allowed_regions, $variables);
+                }
+                break;
+            }
         }
-
-        //load voting block
-        if (\Drupal::moduleHandler()->moduleExists('transferhub_vote')) {
-            $block = \Drupal\block\BlockViewBuilder::lazyBuilder("transferhubvotingblock", "full");
-            $variables['vote_block'] = Drupal::service('renderer')->render($block);
-        }
-    }
-    
-    //Make regions available in node.html.twig
-    // Allowed view modes
-    $view_mode = $variables['view_mode']; // Retrieve view mode
-    $allowed_view_modes = ['full']; // Array of allowed view modes (for performance so as to not execute on unneeded nodes)
-
-    // If view mode is in allowed view modes list, pass to THEME_add_regions_to_node()
-    if (in_array($view_mode, $allowed_view_modes)) {
-        // Allowed regions (for performance so as to not execute for unneeded region)
-        $allowed_regions = ['sidebar_project'];
-        transferhub_add_regions_to_node($allowed_regions, $variables);
     }
 }
 
@@ -296,8 +392,6 @@ function transferhub_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $fo
 //hook suggestions
 function transferhub_form_contact_message_feedback_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
 {
-
-
     // Name
     $form['name']['#prefix'] = '<div class="form-group">';
     $form['name']['#suffix'] = '</div>';
@@ -337,6 +431,7 @@ function transferhub_form_contact_message_feedback_form_alter(&$form, \Drupal\Co
 //template form
 function transferhub_theme_suggestions_alter(array &$suggestions, array $variables)
 {
+    //drupal_set_message($variables['element']['#type']);
     if (isset($variables['element']) && isset($variables['element']['#type']) && $variables['element']['#type'] == 'form') {
 
         $original_theme_hook = $variables['theme_hook_original'];
@@ -345,3 +440,85 @@ function transferhub_theme_suggestions_alter(array &$suggestions, array $variabl
     }
 }
 
+
+//todo delete
+/*
+function transferhub_theme_suggestions_submit_alter(array &$suggestions, array $variables)
+{
+   // drupal_set_message("submit suggestion alter!!!");
+    if (isset($variables['element']) && isset($variables['element']['#type']) && $variables['element']['#type'] == 'form') {
+
+        $original_theme_hook = $variables['theme_hook_original'];
+        $suggestions[] = $original_theme_hook . '__' . str_replace('-', '_', $variables['element']['#id']);
+
+    }
+}
+
+function transferhub_theme_suggestions_input_alter(array &$suggestions, array $variables)
+{
+    //drupal_set_message("intput suggestion alter!!!");
+
+    //kint($variables["element"]);
+    //drupal_set_message($variables['element']["#value"]["string"]);
+
+
+    if (isset($variables['element']) && isset($variables['element']['#type']) && $variables['element']['#type'] == 'submit') {
+
+      //  drupal_set_message($variables['element']["#value"]["string"]);
+
+    }
+    if (isset($variables['element']) && isset($variables['element']['#type']) && $variables['element']['#type'] == 'form') {
+
+        $original_theme_hook = $variables['theme_hook_original'];
+        $suggestions[] = $original_theme_hook . '__' . str_replace('-', '_', $variables['element']['#id']);
+
+    }
+}
+
+
+function transferhub_theme_suggestions_button_alter(array &$suggestions, array $variables)
+{
+    //drupal_set_message("intput button suggestion alter!!!");
+
+
+    if (isset($variables['element']) && isset($variables['element']['#type']) && $variables['element']['#type'] == 'form') {
+
+        $original_theme_hook = $variables['theme_hook_original'];
+        $suggestions[] = $original_theme_hook . '__' . str_replace('-', '_', $variables['element']['#id']);
+
+    }
+}
+
+
+function transferhub_theme_suggestions_views_view_grid_alter(array &$suggestions, array $variables)
+{
+    drupal_set_message("SUGGESTIONS views grid alter!! *** ");
+
+    drupal_set_message($variables['theme_hook_original']);
+
+    kint($variables["element"]);
+
+    if (isset($variables['element']) && isset($variables['element']['#type']) && $variables['element']['#type'] == 'form') {
+
+
+        $original_theme_hook = $variables['theme_hook_original'];
+        $suggestions[] = $original_theme_hook . '__' . str_replace('-', '_', $variables['element']['#id']);
+
+    }else
+    {
+        drupal_set_message("sí però no");
+    }
+}
+
+function transferhub_preprocess_views_view_grid(&$variables)
+{
+    //kint($variables);
+    drupal_set_message("preprocess grid!!");
+
+    if ($variables["view"]["current_display"] == "block_1")
+    {
+                
+    }
+
+}
+*/
