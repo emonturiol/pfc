@@ -1,4 +1,3 @@
-MOTHER FUCKERS
 {#
 /**
  * @file
@@ -27,69 +26,70 @@ MOTHER FUCKERS
  * @ingroup themeable
  */
 #}
-{%
-set classes = [
-'views-view-grid',
-options.alignment,
-'cols-' ~ options.columns,
-'clearfix',
-]
-%}
-{% if options.row_class_default %}
+<div id="screenshots-carousel" class="container-fluid carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        {% for row in items %}
+            {%  set c = loop.index-1  %}
+            <li data-target="#screenshots-carousel" data-slide-to="{{ c }}" {% if c == 0 %}class="active"{% endif %}></li>
+        {% endfor %}
+    </ol>
     {%
-    set row_classes = [
-    'views-row',
-    options.alignment == 'horizontal' ? 'clearfix',
+    set classes = [
+    'views-view-grid',
+    options.alignment,
+    'cols-' ~ options.columns,
+    'clearfix',
     ]
     %}
-{% endif %}
-{% if options.col_class_default %}
-    {%
-    set col_classes = [
-    'views-col',
-    options.alignment == 'vertical' ? 'clearfix',
-    ]
-    %}
-{% endif %}
-{% if title %}
-    <h3>{{ title }}</h3>
-{% endif %}
-<div{{ attributes.addClass(classes) }}>
-    {% if options.alignment == 'horizontal' %}
+    {% if options.row_class_default %}
+        {%
+        set row_classes = [
+        'views-row',
+        options.alignment == 'horizontal' ? 'clearfix',
+        ]
+        %}
+    {% endif %}
+    {% if options.col_class_default %}
+        {%
+        set col_classes = [
+        'views-col',
+        options.alignment == 'vertical' ? 'clearfix',
+        ]
+        %}
+    {% endif %}
+    {% if title %}
+        <h3>{{ title }}</h3>
+    {% endif %}
+    <div{{ attributes.addClass(classes) }}>
+        {% if options.alignment == 'horizontal' %}
 
-        <ol class="carousel-indicators">
-            <li data-target="#screenshots-carousel" data-slide-to="0" class="active"></li>
-            <li data-target="#screenshots-carousel" data-slide-to="1"></li>
-            <li data-target="#screenshots-carousel" data-slide-to="2"></li>
-            <li data-target="#screenshots-carousel" data-slide-to="3"></li>
-        </ol>
+            <div class="text-center carousel-inner">
 
-        <div class="text-center carousel-inner">
+                {% for row in items %}
 
-            {% for row in items %}
-
-                <div class="item {% if loop.index == 1 %}active{% endif %}">
-                    <div{{ row.attributes.addClass(row_classes, options.row_class_default ? 'row-' ~ loop.index) }}>
-                        {% for column in row.content %}
-                            <div{{ column.attributes.addClass(col_classes, options.col_class_default ? 'col-' ~ loop.index) }}>
-                                {{ column.content }}
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            {% endfor %}
-
-        </div>
-
-    {% else %}
-        {% for column in items %}
-            <div{{ column.attributes.addClass(col_classes, options.col_class_default ? 'col-' ~ loop.index) }}>
-                {% for row in column.content %}
-                    <div{{ row.attributes.addClass(row_classes, options.row_class_default ? 'row-' ~ loop.index) }}>
-                        {{ row.content }}
+                    <div class="item {% if loop.index == 1 %}active{% endif %}">
+                        <div{{ row.attributes.addClass(row_classes, options.row_class_default ? 'row-' ~ loop.index) }}>
+                            {% for column in row.content %}
+                                <div{{ column.attributes.addClass(col_classes, options.col_class_default ? 'col-' ~ loop.index) }}>
+                                    {{ column.content }}
+                                </div>
+                            {% endfor %}
+                        </div>
                     </div>
                 {% endfor %}
+
             </div>
-        {% endfor %}
-    {% endif %}
+
+        {% else %}
+            {% for column in items %}
+                <div{{ column.attributes.addClass(col_classes, options.col_class_default ? 'col-' ~ loop.index) }}>
+                    {% for row in column.content %}
+                        <div{{ row.attributes.addClass(row_classes, options.row_class_default ? 'row-' ~ loop.index) }}>
+                            {{ row.content }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
 </div>

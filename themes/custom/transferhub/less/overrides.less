@@ -82,6 +82,10 @@ p:last-child,
 /*
 html.html.twig (header, footer...)
 */
+//General
+img {
+  margin-bottom: 10px;
+}
 
 //TOP BAR
 .container-top
@@ -163,10 +167,10 @@ html.html.twig (header, footer...)
   }
 }*/
 //buttons
-button span.icon:before
+/*button span.icon:before
 {
   content: "";
-}
+}*/
 
 //TABS
 .nav-tabs>li.active>a
@@ -197,6 +201,110 @@ body.user-logged-in{
 form.search-page-form
 {
   display: none;
+}
+
+
+//Projects views
+.view-projects .grid-row
+{
+  margin-top: 25px;
+}
+
+//My projects view
+
+div.field--name-field-tags .field--item
+{
+  width: auto;
+  float: right;
+  padding: 2px 8px;
+  background-color: #F5F5F5;
+  margin-left: 8px;
+  margin-top: 8px;
+  font-size: 13px;
+
+  a {
+    color: #454545;
+  }
+}
+
+.view-projects .tags{
+  border-bottom: 1px solid #eee;
+}
+
+//Promoted front
+ .view-display-id-block_1 .col-sm-3{
+
+   text-align: left;
+
+   .field--name-field-image {
+
+     text-align: center ;
+
+     img {
+
+       display: inline;
+
+     }
+   }
+ }
+
+ //Project page
+div.project-social
+{
+  //margin-top: 30px;
+  padding-top: 20px !important;
+}
+div.post-social
+{
+   background-color: inherit !important;
+
+  .tags .field--item
+  {
+    background-color: white;
+
+  }
+}
+div.project-content
+{
+  padding-top: 25px !important;
+}
+
+.page-node-type-project #blog-breadcrumb img
+{
+  margin-bottom: 0 !important;
+}
+
+#blog-breadcrumb.project-header,
+#blog-breadcrumb.project-footer
+{
+  background-image: none;
+  background-color: #454545;
+  color: white;
+}
+.post.post-devices
+{
+  .field--item {
+    display: inline;
+  }
+  li{
+    vertical-align: top;
+    margin-top: 20px;
+    span.text {
+      font-size: 16px;
+    }
+  }
+  .device-icon{
+    font-size: 60px;
+  }
+  .device-icon-sm{
+    font-size: 50px;
+  }
+}
+
+//Vote block
+#block-transferhubvotingblock
+{
+  padding: 20px 20px;
 }
 
 //TODO COPIAR!! A TEMPLATE REUTILTIZA
