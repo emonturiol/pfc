@@ -9,7 +9,7 @@ namespace Drupal\transferhub_vote\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
-
+use Drupal\bootstrap\Bootstrap;
 /**
  * Lorem Ipsum block form
  */
@@ -43,6 +43,8 @@ class TransferHubVoteAuthenticatedForm extends FormBase
         $form['submit'] = array(
             '#type' => 'submit',
             '#value' => $this->t('Vote this project'),
+            '#icon' => Bootstrap::glyphicon('thumbs-up'),
+            "#attributes" => array("class" => array("btn","btn-lg"))
             //'#attributes' => array("onclick" => "javascript:ga('send', 'event', 'vote', 'web', 'project-nom projecte');")
         );
 

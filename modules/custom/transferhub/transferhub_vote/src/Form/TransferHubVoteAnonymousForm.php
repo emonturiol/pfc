@@ -9,6 +9,7 @@ namespace Drupal\transferhub_vote\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\bootstrap\Bootstrap;
 
 /**
  * Lorem Ipsum block form
@@ -34,9 +35,27 @@ class TransferHubVoteAnonymousForm extends FormBase
             '#value' => \Drupal::request()->getRequestUri()
         );
 
+        $icon = array(
+            '#type' => "html_tag",
+            '#tag' => "span",
+            '#value' => "",
+            '#attributes' =>  array(
+                 'class' => array("fa","fa-facebook")
+                )
+            );
+
         $form['submit'] = array(
             '#type' => 'submit',
             '#value' => $this->t('Login to Facebook to vote'),
+            "#icon" => array(
+                '#type' => "html_tag",
+                '#tag' => "span",
+                '#value' => "",
+                '#attributes' =>  array(
+                    'class' => array("fa","fa-facebook")
+                )
+            ),
+           '#attributes' => array("class" => array("btn", "btn-block", "btn-social", "btn-lg", "btn-facebook"))
         );
 
         return $form;

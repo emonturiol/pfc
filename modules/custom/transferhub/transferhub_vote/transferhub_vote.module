@@ -12,10 +12,12 @@ function transferhub_vote_theme($existing, $type, $theme, $path) {
     return array('transferhub_vote_block' =>
         array(
             'variables' => array(
-                //'title' => t("Vote"),
+                'title' => null,
                 'votes' => null,
                 'form' => null,
-                'voted' => null
+                'voted' => null,
+                'required_devices' => null,
+                'deadline' => null,
             ),
             'template' => 'block--transferhubvoteblock'
         )

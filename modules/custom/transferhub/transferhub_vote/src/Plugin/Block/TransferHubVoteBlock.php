@@ -24,8 +24,8 @@ class TransferHubVoteBlock extends BlockBase {
         
         $userId = \Drupal::currentUser()->id();
         $nodeId = \Drupal::routeMatch()->getParameter('node')->id();
-        //drupal_set_message($nodeId);
-
+        //drupal_set_message($nodeId);        
+        
         $votes = \Drupal\transferhub_vote\Controller\TransferHubVoteController::getVotes($nodeId);
         
         $build_array = array(
@@ -34,9 +34,9 @@ class TransferHubVoteBlock extends BlockBase {
             '#cache' => [
                 'max-age' => 0,
             ]
-        );
+        );      
 
-        if (\Drupal::currentUser()->isAnonymous()) {
+        if (\Drupal::currentUser()->isAnonymous()) { 
             $build_array["#form"] = \Drupal::formBuilder()->getForm('Drupal\transferhub_vote\Form\TransferHubVoteAnonymousForm');
         }
         else
@@ -50,6 +50,21 @@ class TransferHubVoteBlock extends BlockBase {
                 $build_array["#form"] = \Drupal::formBuilder()->getForm('Drupal\transferhub_vote\Form\TransferHubVoteAuthenticatedForm');
             }
         }
+
+        $node = \Drupal\node\Entity\Node::load($nodeId);
+        
+        //Required devices
+        $build_array["#required_devices"] = $node->get("field_desktop")->getValue()[0]["value"]
+            + $node->get("field_desktop_with_peripherals")->getValue()[0]["value"]
+            + $node->get("field_laptop")->getValue()[0]["value"]
+            + $node->get("field_mobile_phone")->getValue()[0]["value"]
+            + $node->get("field_tablet_computer")->getValue()[0]["value"]
+            + $node->get("field_computer_monitor")->getValue()[0]["value"];
+
+        //kint($node->get("field_deadline")->getvalue()[0]["value"]);
+        
+        $build_array["#deadline"] = $node->get("field_deadline")->getvalue()[0]["value"];
+        
         return $build_array;
     }
 
