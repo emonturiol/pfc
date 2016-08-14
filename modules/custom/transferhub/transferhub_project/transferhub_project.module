@@ -1,8 +1,8 @@
 <?php
 
 function transferhub_project_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
-{
-    if ($form_id == "node_project_edit_form")
+{    
+    if ($form_id == "node_project_edit_form" || $form_id == "node_project_form")
     {
         //Receivers can not edit list of ALLOCATED or RECEIVED devices in project node edition form
         $user = \Drupal::currentUser();
@@ -13,5 +13,29 @@ function transferhub_project_form_alter(&$form, \Drupal\Core\Form\FormStateInter
             unset($form["field_last_reception"]);
             unset($form["field_received_devices"]);
         }
+
+        //Organization
+        if ($form_id == "node_project_form") {
+            //add form
+            
+            
+        }else {
+            //edit form
+            //$node = \Drupal\node\Entity\Node::load(\Drupal::routeMatch()->getParameter("node")->id());
+        }
+    }
+}
+
+function transferhub_project_preprocess_page(&$variables) {
+
+    $route_match = \Drupal::routeMatch();
+
+    if ( //is project add form
+        ($route_match->getRouteName() == "node.add" && $route_match->getRawParameter("node_type") == "project")
+        //is project edit form
+        || ($route_match->getRouteName() == "entity.node.edit_form" && $route_match->getParameter("node")->getType() == "project"))
+    {
+        drupal_set_message("javascript attakched");
+        $variables['#attached']['library'][] = 'transferhub_project/transferhub_project';
     }
 }

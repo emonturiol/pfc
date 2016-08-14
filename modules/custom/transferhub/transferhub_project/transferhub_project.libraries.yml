@@ -1,0 +1,6 @@
+transferhub_project:
+  version: 1.x
+  js:
+    js/transferhub_project.js: {}
+  dependencies:
+    - core/jquery
