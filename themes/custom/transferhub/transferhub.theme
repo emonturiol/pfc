@@ -221,7 +221,7 @@ function transferhub_preprocess_node(&$variables)
                             $variables["state_text"] = t("Allocated devices");
                             break;
                         }
-                        case "project_workflow_devecies_received": {
+                        case "project_workflow_devices_received": {
                             $variables["state_lbl_class"] = "label-primary";
                             $variables["state_text"] = t("Received devices");
                             break;
@@ -236,6 +236,12 @@ function transferhub_preprocess_node(&$variables)
                             $variables["state_text"] = t("Finished");
                             break;
                         }
+                        default: {
+                            $variables["state_lbl_class"] = "label-default";
+                            $variables["state_text"] = t("Draft");
+                            break;
+                        }
+
                     }
                 }
                 break;
