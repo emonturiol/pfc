@@ -16,7 +16,9 @@ vendor
 
 #Environment-dependent files
 .htaccess
+!environment_configuration/*/.htaccess
 robots.txt
+!environment_configuration/*/robots.txt
 
 # Ignore configuration files that may contain sensitive information.
 #sites/*/settings.*.php
@@ -25,6 +27,7 @@ robots.txt
 sites/*/services.yml
 sites/*/development.services.yml
 sites/*/settings.local.php
+!environment_configuration/*/settings.local.php
 
 # Ignore paths that contain user-generated content.
 sites/*/files
