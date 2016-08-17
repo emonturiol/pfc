@@ -24,7 +24,7 @@ use \Drupal\transferhub_project\TransferhubProjectTools;
  *     "canonical" = "/transferhub/events/devices/allocate",
  *     "https://www.drupal.org/link-relations/create" = "/transferhub/events/devices/allocate"
  *   },
- *  serialization_class = "Drupal\file\Entity\File",
+ *  serialization_class = "Drupal\field_collection\Entity\FieldCollection",
  * )
  */
 class TransferhubAllocateResource extends ResourceBase {

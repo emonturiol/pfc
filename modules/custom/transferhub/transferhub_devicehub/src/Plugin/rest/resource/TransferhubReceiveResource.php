@@ -18,7 +18,7 @@ use \Drupal\transferhub_project\TransferhubProjectTools;
  *     "canonical" = "/transferhub/events/devices/receive",
  *     "https://www.drupal.org/link-relations/create" = "/transferhub/events/devices/receive"
  *   },
- *  serialization_class = "Drupal\file\Entity\File",
+ *  serialization_class = "Drupal\field_collection\Entity\FieldCollection",
  * )
  */
 class TransferhubReceiveResource extends ResourceBase {
