@@ -134,6 +134,40 @@ img {
 .user-register-form .filter-help {
   display: none;
 }
+div.password-suggestions {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+div.password-suggestions ul {
+  margin-left: 15px;
+  list-style: inherit;
+}
+input#edit-pass-pass2 {
+  margin-bottom: 10px;
+}
+div.password-confirm span.ok {
+  padding: 7px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+div.password-confirm span.error {
+  padding: 7px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
 /*@media (min-width: @screen-sm) {
   .user-login-form
   {
@@ -231,6 +265,38 @@ div.project-content {
 }
 #block-transferhubvotingblock {
   padding: 20px 20px;
+}
+.page-node-type-project .widget-area .organization h3 {
+  margin-top: 0;
+}
+.page-node-type-project .widget-area .organization .more {
+  float: right;
+  margin-top: 15px;
+}
+div.post.donor .media {
+  border-bottom: 1px solid #d8d8d8;
+}
+.practices .media {
+  border-bottom: 1px solid white;
+}
+.node-project-form .field--name-field-desktop,
+.node-project-edit-form .field--name-field-desktop,
+.node-project-form .field--name-field-desktop-with-peripherals,
+.node-project-edit-form .field--name-field-desktop-with-peripherals,
+.node-project-form .field--name-field-laptop,
+.node-project-edit-form .field--name-field-laptop,
+.node-project-form .field--name-field-tablet-computer,
+.node-project-edit-form .field--name-field-tablet-computer,
+.node-project-form .field--name-field-mobile-phone,
+.node-project-edit-form .field--name-field-mobile-phone,
+.node-project-form .field--name-field-computer-monitor,
+.node-project-edit-form .field--name-field-computer-monitor {
+  float: left;
+  margin-right: 20px;
+}
+.node-project-form #edit-actions .button,
+.node-project-edit-form #edit-actions .button {
+  margin-right: 15px;
 }
 a {
   color: #000000;

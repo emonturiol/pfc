@@ -48,7 +48,7 @@ class SyncronizeInDevicehub extends RulesActionBase {
             $state = $workflow[0]["value"];
 
             //LOG
-            drupal_set_message("Project " . $node->id() . " changed to status " . $state);
+            //drupal_set_message("Project " . $node->id() . " changed to status " . $state); todo
             \Drupal::logger("transferhub_devicehub")->info("project state changed: ".$node->id(). " -> ". $state);
             
             //Comunicate state change to DeviceHub

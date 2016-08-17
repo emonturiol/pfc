@@ -251,10 +251,8 @@ function transferhub_preprocess_node(&$variables)
                 //kint($variables); die;
                 //is manager?
                 $variables["is_manager"] = in_array("manager",array_values(\Drupal::currentUser()->getRoles()));
-
                 //current user id
                 $variables["current_uid"] = \Drupal::currentUser()->id();
-
                 //node author uid
                 $variables["author_uid"] = $node->getOwnerId();
 
@@ -273,6 +271,25 @@ function transferhub_preprocess_node(&$variables)
                     );
                 }
 
+                //load Received devices
+                foreach ($node->field_received_devices->getValue() as $entity_id)
+                {
+                    //kint($entity_id["value"]); die;
+                    $device = \Drupal\field_collection\Entity\FieldCollectionItem::load($entity_id["value"]);
+                    $variables["received"][] = array(
+                        "id" =>  $device->get("field_id"),
+                        "type" =>  $device->get("field_type"),
+                        "subtype" =>  $device->get("field_subtype"),
+                        "manufacturer" =>  $device->get("field_manufacturer"),
+                        "model" =>  $device->get("field_model"),
+                        "url" =>  $device->get("field_url"),
+                    );
+                }
+                
+                //load donors
+                //todo
+
+
                 //load voting block
                 if (\Drupal::moduleHandler()->moduleExists('transferhub_vote')) {
                     $block = \Drupal\block\BlockViewBuilder::lazyBuilder("transferhubvotingblock", "full");
@@ -281,19 +298,7 @@ function transferhub_preprocess_node(&$variables)
                 }
 
                 //Organization
-                $variables["organization"]["display"] = false;
-                if ($node->get("field_use_existing_organization")->getValue()[0]["value"])
-                    $org = \Drupal\node\Entity\Node::load($node->get("field_organization_existing")->getValue()[0]["target_id"]);
-                else
-                    $org = \Drupal\node\Entity\Node::load($node->get("field_organization_new")->getValue()[0]["target_id"]);
-
-                if ($org) {
-                    $variables["organization"]["display"] = true;
-                    $variables["organization"]["title"] = $org->getTitle();
-                    $variables["organization"]["short_description"] = $org->get("field_short_description")->getValue()[0]["value"];
-                    $img_file = \Drupal\file\Entity\File::load($org->get("field_image")->getValue()[0]["target_id"]);
-                    $variables["organization"]["image_url"] = file_create_url($img_file->getFileUri());
-                }
+                $variables["use_existing_organization"] = $node->get("field_use_existing_organization")->getValue()[0]["value"];
 
                 //Required devices
                 $variables["desktop"] = $node->get("field_desktop")->getValue()[0]["value"];
@@ -303,8 +308,7 @@ function transferhub_preprocess_node(&$variables)
                 $variables["tablet_computer"] =  $node->get("field_tablet_computer")->getValue()[0]["value"];
                 $variables["computer_monitor"] =  $node->get("field_computer_monitor")->getValue()[0]["value"];
 
-                //Donors //todo
-                
+                       
                 //Make regions available in node.html.twig
                 // Allowed view modes
                 $view_mode = $variables['view_mode']; // Retrieve view mode

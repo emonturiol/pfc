@@ -8,20 +8,17 @@ function transferhub_project_form_alter(&$form, \Drupal\Core\Form\FormStateInter
         $user = \Drupal::currentUser();
         if ( !in_array("manager",array_values($user->getRoles())) &&  !in_array("administrator",array_values($user->getRoles())) )
         {
+            //allocation/reception
             unset($form["field_last_allocation"]);
             unset($form["field_allocated_devices"]);
             unset($form["field_last_reception"]);
             unset($form["field_received_devices"]);
-        }
 
-        //Organization
-        if ($form_id == "node_project_form") {
-            //add form
-            
-            
-        }else {
-            //edit form
-            //$node = \Drupal\node\Entity\Node::load(\Drupal::routeMatch()->getParameter("node")->id());
+            //project rating
+            unset($form["field_use"]);
+            unset($form["field_maintenance"]);
+            unset($form["field_questionary"]);
+            unset($form["field_reuse_return"]);
         }
     }
 }

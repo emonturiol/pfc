@@ -157,7 +157,48 @@ img {
 {
   display: none;
 }
-//user forms
+
+//password sugestions
+div.password-suggestions
+{
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  ul {
+    margin-left: 15px;
+    list-style: inherit;
+  }
+}
+
+input#edit-pass-pass2{
+  margin-bottom: 10px;
+}
+
+div.password-confirm span.ok{
+  padding: 7px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+div.password-confirm span.error {
+  padding: 7px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+  //user forms
 /*@media (min-width: @screen-sm) {
   .user-login-form
   {
@@ -303,6 +344,50 @@ div.project-content
 #block-transferhubvotingblock
 {
   padding: 20px 20px;
+}
+
+//Sidebar
+.page-node-type-project .widget-area
+{
+  .organization {
+      h3 {
+        margin-top: 0;
+      }
+      .more {
+        float: right;
+        margin-top: 15px;
+      }
+  }
+}
+
+//donors
+div.post.donor .media
+{
+  border-bottom: 1px solid #d8d8d8;
+}
+
+.practices .media
+{
+  border-bottom: 1px solid white;
+}
+
+//Good practices
+
+//Form project edition
+.node-project-form, .node-project-edit-form {
+  .field--name-field-desktop,
+  .field--name-field-desktop-with-peripherals,
+  .field--name-field-laptop,
+  .field--name-field-tablet-computer,
+  .field--name-field-mobile-phone,
+  .field--name-field-computer-monitor
+  {
+    float: left;
+    margin-right: 20px;
+  }
+  #edit-actions .button {
+    margin-right: 15px;
+  }
 }
 
 //TODO COPIAR!! A TEMPLATE REUTILTIZA

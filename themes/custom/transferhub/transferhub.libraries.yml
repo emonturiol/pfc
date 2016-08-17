@@ -27,7 +27,7 @@ two-doors-scripts:
   js:
     #js/two_doors/html5shiv.js: {browsers: {IE: 'lte IE 9'}}
     js/two_doors/respond.min.js: {browsers: {IE: 'lte IE 9', '!IE': false}}
-    http://maps.google.com/maps/api/js?sensor=true: {type: external, scope: footer}
+    #http://maps.google.com/maps/api/js?sensor=true: {type: external, scope: footer}
     js/two_doors/gmaps.js: { scope: footer}
     js/two_doors/jquery.parallax.js: { scope: footer}
     js/two_doors/jquery.prettyPhoto.js: { scope: footer}

@@ -276,66 +276,72 @@ jQuery(function ($) {
 
 		var map;
 
-		map = new GMaps({
-			el: '#gmap',
-			lat: 32.3305419,
-			lng: 34.8743185,
-			scrollwheel:false,
-			zoom: 13,
-			zoomControl : true,
-			panControl : false,
-			streetViewControl : false,
-			mapTypeControl: false,
-			overviewMapControl: false,
-			clickable: false
-		});
+		try {
 
-		
-		var styles = [ 
+			map = new GMaps({
+				el: '#gmap',
+				lat: 32.3305419,
+				lng: 34.8743185,
+				scrollwheel:false,
+				zoom: 13,
+				zoomControl : true,
+				panControl : false,
+				streetViewControl : false,
+				mapTypeControl: false,
+				overviewMapControl: false,
+				clickable: false
+			});
 
-		{
-			"featureType": "road",
-			"stylers": [
-			{ "color": "#A5A5A5" }
-			]
-		},{
-			"featureType": "water",
-			"stylers": [
-			{ "color": "#C9C9C9" }
-			]
-		},{
-			"featureType": "landscape",
-			"stylers": [
-			{ "color": "#E9E7E3" }
-			]
-		},{
-			"elementType": "labels.text.fill",
-			"stylers": [
-			{ "color": "#d3cfcf" }
-			]
-		},{
-			"featureType": "poi",
-			"stylers": [
-			{ "color": "#CCCCCC" }
-			]
-		},{
-			"elementType": "labels.text",
-			"stylers": [
-			{ "saturation": 1 },
-			{ "weight": 0.1 },
-			{ "color": "#000000" }
-			]
+
+			var styles = [
+
+			{
+				"featureType": "road",
+				"stylers": [
+				{ "color": "#A5A5A5" }
+				]
+			},{
+				"featureType": "water",
+				"stylers": [
+				{ "color": "#C9C9C9" }
+				]
+			},{
+				"featureType": "landscape",
+				"stylers": [
+				{ "color": "#E9E7E3" }
+				]
+			},{
+				"elementType": "labels.text.fill",
+				"stylers": [
+				{ "color": "#d3cfcf" }
+				]
+			},{
+				"featureType": "poi",
+				"stylers": [
+				{ "color": "#CCCCCC" }
+				]
+			},{
+				"elementType": "labels.text",
+				"stylers": [
+				{ "saturation": 1 },
+				{ "weight": 0.1 },
+				{ "color": "#000000" }
+				]
+			}
+
+			];
+
+			map.addStyle({
+				styledMapName:"Styled Map",
+				styles: styles,
+				mapTypeId: "map_style"
+			});
+
+			map.setStyle("map_style");
 		}
-
-		];
-
-		map.addStyle({
-			styledMapName:"Styled Map",
-			styles: styles,
-			mapTypeId: "map_style"  
-		});
-
-		map.setStyle("map_style");
+		catch (e) {
+			console.log("main.js: Can't create Google Maps API object");
+		}
 	}());
 	    	
 });

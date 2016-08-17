@@ -102,6 +102,20 @@ view_mode ? view_mode|clean_class,
     </div>
 </div>
 
+AAAHAHAHAAH
+{{ kint(content.field_questionary) }}
+
+{{ kint(content.group_required_devices) }}
+
+{{ kint(content.field_description) }}
+
+                        {{ content.field_use }}
+
+                        {{ content.field_maintenance }}
+
+                        {{ content.field_reuse_return }}
+
+
 <div id="blog-breadcrumb" class="text-center page-breadcrumb project-header">
     <div class="container">
         <div class="row">
@@ -297,7 +311,7 @@ view_mode ? view_mode|clean_class,
                     </div><!--/received-->
                 {% endif %}
 
-                <div class="post">
+                <div class="post donor">
                     <div class="post-content">
                         <h2 class="entry-title">
                             <a href="">{% trans %}Donors{% endtrans %}</a>
@@ -340,22 +354,29 @@ view_mode ? view_mode|clean_class,
             <div id="sidebar" class="col-md-4">
                 <div class="widget-area">
 
-                    {% if organization.display %}
-                        <div class="widget widget_categories">
-                            <center>
-                                <img src="{{ organization.image_url }}" style="width: 248px" />
-                            </center>
-                            <h3 class="widget_title">{{ organization.title }}</h3>
-                            <p style="padding: 15px;">
-                                {{ organization.short_description }}
-                            </p>
-                        </div>
+                    {% if use_existing_organization %}
+                        {{ content.field_organization_existing }}
+                    {% else %}
+                        {{ content.field_organization_new }}
                     {% endif %}
 
                     {{ sidebar_project }}
 
 
                     {#
+
+
+
+                     <center>
+                                <img src="{{ organization.image_url }}" style="width: 248px" />
+                            </center>
+                            <h3 class="widget_title">{{ organization.title }}</h3>
+                            <p style="padding: 15px;">
+                                {{ organization.short_description }}
+                            </p>
+
+
+
 
                                 {{ kint(content.field_organization_existing.value) }}
             {{ kint(content.field_organization_new.value) }}
@@ -515,18 +536,29 @@ view_mode ? view_mode|clean_class,
 </div><!--/#main-blog-->
 
 
-<div id="blog-breadcrumb" class="text-center page-breadcrumb project-footer">
+<div id="blog-breadcrumb" class="text-center page-breadcrumb project-footer practices">
     <div class="container">
         <div class="row">
             <h2 class="entry-title">
-                <a href="">{% trans %}Good donation practices{% endtrans %}</a>
+                {% trans %}Good donation practices{% endtrans %}
             </h2>
             <div class="entry-summary">
                 <div class="widget">
                     <div class="latest-posts">
+
+                        {{ content.field_questionary.value }}
+
+                        {{ content.field_use }}
+
+                        {{ content.field_maintenance.value }}
+
+                        {{ content.field_reuse_return }}
+
+
+
                         <div class="media">
                             <div class="pull-left">
-                               Cuestionario / Testimonio
+                               <h3>Cuestionario / Testimonio</h3>
                             </div>
                             <div class="pull-right">
                                 <div class="rating-select">
@@ -538,7 +570,7 @@ view_mode ? view_mode|clean_class,
                                 </div>
                             </div>
                         </div>
-                        <div class="media">
+                        <!--div class="media">
                             <div class="pull-left">
                                 Uso / Satisfaccion
                             </div>
@@ -551,7 +583,7 @@ view_mode ? view_mode|clean_class,
                                     <div class=""><span class="glyphicon glyphicon-star"></span></div>
                                 </div>
                             </div>
-                        </div>
+                        </div-->
                     </div>
                 </div>
             </div>
@@ -562,13 +594,6 @@ view_mode ? view_mode|clean_class,
 
 
 
-{#
-<div{{ content_attributes.addClass('content') }}>
-                {{ content }}
-</div>
 
-<article{{ attributes.addClass(classes) }}>
-</article>
-#}
 
 
