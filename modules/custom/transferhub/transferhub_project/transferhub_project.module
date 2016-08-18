@@ -35,7 +35,7 @@ function transferhub_project_preprocess_page(&$variables) {
         $variables['#attached']['library'][] = 'transferhub_project/transferhub_project';
     }
 
-    if ($route_match->getParameter("node")->getType() == "page") {
+    if ($route_match->getParameter("node") && $route_match->getParameter("node")->getType() == "page") {
         $variables['#attached']['library'][] = 'transferhub_project/anchor_scroll';
     }
 }

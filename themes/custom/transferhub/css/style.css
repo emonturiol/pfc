@@ -80,7 +80,7 @@ p:last-child,
 }
 */
 /*
-html.html.twig (header, footer...)
+html.html.twig (header, footer...), ...
 */
 img {
   margin-bottom: 10px;
@@ -123,6 +123,15 @@ img {
 .main-blog-no-node {
   padding-top: 50px !important;
 }
+.nav-tabs > li.active > a {
+  cursor: default;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+}
+nav.tabs.container {
+  margin-bottom: 30px;
+}
 @media (min-width: 768px) {
   #footer ul.menu li {
     float: left;
@@ -130,6 +139,9 @@ img {
 }
 #footer a {
   color: white;
+}
+form.search-page-form {
+  display: none;
 }
 .user-register-form .filter-help {
   display: none;
@@ -180,15 +192,6 @@ div.password-confirm span.error {
 {
   content: "";
 }*/
-.nav-tabs > li.active > a {
-  cursor: default;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-bottom-color: transparent;
-}
-nav.tabs.container {
-  margin-bottom: 30px;
-}
 body.user-logged-in h4.label {
   color: black;
   font-size: 100%;
@@ -196,35 +199,30 @@ body.user-logged-in h4.label {
 body.user-logged-in img {
   margin-bottom: 10px;
 }
-form.search-page-form {
-  display: none;
-}
-.view-projects .grid-row {
-  margin-top: 25px;
-}
-div.field--name-field-tags .field--item {
-  width: auto;
-  float: right;
-  padding: 2px 8px;
-  background-color: #F5F5F5;
-  margin-left: 8px;
-  margin-top: 8px;
-  font-size: 13px;
-}
-div.field--name-field-tags .field--item a {
-  color: #454545;
-}
-.view-projects .tags {
-  border-bottom: 1px solid #eee;
-}
-.view-display-id-block_1 .col-sm-3 {
+.basic-page-section-title {
   text-align: left;
 }
-.view-display-id-block_1 .col-sm-3 .field--name-field-image {
-  text-align: center ;
+.basic-page-subpage.gray-background,
+.basic-page-subpage.gray-background .post-content {
+  background-color: #EEE;
 }
-.view-display-id-block_1 .col-sm-3 .field--name-field-image img {
-  display: inline;
+.basic-page-subpage h3 {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.basic-page-subpage h2 {
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.basic-page-subpage table {
+  margin-top: 30px;
+}
+.basic-page-subpage table td {
+  vertical-align: top;
+}
+.basic-page-subpage table td img {
+  margin-right: 25px;
 }
 div.project-social {
   padding-top: 20px !important;
@@ -276,8 +274,19 @@ div.project-content {
 div.post.donor .media {
   border-bottom: 1px solid #d8d8d8;
 }
+.practices h2.title {
+  font-weight: bold;
+  padding-left: 25px;
+  margin-top: 30px;
+  margin-bottom: 0px;
+}
 .practices .media {
   border-bottom: 1px solid white;
+}
+.practices .rating-select {
+  margin-top: 30px;
+  font-size: 25px;
+  color: #fdc916;
 }
 .node-project-form .field--name-field-desktop,
 .node-project-edit-form .field--name-field-desktop,
@@ -298,21 +307,32 @@ div.post.donor .media {
 .node-project-edit-form #edit-actions .button {
   margin-right: 15px;
 }
-.basic-page-section-title {
+.view-projects .grid-row {
+  margin-top: 25px;
+}
+div.field--name-field-tags .field--item {
+  width: auto;
+  float: right;
+  padding: 2px 8px;
+  background-color: #F5F5F5;
+  margin-left: 8px;
+  margin-top: 8px;
+  font-size: 13px;
+}
+div.field--name-field-tags .field--item a {
+  color: #454545;
+}
+.view-projects .tags {
+  border-bottom: 1px solid #eee;
+}
+.view-display-id-block_1 .col-sm-3 {
   text-align: left;
 }
-.basic-page-subpage.gray-background,
-.basic-page-subpage.gray-background .post-content {
-  background-color: #EEE;
+.view-display-id-block_1 .col-sm-3 .field--name-field-image {
+  text-align: center ;
 }
-.basic-page-subpage table {
-  margin-top: 30px;
-}
-.basic-page-subpage table td {
-  vertical-align: top;
-}
-.basic-page-subpage table td img {
-  margin-right: 25px;
+.view-display-id-block_1 .col-sm-3 .field--name-field-image img {
+  display: inline;
 }
 a {
   color: #000000;
