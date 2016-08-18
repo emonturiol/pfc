@@ -60,34 +60,46 @@ class SyncronizeInDevicehub extends RulesActionBase {
     {       
         $api = new \Drupal\transferhub_devicehub\transferhub_DeviceHubRestClient();
 
-        //TODO fill data
-        $content = array();
+        $host = (strpos(\Drupal::request()->getHost(), "localhost/reutilitza") === false)?  \Drupal::request()->getHost() : "www.reutilitza.cat"; //TODO
+        $base_url = "http://" . $host . base_path();
+        $project_url = $base_url . "node/".$node->id();
+
+        $content["date"] = "2016-08-17T00:00:00"; //todo
+        $content["description"] = "Sent from transferhub"; //todo
+        $content["project"] = $project_url;
+        $content["url"] = $project_url;
 
         switch ($state)
         {
             case  "project_workflow_rejected":{
                 //Reject project
+                $content["@type"] = "projects:Reject";
                 $url= "events/projects/reject";
                 break;
             }
             case  "project_workflow_waiting_for_assignment": {
                 //Accept project
+                $content["@type"] = "projects:Accept";
                 $url = "events/projects/accept";
                 break;
             }
             case  "project_workflow_cancelled": {
                 //Cancel project
+                $content["@type"] = "projects:Cancel";
                 $url = "events/projects/cancel";
                 break;
             }
             case  "project_workflow_finished": {
                 //Finish project
+                $content["@type"] = "projects:Finish";
                 $url = "events/projects/finish";
                 break;
             }                
         }
         
-        //if (isset($url))
-        //    $api->call("events/projects/reject","POST",$content);
+        if (isset($url))
+        {
+           $api->call($api->db . "/" . $url,"POST",$content);
+        }
     }
 }

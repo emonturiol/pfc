@@ -54,6 +54,34 @@ class TransferHubDeviceHubController extends ControllerBase {
         return $return;
     }
 
+    public function eventTest()
+    {
+        $nid = 6648;
+        $node = \Drupal\node\Entity\Node::load($nid);
+
+        $api = new \Drupal\transferhub_devicehub\transferhub_DeviceHubRestClient();
+
+        $host = (strpos(\Drupal::request()->getHost(), "localhost/reutilitza") === false)?  \Drupal::request()->getHost() : "www.reutilitza.cat"; //TODO
+        $base_url = "http://" . $host . base_path();
+        $url = $base_url . "node/".$node->id();
+
+        $content["@type"] = "projects:Accept";
+        $content["date"] = "2016-08-17T00:00:00";
+        $content["description"] = "Sent from transferhub";
+        $content["project"] = $url;
+        $content["url"] = $url;
+
+        $url = "db1/events/projects/accept";
+        $result = $api->call($url,"POST",$content);
+
+        $return = array(
+            "#type" => "markup",
+            "#markup" => print_r($result, true)
+        );
+        return $return;
+
+    }
+
     public function projectTest() //todo delete
     {
         
@@ -72,7 +100,7 @@ class TransferHubDeviceHubController extends ControllerBase {
         $node->save();
         */
 
-        $nid = 6628;
+        $nid = 6648;
         $node = \Drupal\node\Entity\Node::load($nid);
          //kint($node); die;
         
@@ -89,16 +117,16 @@ class TransferHubDeviceHubController extends ControllerBase {
 
         //basic information
         $title = $node->getTitle();
-        $desc = $node->get("field_description")->getValue();
-        $shortDesc = $node->get("field_short_description")->getValue();
-        $url = $base_url . "/node/".$node->id();
+        $desc = str_replace(array("\r", "\n"),"",strip_tags($node->get("field_description")->getValue()[0]["value"]));
+        $shortDesc = str_replace(array("\r", "\n"),"",strip_tags($node->get("field_short_description")->getValue()[0]["value"]));
+        $url = $base_url . "node/".$node->id();
         foreach($node->get("field_tags") as $term)
         {
             $term_id = $term->toArray()["target_id"];
             $term_name = \Drupal\taxonomy\Entity\Term::load($term_id)->toArray()["name"][0]["value"];
             $tags[] = $term_name;
         }
-        $deadline = $node->get("field_deadline")->getValue()."T00:00:00";
+        $deadline = $node->get("field_deadline")->getValue()[0]["value"]."T00:00:00";
         $author_url = $base_url . "user/" . $node->get("uid")->getValue()[0]["target_id"];
 
         if (\Drupal::moduleHandler()->moduleExists('transferhub_vote'))

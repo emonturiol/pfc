@@ -97,9 +97,9 @@ class transferhub_DeviceHubRestClient
         while ($result->info->http_code != 200 && $result->info->http_code != 201 && $attempts <= 3);
 
         if ($method == "GET")
-            $data = serialize($params);
+            $data = json_encode($params,JSON_UNESCAPED_SLASHES);
         else
-            $data = serialize($content);
+            $data = json_encode($content,JSON_UNESCAPED_SLASHES);
 
         if ($result->info->http_code != 200 && $result->info->http_code != 201)
         {
@@ -155,13 +155,13 @@ class transferhub_DeviceHubRestClient
         $content["@type"] = "Project";
 
         $content["label"] = $title;
-        $content["description"] = $desc;
-        $content["shortDescription"] = $shortDesc;
+        $content["description"] = substr($desc, 0, 499);
+        $content["shortDescription"] = substr($shortDesc, 0, 149);
         $content["@type"] = "Project";
         $content["url"] = $url;
         $content["tags"] = $tags;
-        $content["deathline"] = $deadline;
-        $content["votes"] = $votes;
+        $content["deadline"] = $deadline;
+        $content["votes"] = (int)$votes;
         $content["byUser"] = $author_url;
         $content["image"] = $image;
         //links
@@ -172,12 +172,12 @@ class transferhub_DeviceHubRestClient
         );
         //numbers of required devices
         $content["requiredDevices"] = array(
-            "Desktop" => $count_desktop,
-            "DesktopWithPeripherals" => $count_desktop_peripherals,
-            "Laptop" => $count_laptop,
-            "MobilePhone" => $count_phone,
-            "TabletComputer" => $count_tablet,
-            "ComputerMonitor" => $count_monitor
+            "Desktop" => (int)$count_desktop,
+            "DesktopWithPeripherals" => (int)$count_desktop_peripherals,
+            "Laptop" => (int)$count_laptop,
+            "MobilePhone" => (int)$count_phone,
+            "TabletComputer" => (int)$count_tablet,
+            "ComputerMonitor" => (int)$count_monitor
         );
         //address
         $content["address"] = array(
