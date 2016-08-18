@@ -13,6 +13,7 @@
 
 # Core's dependencies are managed with Composer.
 vendor
+!core/assets/vendor
 
 #Environment-dependent files
 .htaccess
