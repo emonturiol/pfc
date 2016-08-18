@@ -1,0 +1,91 @@
+
+/*
+html.html.twig (header, footer...), ...
+*/
+//General
+img {
+  margin-bottom: 10px;
+}
+
+//TOP BAR
+.container-top
+{
+  min-height: 45px;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: rgba(1, 1, 1, 0.7);
+
+}
+.region-navigation-top{
+  float: right;
+  color: white !important;
+  a {
+    color: white !important;
+  }
+}
+
+//LOGO
+.navbar-brand
+{
+  background-color: transparent !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+.navbar-header
+{
+  background-color: transparent !important;
+}
+.navbar-header:before
+{
+  background-color: transparent !important;
+}
+@media (min-width: @screen-sm) {
+  .navbar-brand img
+  {
+    position: relative;
+    top: -42px;
+  }
+}
+
+//LOGIN MENU
+#block-transferhub-account-menu ul
+{
+  margin-right: 0 !important;
+}
+
+//content CONTAINER
+.main-blog-no-node
+{
+  padding-top: 50px !important;
+}
+
+//TABS
+.nav-tabs>li.active>a
+{
+  cursor: default;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+}
+nav.tabs.container {
+  margin-bottom: 30px;
+}
+
+//FOOTER MENU
+@media (min-width: @screen-sm)
+{
+  #footer ul.menu li
+  { float: left;}
+}
+#footer a
+{
+  color: white;
+}
+
+//page search form
+form.search-page-form
+{
+  display: none;
+}

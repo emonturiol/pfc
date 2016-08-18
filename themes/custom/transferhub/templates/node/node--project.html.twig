@@ -522,55 +522,65 @@ view_mode ? view_mode|clean_class,
     </div>
 </div><!--/#main-blog-->
 
+{% macro printStars(rate) %}
+    {% if rate %}
+        <div class="rating-select">
+            {% for i in 5..1 %}
+                {% if i > rate %}
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                {% else %}
+                    <span class="glyphicon glyphicon-star"></span>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endmacro %}
 
-<div id="blog-breadcrumb" class="text-center page-breadcrumb project-footer practices">
+<div id="blog-breadcrumb" class="page-breadcrumb project-footer practices">
     <div class="container">
         <div class="row">
-            <h2 class="entry-title">
+            <h2 class="entry-title title">
                 {% trans %}Good donation practices{% endtrans %}
             </h2>
             <div class="entry-summary">
                 <div class="widget">
                     <div class="latest-posts">
-
-                        {{ content.field_questionary.value }}
-
-                        {{ content.field_use }}
-
-                        {{ content.field_maintenance.value }}
-
-                        {{ content.field_reuse_return }}
-
-
-
                         <div class="media">
                             <div class="pull-left">
-                               <h3>Cuestionario / Testimonio</h3>
+                               <h2>{{ node.field_questionary.getFieldDefinition().get("label") }}</h2>
+                                {{ node.field_questionary.getFieldDefinition().get("description") }}
                             </div>
                             <div class="pull-right">
-                                <div class="rating-select">
-                                    <div class=""><span class="glyphicon glyphicon-star-empty"></span></div>
-                                    <div class=""><span class="glyphicon glyphicon-star-empty"></span></div>
-                                    <div class=""><span class="glyphicon glyphicon-star-empty"></span></div>
-                                    <div class=""><span class="glyphicon glyphicon-star-empty"></span></div>
-                                    <div class=""><span class="glyphicon glyphicon-star"></span></div>
-                                </div>
+                                {{ _self.printStars(content.field_questionary[0]["#markup"]) }}
                             </div>
                         </div>
-                        <!--div class="media">
+                        <div class="media">
                             <div class="pull-left">
-                                Uso / Satisfaccion
+                                <h2>{{ node.field_use.getFieldDefinition().get("label") }}</h2>
+                                {{ node.field_use.getFieldDefinition().get("description") }}
                             </div>
                             <div class="pull-right">
-                                <div class="rating-select">
-                                    <div class=""><span class="glyphicon glyphicon-star-empty"></span></div>
-                                    <div class=""><span class="glyphicon glyphicon-star-empty"></span></div>
-                                    <div class=""><span class="glyphicon glyphicon-star-empty"></span></div>
-                                    <div class=""><span class="glyphicon glyphicon-star-empty"></span></div>
-                                    <div class=""><span class="glyphicon glyphicon-star"></span></div>
-                                </div>
+                                {{ _self.printStars(content.field_use[0]["#markup"]) }}
                             </div>
-                        </div-->
+                        </div>
+                        <div class="media">
+                            <div class="pull-left">
+                                <h2>{{ node.field_maintenance.getFieldDefinition().get("label") }}</h2>
+                                {{ node.field_maintenance.getFieldDefinition().get("description") }}
+                            </div>
+                            <div class="pull-right">
+                                {{ _self.printStars(content.field_maintenance[0]["#markup"]) }}
+                            </div>
+                        </div>
+                        <div class="media">
+                            <div class="pull-left">
+                                <h2>{{ node.field_reuse_return.getFieldDefinition().get("label") }}</h2>
+                                {{ node.field_reuse_return.getFieldDefinition().get("description") }}
+                            </div>
+                            <div class="pull-right">
+                                {{ _self.printStars(content.field_reuse_return[0]["#markup"]) }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -578,6 +588,7 @@ view_mode ? view_mode|clean_class,
         </div>
     </div>
 </div><!--/.page-breadcrumb-->
+
 
 
 
