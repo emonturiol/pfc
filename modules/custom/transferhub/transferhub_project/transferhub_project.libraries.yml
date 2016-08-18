@@ -4,3 +4,10 @@ transferhub_project:
     js/transferhub_project.js: {}
   dependencies:
     - core/jquery
+
+anchor_scroll:
+  version: 1.x
+  js:
+    js/anchor_scroll.js: {}
+  dependencies:
+    - core/jquery

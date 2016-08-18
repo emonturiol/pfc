@@ -298,6 +298,22 @@ div.post.donor .media {
 .node-project-edit-form #edit-actions .button {
   margin-right: 15px;
 }
+.basic-page-section-title {
+  text-align: left;
+}
+.basic-page-subpage.gray-background,
+.basic-page-subpage.gray-background .post-content {
+  background-color: #EEE;
+}
+.basic-page-subpage table {
+  margin-top: 30px;
+}
+.basic-page-subpage table td {
+  vertical-align: top;
+}
+.basic-page-subpage table td img {
+  margin-right: 25px;
+}
 a {
   color: #000000;
 }

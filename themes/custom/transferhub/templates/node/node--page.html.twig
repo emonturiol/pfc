@@ -64,11 +64,49 @@
  *   rendered twice on a page this is invalid CSS for example: two lists
  *   in different view modes.
  */
+{% for subpage in content.field_subpage["#items"] %}
+
+    {{ kint(subpage) }}
+
+{% endfor %}
+
 #}
 
+<div class="container">
+    <div class="row">
+        <article{{ attributes.addClass(classes) }}>
 
-{% for subpage in content.field_subpage %}
+            {{ title_prefix }}
+            {% if not page %}
+                <h2{{ title_attributes }}>
+                    <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+                </h2>
+            {% endif %}
+            {{ title_suffix }}
 
-    {{ subpage.field_title }}
+            {% if display_submitted %}
+                <footer>
+                    {{ author_picture }}
+                    <div{{ author_attributes.addClass('author') }}>
+                        {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
+                        {{ metadata }}
+                    </div>
+                </footer>
+            {% endif %}
+            <div id="content" class="site-content col-md-12">
+                <div class="post">
+                    <div class="post-content">
+                        <h2 class="entry-title">{{ label }}</h2> <!--todo IF TITLE -->
+                        {{ content.field_body }}
+                    </div>
+                </div>
+            </div>
 
-{% endfor }}
+        </article>
+
+    </div>
+</div>
+
+
+{{ content.field_subpage }}
+

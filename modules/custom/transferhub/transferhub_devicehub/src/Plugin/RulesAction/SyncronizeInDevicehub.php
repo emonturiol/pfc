@@ -99,7 +99,7 @@ class SyncronizeInDevicehub extends RulesActionBase {
         
         if (isset($url))
         {
-           $api->call($api->db . "/" . $url,"POST",$content);
+           //$api->call($api->db . "/" . $url,"POST",$content);
         }
     }
 }
