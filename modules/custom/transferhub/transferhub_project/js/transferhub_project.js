@@ -4,7 +4,6 @@
 
 jQuery( document ).ready(function() {
 
-    console.log("organization: script attached");
     //function: update visibility of organization fields, based on user selections
     function updateDisplay()
     {

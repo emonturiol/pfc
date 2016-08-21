@@ -153,6 +153,7 @@ function transferhub_preprocess_page(&$variables)
 function transferhub_preprocess_block(&$variables)
 {
     //make installation base path available in block templates
+    //drupal_set_message($variables["plugin_id"]);
     $variables["base_path"] = base_path();
 
     //language
@@ -160,11 +161,17 @@ function transferhub_preprocess_block(&$variables)
     drupal_set_message(\Drupal::languageManager()->getCurrentLanguage()->getId());*/
 
     //Disable cache for specific blocks
-    $excluded_blocks = array("views_block:advertisments-block_1");
-    
+    $excluded_blocks = array("views_block:advertisments-block_1");    
     if (in_array($variables["plugin_id"],$excluded_blocks))
     {
        $variables["content"]["#cache"]["max-age"] = 0;
+    }
+
+    //process bold font
+    $processTitle = array("views_block:projects-block_1","contact_block");
+    if (in_array($variables["plugin_id"],$processTitle))
+    {
+        $variables["label"] = _transferhub_processBoldText($variables["label"]);
     }
 }
 
@@ -361,7 +368,6 @@ function transferhub_add_regions_to_node($allowed_regions, &$variables) {
 //Form ALTERS
 function transferhub_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
 {
-    //drupal_set_message($form_id);
     //Drupal forms
 
     //USER
@@ -450,7 +456,32 @@ function transferhub_theme_suggestions_alter(array &$suggestions, array $variabl
     }
 }
 
+function _transferhub_processBoldText($text)
+{
+    if (substr_count("*",$text) % 2 != 0)
+    {
+        return $text;
+    }
 
+    $arr = explode("*",$text);
+    $i = 0;
+    $final = "";
+    foreach($arr as $sub)
+    {
+        if ($i % 2 == 0)
+            $d = "<strong>";
+        else
+            $d = "</strong>";
+
+        $final .= $sub;
+        if ($i < count($arr) -1 )
+        {
+            $final .= $d;
+        }
+        $i++;
+    }
+    return $final;
+}
 //todo delete
 /*
 function transferhub_theme_suggestions_submit_alter(array &$suggestions, array $variables)

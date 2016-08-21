@@ -9,7 +9,8 @@
         "commerceguys/addressing": "^0.8.2",
         "commerceguys/zone": "^0.7.1",
         "commerceguys/intl": "^0.7.1",
-        "facebook/php-sdk-v4": "~5.0"
+        "facebook/php-sdk-v4": "~5.0",
+        "tcdent/php-restclient": "^0.1.5"
     },
     "replace": {
         "drupal/core": "~8.1"

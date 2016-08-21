@@ -11,3 +11,10 @@ anchor_scroll:
     js/anchor_scroll.js: {}
   dependencies:
     - core/jquery
+
+random_advertisment:
+  version: 1.x
+  js:
+    js/random_advertisment.js: {}
+  dependencies:
+    - core/jquery

@@ -17,9 +17,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use \Drupal\workflow\Entity\Workflow;
 
-
-//require_once("/var/www/html/reutilitza/modules/custom/transferhub/transferhub_devicehub/src/lib/php-restclient/restclient.php");
-
 /**
  * Controller routines for Lorem ipsum pages.
  */
@@ -61,13 +58,19 @@ class TransferHubDeviceHubController extends ControllerBase {
 
         $api = new \Drupal\transferhub_devicehub\transferhub_DeviceHubRestClient();
 
-        $host = (strpos(\Drupal::request()->getHost(), "localhost/reutilitza") === false)?  \Drupal::request()->getHost() : "www.reutilitza.cat"; //TODO
-        $base_url = "http://" . $host . base_path();
+        $base_url = "http://" . \Drupal::request()->getHost() . base_path();
+        if (strpos(\Drupal::request()->getHost(), "localhost") !== false)
+        {
+            //todo
+            $base_url = "http://www.reutilitza.cat/";
+        }
+
         $url = $base_url . "node/".$node->id();
 
         $content["@type"] = "projects:Accept";
-        $content["date"] = "2016-08-17T00:00:00";
+        $content["date"] = date("Y-d-m") . "T00:00:00";
         $content["description"] = "Sent from transferhub";
+        $content["byUser"] = $base_url . "user/" . \Drupal::currentUser()->id();
         $content["project"] = $url;
         $content["url"] = $url;
 
@@ -84,7 +87,7 @@ class TransferHubDeviceHubController extends ControllerBase {
 
     public function projectTest() //todo delete
     {
-        
+
         /*
          $nid = 6628;
         $node = \Drupal\node\Entity\Node::load($nid);
@@ -92,9 +95,9 @@ class TransferHubDeviceHubController extends ControllerBase {
         //record transition (history)
         $transition =  WorkflowTransition::create(["project_workflow_waiting_for_assignment"]);
         $transition->setValues("project_workflow_draft", $uid = NULL, $timestamp = REQUEST_TIME, "Devicehub: 4");
-        $transition->setTargetEntity($node);       
+        $transition->setTargetEntity($node);
         $result["sortida"] = $transition->execute(true);
-        
+
         //change node state
         $node->get("field_workflow")->setValue("project_workflow_draft");
         $node->save();
@@ -106,14 +109,12 @@ class TransferHubDeviceHubController extends ControllerBase {
         
         $api = new  \Drupal\transferhub_devicehub\transferhub_DeviceHubRestClient();
 
-        $host = (strpos(\Drupal::request()->getHost(), "localhost/reutilitza") === false)?  \Drupal::request()->getHost() : "www.reutilitza.cat"; //TODO
-        $base_url = "http://" . $host . base_path();
-        //$title, $desc, $shortDesc, $url, $tags, $deathline, $author_url, $votes,
-        //                   $link_web, $link_fb, $link_twitter, $image,
-        //                   $count_desktop, $count_desktop_peripherals, $count_laptop, $count_phone, $count_tablet, $count_monitor,
-        //                   $addr_country, $addr_locality, $addr_region, $addr_zip, $addr_street
-
-        $node_r = $node->toArray(); //todo remove
+        $base_url = "http://" . \Drupal::request()->getHost() . base_path();
+        if (strpos(\Drupal::request()->getHost(), "localhost") !== false)
+        {
+            //todo
+            $base_url = "http://www.reutilitza.cat/";
+        }
 
         //basic information
         $title = $node->getTitle();
@@ -126,8 +127,12 @@ class TransferHubDeviceHubController extends ControllerBase {
             $term_name = \Drupal\taxonomy\Entity\Term::load($term_id)->toArray()["name"][0]["value"];
             $tags[] = $term_name;
         }
-        $deadline = $node->get("field_deadline")->getValue()[0]["value"]."T00:00:00";
+        $date = $node->get("field_deadline")->getValue()[0]["value"];
+        if (isset($date) && !empty($date))
+            $deadline = $date . "T00:00:00";
+
         $author_url = $base_url . "user/" . $node->get("uid")->getValue()[0]["target_id"];
+        $author_url = $base_url . "user/77" ; //todo treure
 
         if (\Drupal::moduleHandler()->moduleExists('transferhub_vote'))
         {
@@ -154,14 +159,14 @@ class TransferHubDeviceHubController extends ControllerBase {
         $count_monitor = $node->get("field_computer_monitor")->getValue()[0]["value"]; 
 
         //address
-        $addr_country = $node->get("field_address")->getValue()[0]["country_code"];
-        $addr_locality = $node->get("field_address")->getValue()[0]["locality"];
-        $addr_region = $node->get("field_address")->getValue()[0]["administrative_area"];
-        $addr_zip = $node->get("field_address")->getValue()[0]["postal_code"];
-        $addr_street = $node->get("field_address")->getValue()[0]["address_line1"];
+        $address = $node->get("field_address")->getValue()[0];
+        $addr_country = $address["country_code"];
+        $addr_locality = $address["locality"];
+        $addr_region = $address["administrative_area"];
+        $addr_zip = $address["postal_code"];
+        $addr_street = $address["address_line1"];
 
-        //call DeviceHub and LOG
-        \Drupal::logger("transferhub_devicehub")->info("project created: ".$node->id());
+        //call DeviceHub
         $result = $api->createProject(
             //basic information
             $title, $desc, $shortDesc, $url, $tags, $deadline, $author_url, $image,
@@ -171,7 +176,6 @@ class TransferHubDeviceHubController extends ControllerBase {
             $count_desktop, $count_desktop_peripherals, $count_laptop, $count_phone, $count_tablet, $count_monitor,
             //address
             $addr_country, $addr_locality, $addr_region, $addr_zip, $addr_street);
-
 
         $return = array(
             "#type" => "markup",

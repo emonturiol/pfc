@@ -60,12 +60,19 @@ class SyncronizeInDevicehub extends RulesActionBase {
     {       
         $api = new \Drupal\transferhub_devicehub\transferhub_DeviceHubRestClient();
 
-        $host = (strpos(\Drupal::request()->getHost(), "localhost/reutilitza") === false)?  \Drupal::request()->getHost() : "www.reutilitza.cat"; //TODO
-        $base_url = "http://" . $host . base_path();
+        $base_url = "http://" . \Drupal::request()->getHost() . base_path();
+        if (strpos(\Drupal::request()->getHost(), "localhost") !== false)
+        {
+            //todo
+            $base_url = "http://www.reutilitza.cat/";
+        }
+
         $project_url = $base_url . "node/".$node->id();
 
-        $content["date"] = "2016-08-17T00:00:00"; //todo
-        $content["description"] = "Sent from transferhub"; //todo
+        $content["date"] = date("Y-d-m") . "T00:00:00";
+        $content["description"] = t("State changed in Transferhub"); //todo
+        $content["byUser"] = $base_url . "user/" . \Drupal::currentUser()->id();
+        $content["byUser"] = $base_url . "user/77" ; //todo treure
         $content["project"] = $project_url;
         $content["url"] = $project_url;
 
@@ -99,7 +106,7 @@ class SyncronizeInDevicehub extends RulesActionBase {
         
         if (isset($url))
         {
-           //$api->call($api->db . "/" . $url,"POST",$content);
+           $api->call($api->db . "/" . $url,"POST",$content);
         }
     }
 }
