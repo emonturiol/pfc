@@ -108,7 +108,6 @@ view_mode ? view_mode|clean_class,
         <div class="row">
             <div class="col-md-8">
                 {{ content.field_image }}
-                <!--img class="responsive" src="/reutilitza/sites/default/files/project.png" /><!--todo -->
             </div>
             <div class="col-md-4">
                     {{ vote_block }}
@@ -169,7 +168,6 @@ view_mode ? view_mode|clean_class,
                         <div class="entry-summary">
                             <div class="text-center client-content">
                                 <ul>
-                                    <!--img class="img-responsive" src="{{ base_path }}/themes/custom/transferhub/images/devices/118.png" alt=""-->
                                     {% if desktop %}
                                         <li><p><i class="fa fa-server device-icon" aria-hidden="true"></i></p>
                                             <span class="text">{% trans %}Desktop{% endtrans %} ({{ desktop }})</span>
@@ -349,173 +347,6 @@ view_mode ? view_mode|clean_class,
 
                     {{ sidebar_project }}
 
-
-                    {#
-
-
-
-                     <center>
-                                <img src="{{ organization.image_url }}" style="width: 248px" />
-                            </center>
-                            <h3 class="widget_title">{{ organization.title }}</h3>
-                            <p style="padding: 15px;">
-                                {{ organization.short_description }}
-                            </p>
-
-
-
-
-                                {{ kint(content.field_organization_existing.value) }}
-            {{ kint(content.field_organization_new.value) }}
-                    <div class="widget widget_search">
-                        <form role="form" id="search" method="get" name="contact-form" action="#">
-                            <div class="form-group">
-                                <input type="text" class="form-control" autocomplete="off" placeholder="Blog Search">
-                                <button type="submit" class="btn"><i class="fa fa-search"></i></button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="widget">
-                        <h3 class="widget_title">Latest Posts</h3>
-                        <div class="latest-posts">
-                            <div class="media">
-                                <div class="pull-left">
-                                    <a href="#"><img class="img-responsive" src="images/blog/girl.jpg" alt="" /></a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="entry-title"><a href="#">Tumblr kale chips single</a></h4>
-                                    <div class="entry-meta small">
-                                        <p><i class="fa fa-calendar"></i>20 Feb 2015</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="pull-left">
-                                    <a href="#"><img class="img-responsive" src="images/blog/post2.jpg" alt="" /></a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="entry-title"><a href="#">Artisan wolf fap lomo, laborum</a></h4>
-                                    <div class="entry-meta small">
-                                        <p><i class="fa fa-calendar"></i>14 Feb 2015</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="pull-left">
-                                    <a href="#"><img class="img-responsive" src="images/blog/post3.jpg" alt="" /></a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="entry-title"><a href="#">Exercitation photo booth stumptown</a></h4>
-                                    <div class="entry-meta small">
-                                        <p><i class="fa fa-calendar"></i>12 Feb 2015</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="pull-left">
-                                    <a href="#"><img class="img-responsive" src="images/blog/post4.jpg" alt="" /></a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="entry-title"><a href="#">Exercitation photo booth stumptown</a></h4>
-                                    <div class="entry-meta small">
-                                        <p><i class="fa fa-calendar"></i>12 Feb 2015</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="pull-left">
-                                    <a href="#"><img class="img-responsive" src="images/blog/post5.jpg" alt="" /></a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="entry-title"><a href="#">Exercitation photo booth stumptown</a></h4>
-                                    <div class="entry-meta small">
-                                        <p><i class="fa fa-calendar"></i>12 Feb 2015</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="widget">
-                        <h3 class="widget_title">Recent Comments</h3>
-                        <div class="recent-comment">
-                            <div class="media">
-                                <div class="pull-left">
-                                    <a href="#"><img class="img-responsive" src="images/team/1.jpg" alt="" /></a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="entry-title"><a href="#">Artisan wolf fap lomo, laborum</a></h4>
-                                    <div class="entry-meta small">
-                                        <p><i class="fa fa-calendar"></i>14 Feb 2015</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="media">
-                                <div class="pull-left">
-                                    <a href="#"><img class="img-responsive" src="images/team/3.jpg" alt="" /></a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="entry-title"><a href="#">Artisan wolf fap lomo, laborum</a></h4>
-                                    <div class="entry-meta small">
-                                        <p><i class="fa fa-calendar"></i>14 Feb 2015</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="media">
-                                <div class="pull-left">
-                                    <a href="#"><img class="img-responsive" src="images/team/5.jpg" alt="" /></a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="entry-title"><a href="#">Exercitation photo booth stumptown</a></h4>
-                                    <div class="entry-meta small">
-                                        <p><i class="fa fa-calendar"></i>12 Feb 2015</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="pull-left">
-                                    <a href="#"><img class="img-responsive" src="images/team/1.jpg" alt="" /></a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="entry-title"><a href="#">Exercitation photo booth stumptown</a></h4>
-                                    <div class="entry-meta small">
-                                        <p><i class="fa fa-calendar"></i>12 Feb 2015</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="pull-left">
-                                    <a href="#"><img class="img-responsive" src="images/team/7.jpg" alt="" /></a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="entry-title"><a href="#">Exercitation photo booth stumptown</a></h4>
-                                    <div class="entry-meta small">
-                                        <p><i class="fa fa-calendar"></i>12 Feb 2015</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="widget tag-cloud">
-                        <h3 class="widget_title">Tag Clouds</h3>
-                        <ul>
-                            <li><a href="#">Business</a></li>
-                            <li><a href="#">Creative</a></li>
-                            <li><a href="#">Marketing</a></li>
-
-                            <li><a href="#">Bloging</a></li>
-                            <li><a href="#">Science</a></li>
-                            <li><a href="#">Multipurpose</a></li>
-                            <li><a href="#">Graphics</a></li>
-                            <li><a href="#">Art</a></li>
-                            <li><a href="#">Graphics</a></li>
-                        </ul>
-                    </div>
-                    #}
                 </div>
             </div> <!--/Sidebar-->
         </div>

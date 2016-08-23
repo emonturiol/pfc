@@ -100,7 +100,6 @@
                     </div>
                     <div class="topbar-icons">
                         <span><i class="fa fa-search"></i></span>
-                        <!--span><i class="fa fa-shopping-cart"></i></span-->
                     </div>
                     <div class="search">
                         {{ search_block }}
@@ -128,17 +127,11 @@
                                 <div class="col-md-7">
                                     <h3>{{ theme.settings.home_banner.title }}</h3>
                                     <h4>{{ theme.settings.home_banner.subtitle }}</h4>
-                                    <!--ul>
-                                        <li><i class="fa fa-angle-right"></i>Sed ut perspiciatis unde omnis</li>
-                                        <li><i class="fa fa-angle-right"></i>Iste natus error sit voluptatem accusantium </li>
-                                        <li><i class="fa fa-angle-right"></i>doloremque laudantium</li>
-                                    </ul-->
                                     {% if theme.settings.home_banner.include_button %}
                                         <div class="button-section">
                                             <a href="{{ theme.settings.home_banner.button_link }}" class="btn btn-primary cloud-download">{{ theme.settings.home_banner.button_caption }}</a>
                                         </div>
                                     {% endif %}
-
                                 </div>
                                 <div class="col-md-5">
                                     <img class="img-responsive" src="{{ base_path ~ directory }}/{{ theme.settings.home_banner.side_image }}" alt="" />
@@ -230,85 +223,9 @@
         {# FRONT #}
         {% if is_front %}
             <a id="main-content"></a>
+
             {{ page.content_front }}
 
-            {#
-              <div id="blog" class="padding-bottom">
-                  <div class="container">
-                      <div class="row">
-                          <div class="text-center section-title">
-                              <h2>Latest <span>Post</span></h2>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-sm-4">
-                              <div class="entry-content">
-                                  <a href="blog-detail.html"><img class="img-responsive" src="{{ base_path ~ directory }}/images/home/blog/post1.jpg" alt="" /></a>
-                                  <h2 class="entry-title"><a href="blog-detail.html">Free Lifetime Updates Free Support</a></h2>
-                                  <p>Lorem ipsum dolor sit amet, consectetur adipisi- cing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p>
-                                  <div class="entry-meta">
-                                      <p>17 January 2015, <span><a href="#">Stories</a></span></p>
-                                  </div>
-                                  <a href="blog-detail.html" class="read-more"><i class="fa fa-chevron-right"></i></a>
-                              </div>
-                          </div>
-                          <div class="col-sm-4">
-                              <div class="entry-content">
-                                  <a href="blog-detail.html"><img class="img-responsive" src="{{ base_path ~ directory }}/images/home/blog/post2.jpg" alt="" /></a>
-                                  <h2 class="entry-title"><a href="blog-detail.html">Many web sites still in their infancy</a></h2>
-                                  <p>Lorem ipsum dolor sit amet, consectetur adipisi- cing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p>
-                                  <div class="entry-meta">
-                                      <p>21 December 2014, <span><a href="#">Creative</a></span></p>
-                                  </div>
-                                  <a href="blog-detail.html" class="read-more"><i class="fa fa-chevron-right"></i></a>
-                              </div>
-                          </div>
-                          <div class="col-sm-4">
-                              <div class="entry-content">
-                                  <a href="blog-detail.html"><img class="img-responsive" src="{{ base_path ~ directory }}/images/home/blog/post3.jpg" alt="" /></a>
-                                  <h2 class="entry-title"><a href="blog-detail.html">Many desktop publishing packages</a></h2>
-                                  <p>Lorem ipsum dolor sit amet, consectetur adipisi- cing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p>
-                                  <div class="entry-meta">
-                                      <p>12 December 2014, <span><a href="#">Art & Design</a></span></p>
-                                  </div>
-                                  <a href="blog-detail.html" class="read-more"><i class="fa fa-chevron-right"></i></a>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div><!--/#blog-->
-              <div id="clients" class="text-center padding-top padding-bottom">
-                  <div class="container">
-                      <div class="section-title">
-                          <h2>Some <span>Clients</span></h2>
-                      </div>
-                      <div id="client-carousel" class="carousel slide" data-ride="carousel">
-                          <div class="carousel-inner">
-                              <div class="item active">
-                                  <div class="client-content">
-                                      <ul>
-                                          <li><a href="#"><img class="img-responsive" src="{{ base_path ~ directory }}/images/home/clients/client1.png" alt="" /></a></li>
-                                          <li><a href="#"><img class="img-responsive" src="{{ base_path ~ directory }}/images/home/clients/client2.png" alt="" /></a></li>
-                                          <li><a href="#"><img class="img-responsive" src="{{ base_path ~ directory }}/images/home/clients/client3.png" alt="" /></a></li>
-                                          <li><a href="#"><img class="img-responsive" src="{{ base_path ~ directory }}/images/home/clients/client4.png" alt="" /></a></li>
-                                      </ul>
-                                  </div>
-                              </div>
-                              <div class="item">
-                                  <div class="client-content">
-                                      <ul>
-                                          <li><a href="#"><img class="img-responsive" src="{{ base_path ~ directory }}/images/home/clients/client1.png" alt="" /></a></li>
-                                          <li><a href="#"><img class="img-responsive" src="{{ base_path ~ directory }}/images/home/clients/client2.png" alt="" /></a></li>
-                                          <li><a href="#"><img class="img-responsive" src="{{ base_path ~ directory }}/images/home/clients/client3.png" alt="" /></a></li>
-                                          <li><a href="#"><img class="img-responsive" src="{{ base_path ~ directory }}/images/home/clients/client4.png" alt="" /></a></li>
-                                      </ul>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div><!--/#clients-->
-              #}
         {% endif %}
 
         {# NODE #}

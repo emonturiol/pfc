@@ -45,12 +45,15 @@
  * @see template_process()
  */
 #}
-<div id="screenshots" class="padding-top padding-bottom">
+
+<div id="screenshots" class="padding-top padding-bottom promoted-projects">
     <div class="container text-center">
-        <div class="app-section-title">
-            <h2>Our projects</h2>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto.</p>
-        </div>
+        {% if label %}
+            <div class="app-section-title">
+                <h2>{{ label|raw }}</h2>
+                <p>{% trans %}"Reuse is more than an action, is the value of the responsability to preserve the natural resources"{% endtrans %}</p>
+            </div>
+        {% endif %}
     </div>
     {{ content }}
 </div><!--/#screenshots-->

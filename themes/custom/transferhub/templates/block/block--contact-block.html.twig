@@ -47,7 +47,15 @@
 #}
 
 <div class="container padding-top">
-    {{ content }}
+    <div id="get-touch">
+        <div class="text-center ">
+            <div class="app-section-title">
+                <h2>{{ label|raw }}</h2>
+                <p>{% trans %}Send us a message. We will contact you very soon ;-){% endtrans %}</p>
+            </div>
+        </div>
+        {{ content }}
+    </div>
 </div>
 
 

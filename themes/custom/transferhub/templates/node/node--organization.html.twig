@@ -65,20 +65,17 @@
  *   in different view modes.
  */
 #}
-<div class="widget widget_categories organization">
-    <div class="latest-posts">
-        <center>
-            {{ content.field_image }}
-        </center>
-    </div>
-
-    <h3 class="widget_title">{{ label }}</h3>
-
-    <div class="latest-posts">
-        {{ content.field_short_description }}
-
-        <div class="more">
-            <a href="{{ url }}">{% trans %}Read more{% endtrans %}</a>
+<div id="projects-details" class="padding-top organization">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>{{ label }}</h2>
+                <p><i>{{ content.field_short_description }}</i></p>
+                <p>{{ content.field_description }}</p>
+            </div>
+            <div class="col-sm-6">
+               {{ content.field_image }}
+            </div>
         </div>
     </div>
 </div>

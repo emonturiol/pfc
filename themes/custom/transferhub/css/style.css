@@ -10,22 +10,71 @@
  * Modify this file to override the Bootstrap Framework variables. You can copy
  * these variables directly from ../bootstrap/less/variables.less to this file.
  */
+/**
+ * File (and Image Widget) styles.
+ */
+.file {
+  display: table;
+  font-size: 75%;
+  font-weight: 700;
+  margin: 5px 0;
+  width: 100%;
+}
+.file > span {
+  background: #fff;
+  color: #337ab7;
+  border-bottom: 1px solid #cccccc;
+  border-top: 1px solid #cccccc;
+}
+.file > span:first-child {
+  border-left: 1px solid #cccccc;
+}
+.file > span:last-child {
+  border-right: 1px solid #cccccc;
+}
+.file > .tabledrag-changed {
+  background: #fcf8e3;
+  border-radius: 0;
+  color: #8a6d3b;
+  display: table-cell;
+  padding: 0 1em;
+  top: 0;
+  vertical-align: middle;
+  border-left: 1px solid inherit;
+}
+.file > .tabledrag-changed,
+.file > .tabledrag-changed:last-child {
+  border: 1px solid #f7e1b5;
+}
+.file-icon {
+  display: table-cell;
+  font-size: 150%;
+  padding: .25em .5em;
+  text-align: center;
+  vertical-align: middle;
+}
+.file-link {
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+}
+.file-link a,
+.file-link a:hover,
+.file-link a:focus,
+.file-link a:active {
+  color: inherit;
+}
+.file-size {
+  display: table-cell;
+  padding: 0 1em;
+  text-align: right;
+  white-space: pre;
+  vertical-align: middle;
+}
+.image-widget.row {
+  overflow: hidden;
+}
 /*
-@import "component/alert";
-@import "component/ajax";
-@import "component/field";
-@import "component/file";
-@import "component/filter";
-@import "component/form";
-@import "component/icon";
-@import "component/navbar";
-@import "component/node";
-@import "component/panel";
-@import "component/progress-bar";
-@import "component/table-drag";
-@import "component/tabs";
-@import "component/toolbar";
-
 // jQuery UI style overrides.
 @import "jquery-ui/autocomplete";
 
@@ -149,6 +198,19 @@ form.search-page-form {
 #testimonial-page .quote-section {
   padding-bottom: 70px;
   padding-top: 150px;
+}
+.form-required:after {
+  color: #e00;
+  content: " \204E ";
+  line-height: 1;
+  vertical-align: super;
+}
+a.icon-before {
+  color: #337ab7;
+  text-decoration: none;
+}
+a.icon-before .glyphicon {
+  margin-right: .25em;
 }
 .success-statistics {
   padding-top: 30px;
@@ -338,6 +400,9 @@ div.post.donor .media {
 }
 .node-project-form #edit-actions .button,
 .node-project-edit-form #edit-actions .button {
+  margin-right: 15px;
+}
+#edit-field-organization-new-form-inline-entity-form-actions .btn-success {
   margin-right: 15px;
 }
 .view-projects .grid-row {
