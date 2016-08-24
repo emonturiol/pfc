@@ -56,6 +56,20 @@ class TransferHubDeviceHubController extends ControllerBase {
         $nid = 6648;
         $node = \Drupal\node\Entity\Node::load($nid);
 
+        $iterator = 0;
+        //kint($node->field_allocated_devices->get("field_collection_item"));
+        kint($node->field_allocated_devices->getValue());
+
+        for ($iterator = 0; $iterator < $node->field_allocated_devices->count(); $iterator++)
+        {
+            kint($node->field_allocated_devices->get($iterator));
+            //$item = $node->field_allocated_devices->get($iterator);
+            //kint($node->field_allocated_devices->get($iterator)->get("field_id"));
+            //kint($item->getValue("field_id"));
+        }
+
+
+        /*
         $api = new \Drupal\transferhub_devicehub\transferhub_DeviceHubRestClient();
 
         $base_url = "http://" . \Drupal::request()->getHost() . base_path();
@@ -81,7 +95,7 @@ class TransferHubDeviceHubController extends ControllerBase {
             "#type" => "markup",
             "#markup" => print_r($result, true)
         );
-        return $return;
+        return $return;*/
 
     }
 

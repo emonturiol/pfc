@@ -55,8 +55,9 @@ class TransferhubAllocateResource extends ResourceBase {
 
         //load node
         $node = \Drupal\node\Entity\Node::load($nid);
-        
-        //set update date //TODO
+
+        //last update date
+        $node->set("field_last_allocation",$data["created"]);
 
         //set devices
         $node->field_allocated_devices = \Drupal\Core\Field\FieldItemList::createInstance(\Drupal\field_collection\Entity\FieldCollectionItem::class);

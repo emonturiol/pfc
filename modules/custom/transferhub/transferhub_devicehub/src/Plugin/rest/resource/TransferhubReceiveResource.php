@@ -61,7 +61,8 @@ class TransferhubReceiveResource extends ResourceBase {
         //load node
         $node = \Drupal\node\Entity\Node::load($nid);
 
-        //set update date //TODO
+        //last update date
+        $node->set("field_last_reception",$data["created"]);
 
         //set devices
         $node->field_received_devices = \Drupal\Core\Field\FieldItemList::createInstance(\Drupal\field_collection\Entity\FieldCollectionItem::class);
@@ -90,14 +91,9 @@ class TransferhubReceiveResource extends ResourceBase {
         }
 
         //change workflow state
-        $change_state = ($current_state != "project_workflow_devices_received");
         $next_state = "project_workflow_devices_received";
-        TransferhubProjectTools::changeState($action, $node, $current_state, $next_state);
-
-
-        //update Allocated
-        //TODO ??
-
+        TransferhubProjectTools::changeState($node, $next_state, t("Devicehub: @action", array("@action"=> $action)));
+       
         //save node
         $node->save();
 

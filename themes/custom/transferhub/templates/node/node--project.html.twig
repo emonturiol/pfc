@@ -215,7 +215,7 @@ view_mode ? view_mode|clean_class,
                                     <p>{% trans %}There is no device allocated for this project yet.{% endtrans %}</p>
                                 {% else %}
                                     <p>
-                                        <strong>{% trans %}Last allocation date{% endtrans %}:</strong> {{ content.field_last_allocation.value|date("m/d/Y") }}
+                                        <strong>{% trans %}Last allocation date{% endtrans %}:</strong> {{ content.field_last_allocation[0]["#text"] }}
                                     </p>
                                     <table class="table">
                                         <thead>
@@ -227,6 +227,7 @@ view_mode ? view_mode|clean_class,
                                             <th>{% trans %}Type{% endtrans %}</th>
                                             <th>{% trans %}Manufacturer{% endtrans %}</th>
                                             <th>{% trans %}Model{% endtrans %}</th>
+                                            <th></th>
                                             <th></th>
                                         </tr>
                                         </thead>
@@ -240,7 +241,8 @@ view_mode ? view_mode|clean_class,
                                                 <td>{{ device.subtype.value }}</td>
                                                 <td>{{ device.manufacturer.value }}</td>
                                                 <td>{{ device.model.value }}</td>
-                                                <td><a href="{{ device.url.value }}" target="_blank">{% trans %}view in DeviceHub{% endtrans %}</a></td>
+                                                <td>{% if not device.received %}<a href="{{ device.url.value }}" target="_blank">{% trans %}view in DeviceHub{% endtrans %}</a>{% endif %}</td>
+                                                <td>{% if device.received %}<span class="label label-success">{% trans %}Received{% endtrans %}</span>{% endif %}</td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>
@@ -260,7 +262,7 @@ view_mode ? view_mode|clean_class,
                                     <p>{% trans %}This project hasn't received any device yet.{% endtrans %}</p>
                                 {% else %}
                                     <p>
-                                        <strong>{% trans %}Last reception date{% endtrans %}:</strong> {{ content.field_last_reception.value|date("m/d/Y") }}
+                                        <strong>{% trans %}Last reception date{% endtrans %}:</strong> {{ content.field_last_reception[0]["#text"] }}
                                     </p>
                                     <table class="table">
                                         <thead>
@@ -276,7 +278,7 @@ view_mode ? view_mode|clean_class,
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {%  for device in allocated %}
+                                        {%  for device in received %}
                                             <tr>
                                                 {% if is_admin or is_manager %}
                                                     <th scope="row">{{ device.id.value }}</th>
@@ -354,7 +356,7 @@ view_mode ? view_mode|clean_class,
 </div><!--/#main-blog-->
 
 {% macro printStars(rate) %}
-    {% if rate %}
+    {% if not rate is null %}
         <div class="rating-select">
             {% for i in 5..1 %}
                 {% if i > rate %}
@@ -367,60 +369,60 @@ view_mode ? view_mode|clean_class,
     {% endif %}
 {% endmacro %}
 
-<div id="blog-breadcrumb" class="page-breadcrumb project-footer practices">
-    <div class="container">
-        <div class="row">
-            <h2 class="entry-title title">
-                {% trans %}Good donation practices{% endtrans %}
-            </h2>
-            <div class="entry-summary">
-                <div class="widget">
-                    <div class="latest-posts">
-                        <div class="media">
-                            <div class="pull-left">
-                               <h2>{{ node.field_questionary.getFieldDefinition().get("label") }}</h2>
-                                {{ node.field_questionary.getFieldDefinition().get("description") }}
+{% if  content.field_questionary[0] or content.field_use[0] or content.field_maintenance[0] or content.field_reuse_return[0] %}
+    <div id="blog-breadcrumb" class="page-breadcrumb project-footer practices">
+        <div class="container">
+            <div class="row">
+                <h2 class="entry-title title">
+                    {% trans %}Good donation practices{% endtrans %}
+                </h2>
+                <div class="entry-summary">
+                    <div class="widget">
+                        <div class="latest-posts">
+                            <div class="media">
+                                <div class="pull-left">
+                                   <h2>{{ node.field_questionary.getFieldDefinition().get("label") }}</h2>
+                                    {{ node.field_questionary.getFieldDefinition().get("description") }}
+                                </div>
+                                <div class="pull-right">
+                                    {{ _self.printStars(content.field_questionary[0]["#markup"]) }}
+                                </div>
                             </div>
-                            <div class="pull-right">
-                                {{ _self.printStars(content.field_questionary[0]["#markup"]) }}
+                            <div class="media">
+                                <div class="pull-left">
+                                    <h2>{{ node.field_use.getFieldDefinition().get("label") }}</h2>
+                                    {{ node.field_use.getFieldDefinition().get("description") }}
+                                </div>
+                                <div class="pull-right">
+                                    {{ _self.printStars(content.field_use[0]["#markup"]) }}
+                                </div>
                             </div>
-                        </div>
-                        <div class="media">
-                            <div class="pull-left">
-                                <h2>{{ node.field_use.getFieldDefinition().get("label") }}</h2>
-                                {{ node.field_use.getFieldDefinition().get("description") }}
+                            <div class="media">
+                                <div class="pull-left">
+                                    <h2>{{ node.field_maintenance.getFieldDefinition().get("label") }}</h2>
+                                    {{ node.field_maintenance.getFieldDefinition().get("description") }}
+                                </div>
+                                <div class="pull-right">
+                                    {{ _self.printStars(content.field_maintenance[0]["#markup"]) }}
+                                </div>
                             </div>
-                            <div class="pull-right">
-                                {{ _self.printStars(content.field_use[0]["#markup"]) }}
-                            </div>
-                        </div>
-                        <div class="media">
-                            <div class="pull-left">
-                                <h2>{{ node.field_maintenance.getFieldDefinition().get("label") }}</h2>
-                                {{ node.field_maintenance.getFieldDefinition().get("description") }}
-                            </div>
-                            <div class="pull-right">
-                                {{ _self.printStars(content.field_maintenance[0]["#markup"]) }}
-                            </div>
-                        </div>
-                        <div class="media">
-                            <div class="pull-left">
-                                <h2>{{ node.field_reuse_return.getFieldDefinition().get("label") }}</h2>
-                                {{ node.field_reuse_return.getFieldDefinition().get("description") }}
-                            </div>
-                            <div class="pull-right">
-                                {{ _self.printStars(content.field_reuse_return[0]["#markup"]) }}
+                            <div class="media">
+                                <div class="pull-left">
+                                    <h2>{{ node.field_reuse_return.getFieldDefinition().get("label") }}</h2>
+                                    {{ node.field_reuse_return.getFieldDefinition().get("description") }}
+                                </div>
+                                <div class="pull-right">
+                                    {{ _self.printStars(content.field_reuse_return[0]["#markup"]) }}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
-
         </div>
-    </div>
-</div><!--/.page-breadcrumb-->
-
-
+    </div><!--/.page-breadcrumb-->
+{% endif %}
 
 
 

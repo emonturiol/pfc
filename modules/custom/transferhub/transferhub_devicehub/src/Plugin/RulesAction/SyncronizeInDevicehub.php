@@ -72,7 +72,7 @@ class SyncronizeInDevicehub extends RulesActionBase {
         $content["date"] = date("Y-d-m") . "T00:00:00";
         $content["description"] = t("State changed in Transferhub"); //todo
         $content["byUser"] = $base_url . "user/" . \Drupal::currentUser()->id();
-        $content["byUser"] = $base_url . "user/77" ; //todo treure
+        //$content["byUser"] = $base_url . "user/77" ; //todo treure
         $content["project"] = $project_url;
         $content["url"] = $project_url;
 

@@ -262,23 +262,11 @@ function transferhub_preprocess_node(&$variables)
                 $variables["current_uid"] = \Drupal::currentUser()->id();
                 //node author uid
                 $variables["author_uid"] = $node->getOwnerId();
-
-                //load Allocated devices
-                foreach ($node->field_allocated_devices->getValue() as $entity_id)
-                {
-                    //kint($entity_id["value"]); die;
-                    $device = \Drupal\field_collection\Entity\FieldCollectionItem::load($entity_id["value"]);
-                    $variables["allocated"][] = array(
-                        "id" =>  $device->get("field_id"),
-                        "type" =>  $device->get("field_type"),
-                        "subtype" =>  $device->get("field_subtype"),
-                        "manufacturer" =>  $device->get("field_manufacturer"),
-                        "model" =>  $device->get("field_model"),
-                        "url" =>  $device->get("field_url"),
-                    );
-                }
+                //state                
+                $variables["is_finished"] = ( $node->get("field_workflow")->getValue()[0]["value"] == "project_workflow_finished" );
 
                 //load Received devices
+                $received_ids = array();
                 foreach ($node->field_received_devices->getValue() as $entity_id)
                 {
                     //kint($entity_id["value"]); die;
@@ -291,11 +279,27 @@ function transferhub_preprocess_node(&$variables)
                         "model" =>  $device->get("field_model"),
                         "url" =>  $device->get("field_url"),
                     );
+                    $received_ids[] = $device->get("field_id")->getValue()[0]["value"];
                 }
-                
+
+                //load Allocated devices
+                foreach ($node->field_allocated_devices->getValue() as $entity_id)
+                {
+                    $device = \Drupal\field_collection\Entity\FieldCollectionItem::load($entity_id["value"]);
+                    $received = in_array($device->get("field_id")->getValue()[0]["value"], $received_ids);
+                    $variables["allocated"][] = array(
+                        "id" =>  $device->get("field_id"),
+                        "type" =>  $device->get("field_type"),
+                        "subtype" =>  $device->get("field_subtype"),
+                        "manufacturer" =>  $device->get("field_manufacturer"),
+                        "model" =>  $device->get("field_model"),
+                        "url" =>  $device->get("field_url"),
+                        "received" => $received,
+                    );
+                }
+
                 //load donors
                 //todo
-
 
                 //load voting block
                 if (\Drupal::moduleHandler()->moduleExists('transferhub_vote')) {
