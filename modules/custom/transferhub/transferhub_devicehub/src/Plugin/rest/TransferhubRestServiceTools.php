@@ -19,7 +19,6 @@ use \Drupal\workflow\Entity\WorkflowTransition;
 
 class TransferhubRestServiceTools {
 
-
     static function raiseError($message, $params = NULL, $status = 422)
     {
         $response = array();
@@ -65,6 +64,5 @@ class TransferhubRestServiceTools {
         
         return true;
     }
-
 
 }

@@ -18,8 +18,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Provides an action to trigger a custom publishing option.
  *
  * @RulesAction(
- *   id = "rules_syncronize_in_devicehub",
- *   label = @Translation("Syncronize in DeviceHub"),
+ *   id = "rules_transferhub_devicehub_syncronize_state",
+ *   label = @Translation("Update project state in DeviceHub"),
  *   category = @Translation("Content"),
  *   context = {
  *    "entity" = @ContextDefinition("entity",
@@ -29,7 +29,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   }
  * )
  */
-class SyncronizeInDevicehub extends RulesActionBase {
+class SyncronizeProjectState extends RulesActionBase {
 
     /**
      * Sets the custom publishing option on a given entity.

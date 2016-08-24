@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Provides an action to trigger a custom publishing option.
  *
  * @RulesAction(
- *   id = "rules_update_publication_status",
+ *   id = "rules_transferhub_project_update_publication",
  *   label = @Translation("Publish/unpublish project based on workflow status"),
  *   category = @Translation("Content"),
  *   context = {
@@ -29,7 +29,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   }
  * )
  */
-class UpdatePublicationStatus extends RulesActionBase {
+class UpdateProjectPublication extends RulesActionBase {
 
     /**
      * Sets the custom publishing option on a given entity.
