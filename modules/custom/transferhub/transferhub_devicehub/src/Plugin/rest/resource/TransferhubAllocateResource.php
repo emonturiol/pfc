@@ -12,6 +12,7 @@ use Drupal\Core\Entity\EntityInterface;
 use \Drupal\workflow\Entity\Workflow;
 use \Drupal\workflow\Entity\WorkflowTransition;
 use \Drupal\transferhub_project\TransferhubProjectTools;
+use \Drupal\transferhub_devicehub\Plugin\rest\TransferhubRestServiceTools;
 
 
 /**

@@ -7,6 +7,7 @@ use Drupal\rest\ResourceResponse;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use \Drupal\transferhub_project\TransferhubProjectTools;
+use \Drupal\transferhub_devicehub\Plugin\rest\TransferhubRestServiceTools;
 
 /**
  * Transferhub allocate devices.
@@ -22,8 +23,6 @@ use \Drupal\transferhub_project\TransferhubProjectTools;
  * )
  */
 class TransferhubReceiveResource extends ResourceBase {
-
-
 
     /**
      * Responds to POST requests.

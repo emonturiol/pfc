@@ -6,7 +6,7 @@
  * Time: 15:49
  */
 
-namespace Drupal\transferhub_devicehub\Plugin\rest\resource;
+namespace Drupal\transferhub_devicehub\Plugin\rest;
 
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;

@@ -10,7 +10,7 @@ namespace Drupal\transferhub_devicehub;
 
 use \Drupal\Core\Entity\Exception;
 
-class transferhub_DeviceHubRestClient
+class TransferhubDevicehubRestClient
 {
     var $base_url;
     var $email;
@@ -18,8 +18,9 @@ class transferhub_DeviceHubRestClient
     var $client;
     var $db;
     var $token;
+    var $debug;
 
-    function __construct(){
+    function __construct($debug = false){
 
         $config = \Drupal::service('config.factory')->getEditable('transferhub_devicehub.settings');
         
@@ -31,6 +32,8 @@ class transferhub_DeviceHubRestClient
         $this->token = "reutilitza"; //todo llegir de la configuració
         $this->db = "db1"; //todo llegir de conf
 
+        $this->debug = $debug;
+        
         $this->client = new \RestClient([
             'base_url' => $this->base_url, //todo llegir de configuració
             //'format' => "json",
@@ -79,6 +82,12 @@ class transferhub_DeviceHubRestClient
 
     function call($url, $method, $content = NULL, $params = NULL, $headers = NULL)
     {
+        //debug mode
+        if ($this->debug) {
+            drupal_set_message("Call to DeviceHub: " . $url);
+            drupal_set_message(json_encode($content, JSON_UNESCAPED_SLASHES));
+        }
+        
         try {
             $attempts = 0;
             do {
@@ -104,10 +113,16 @@ class transferhub_DeviceHubRestClient
             }
             while ($result->info->http_code != 200 && $result->info->http_code != 201 && $attempts <= 3);
 
+            //Resonse analysis and LOG
             if ($method == "GET")
-                $data = json_encode($params,JSON_UNESCAPED_SLASHES);
+                $sent_data = json_encode($params,JSON_UNESCAPED_SLASHES);
             else
-                $data = json_encode($content,JSON_UNESCAPED_SLASHES);
+                $sent_data = json_encode($content,JSON_UNESCAPED_SLASHES);
+            
+            //debug mode
+            if ($this->debug){
+                drupal_set_message("Response: " . json_encode($result->decode_response()));
+            }
 
             if ($result->info->http_code != 200 && $result->info->http_code != 201)
             {
@@ -125,17 +140,18 @@ class transferhub_DeviceHubRestClient
                     200 OK - (GET)
                     201 Created – (POST)
                  */
-                \Drupal::logger("transferhub_devicehub")->error("REST CLIENT: ERROR in method call (".$url.") (".$method.") | HTTP status ".$result->info->http_code." | send: ".$data." | response: ".json_encode($result->decode_response()));
+                \Drupal::logger("transferhub_devicehub")->error("REST CLIENT: ERROR in method call (".$url.") (".$method.") | HTTP status ".$result->info->http_code." | send: ".$sent_data." | response: ".json_encode($result->decode_response()));
                 return false;
             }
             else {
-                //SUCCESSFUL CALL
-                \Drupal::logger("transferhub_devicehub")->info("REST CLIENT: SUCCESSFUL method call (".$url.") (".$method.") | HTTP status ".$result->info->http_code." | send: ".$data." | response: ".json_encode($result->decode_response()));
+                //SUCCESSFUL CALL                
+                \Drupal::logger("transferhub_devicehub")->info("REST CLIENT: SUCCESSFUL method call (".$url.") (".$method.") | HTTP status ".$result->info->http_code." | send: ".$sent_data." | response: ".json_encode($result->decode_response()));
                 return (array) $result->decode_response();
             }
         }
         catch (\Exception $e)
         {
+            //Exception
             \Drupal::logger('transferhub_devicehub')->error("REST CLIENT: exception on call ". $url ." (".$method."): ". $e->getMessage());
             return false;
         }
@@ -173,9 +189,13 @@ class transferhub_DeviceHubRestClient
         $content["shortDescription"] = substr($shortDesc, 0, 149);
         $content["@type"] = "Project";
         $content["url"] = $url;
-        $content["tags"] = $tags;
+        
+        if (isset($tags) && count($tags) > 0)
+            $content["tags"] = $tags;
+        
         if (isset($deadline) && !empty($deadline))
             $content["deadline"] = $deadline;
+        
         $content["votes"] = (int)$votes;
         $content["byUser"] = $author_url;
         $content["image"] = $image;
@@ -201,8 +221,51 @@ class transferhub_DeviceHubRestClient
         if (isset($addr_region) && !empty($addr_region))  $content["address"]["addressRegion"] = $addr_region;
         if (isset($addr_zip) && !empty($addr_zip))  $content["address"]["postalCode"] = $addr_zip;
         if (isset($addr_street) && !empty($addr_street))  $content["address"]["streetAddress"] = $addr_street;
-
-        drupal_set_message(json_encode($content,JSON_UNESCAPED_SLASHES)); //todo treure
+        
         return $this->call($this->db."/projects","POST", $content); 
+    }
+    
+    function projectEvent($event, $projectUrl, $url, $eventDescription, $date, $userUrl)
+    {
+        $content["date"] = $date;
+        $content["description"] = $eventDescription;
+        $content["byUser"] = $userUrl;        
+        $content["project"] = $projectUrl;
+        $content["url"] = $url;
+
+        switch ($event)
+        {
+            case  "reject":{
+                //Reject project
+                $content["@type"] = "projects:Reject";
+                $url= "events/projects/reject";
+                break;
+            }
+            case  "accept": {
+                //Accept project
+                $content["@type"] = "projects:Accept";
+                $url = "events/projects/accept";
+                break;
+            }
+            case  "cancel": {
+                //Cancel project
+                $content["@type"] = "projects:Cancel";
+                $url = "events/projects/cancel";
+                break;
+            }
+            case  "finish": {
+                //Finish project
+                $content["@type"] = "projects:Finish";
+                $url = "events/projects/finish";
+                break;
+            }
+        }
+
+        if (isset($url))
+        {
+          return $this->call($this->db . "/" . $url,"POST",$content);
+        }
+        else
+          return false;
     }
 }

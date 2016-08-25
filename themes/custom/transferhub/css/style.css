@@ -212,6 +212,9 @@ a.icon-before {
 a.icon-before .glyphicon {
   margin-right: .25em;
 }
+#workflow-transition-field-workflow-form-2 .form-save-default-button {
+  margin-top: 15px;
+}
 .success-statistics {
   padding-top: 30px;
   padding-bottom: 30px;
@@ -516,6 +519,9 @@ a.user-dropdown-toggle {
 }
 .collaborators h2 {
   margin-bottom: 30px;
+}
+#sliding-popup {
+  background-color: #457c2c;
 }
 /*
 
