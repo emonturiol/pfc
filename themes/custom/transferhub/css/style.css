@@ -170,7 +170,7 @@ a:hover {
   color: #8c932e;
 }
 .carousel-indicators .active {
-  background-color: #bdc647;
+  border-color: #bdc647 !important;
 }
 /*
 html.html.twig (header, footer...), ...
@@ -273,7 +273,7 @@ form.search-page-form {
   color: #bdc647;
 }
 .path-frontpage #promotion {
-  background-image: url("/reutilitza/themes/custom/reutilitza/images/home/video_texture.png") !important;
+  background-image: url("/reutilitza/themes/custom/transferhub/images/home/video_texture.png") !important;
 }
 .path-frontpage #promotion .overlay-bg {
   background-color: rgba(189, 198, 71, 0.8);
@@ -281,6 +281,9 @@ form.search-page-form {
 .path-frontpage #get-touch {
   max-height: 660px;
   overflow: hidden;
+}
+.path-frontpage #get-touch .form-control:focus {
+  border-color: #bdc647;
 }
 .user-register-form .filter-help {
   display: none;
@@ -528,7 +531,7 @@ a.icon-before .glyphicon {
     float: left;
   }
 }
-#block-transferhub-account-menu ul,
+#block-useraccountmenu ul,
 #block-reutilitza-account-menu ul {
   margin-right: 0 !important;
 }
