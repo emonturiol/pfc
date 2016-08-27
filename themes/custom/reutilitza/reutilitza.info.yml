@@ -2,8 +2,8 @@ core: 8.x
 type: theme
 base theme: transferhub
 
-name: 'reutilitza'
-description: 'Subtema del template Transferhub 1.0'
+name: 'Reutilitza'
+description: 'Subtema del template Transferhub'
 package: 'Bootstrap'
 
 regions:
@@ -23,6 +23,7 @@ regions:
   page_bottom: 'Page bottom'
 
 libraries:
-  - reutilitza/global-styling
+  - 'reutilitza/global-styling'
+
 
 
