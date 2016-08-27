@@ -7,7 +7,6 @@ use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Provides a 'Hello' Block
  *
  * @Block(
  *   id = "transferhub_quote",

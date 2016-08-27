@@ -37,7 +37,7 @@ function transferhub_project_preprocess_page(&$variables) {
     }
 
     //Enables URL anchor navigation to subpages on load
-    if ($route_match->getParameter("node") && $route_match->getParameter("node")->getType() == "page") {
+    if ($route_match->getParameter("node") && $route_match->getParameter("node")->getType() == "page" &&  !$variables["is_front"]) {
         $variables['#attached']['library'][] = 'transferhub_project/anchor_scroll';
     }
 

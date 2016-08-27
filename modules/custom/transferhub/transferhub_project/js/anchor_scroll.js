@@ -23,14 +23,17 @@ jQuery.extend({
 
 jQuery(document).ready(function() {
     // Unhide the main content area
-    jQuery('section.centered').fadeIn('slow');
+    ///jQuery('section.centered').fadeIn('slow');
 
     // Create a var out of the URL param that we can scroll to
     var page = jQuery.getUrlVar('page');
-    var scrollElement = '#' + page;
+    if (page.length > 0)
+    {
+        var scrollElement = '#' + page;
 
-    // Scroll down to the newly specified anchor point
-    var destination = jQuery(scrollElement).offset().top;
-    jQuery("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination}, 800 );
+        // Scroll down to the newly specified anchor point
+        var destination = jQuery(scrollElement).offset().top;
+        jQuery("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination}, 800 );
+    }
     return false;
 });

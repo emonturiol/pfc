@@ -10,7 +10,8 @@
         "commerceguys/zone": "^0.7.1",
         "commerceguys/intl": "^0.7.1",
         "facebook/php-sdk-v4": "~5.0",
-        "tcdent/php-restclient": "^0.1.5"
+        "tcdent/php-restclient": "^0.1.5",
+        "leafo/lessphp": "^0.5.0"
     },
     "replace": {
         "drupal/core": "~8.1"

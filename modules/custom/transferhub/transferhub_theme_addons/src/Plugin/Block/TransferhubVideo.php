@@ -7,7 +7,6 @@ use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Provides a 'Hello' Block
  *
  * @Block(
  *   id = "transferhub_video",
@@ -20,7 +19,7 @@ class TransferhubVideo extends BlockBase implements BlockPluginInterface {
      */
     public function build() {
 
-        $config = $this->getConfiguration();
+        $config = $this->getConfiguration();        
 
         return array(
             '#theme' => "transferhub_video",
@@ -46,7 +45,6 @@ class TransferhubVideo extends BlockBase implements BlockPluginInterface {
             '#description' => $this->t('Youtube, Vimeo'),
             '#default_value' => isset($config['link']) ? $config['link'] : ''
         );
-
         return $form;
     }
 

@@ -1,0 +1,51 @@
+//Success statistics
+.success-statistics {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background-color: #313131;
+  color: white;
+
+  h2 {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  .service-text {
+    text-transform: uppercase;
+  }
+  i {
+    font-size: 26px;
+  }
+}
+
+//Reuse with us
+#service .section-title {
+  h2 {
+    &:before {
+    background-image: none;
+    }
+    &:after {
+      background-color: @brand-primary;
+    }
+  }
+  .fa-flag-checkered{
+    font-size: 26px;
+    color: @brand-primary;
+  }
+}
+
+//Video
+.path-frontpage #promotion
+ {
+    background-image: url("/reutilitza/themes/custom/reutilitza/images/home/video_texture.png") !important; //todo -> transferhub
+    .overlay-bg {
+      background-color: @primary-fade;
+    }
+ }
+
+//Contact block
+.path-frontpage #get-touch {
+  max-height: 660px;
+  overflow: hidden;
+}
+
+//Quote

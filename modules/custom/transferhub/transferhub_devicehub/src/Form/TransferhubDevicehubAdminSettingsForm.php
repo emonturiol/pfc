@@ -39,8 +39,8 @@ class TransferhubDevicehubAdminSettingsForm extends ConfigFormBase {
         //kint($config);
 
         $form['devicehub_server_host'] = [
-            //'#default_value' => $config->get('account'),
-            '#description' => $this->t(''),
+            '#default_value' => $config->get('server_host'),
+            '#description' => $this->t('Full URL, including "http://"'),
             '#maxlength' => 100,
             '#required' => TRUE,
             '#size' => 50,
@@ -49,17 +49,17 @@ class TransferhubDevicehubAdminSettingsForm extends ConfigFormBase {
         ];
 
         $form['devicehub_username'] = [
-            //'#default_value' => $config->get('account'),
+            '#default_value' => $config->get('username'),
             '#description' => $this->t(''),
             '#maxlength' => 100,
             '#required' => TRUE,
             '#size' => 20,
-            '#title' => $this->t('User name'),
+            '#title' => $this->t('User (email)'),
             '#type' => 'textfield',
         ];
 
         $form['devicehub_password'] = [
-            //'#default_value' => $config->get('account'),
+            '#default_value' => $config->get('password'),
             '#description' => $this->t(''),
             '#maxlength' => 100,
             '#required' => TRUE,
@@ -101,11 +101,6 @@ class TransferhubDevicehubAdminSettingsForm extends ConfigFormBase {
             ->set('default_db', $form_state->getValue('devicehub_default_db'))
             ->save();
 
-        /*if ($form_state->hasValue('google_analytics_translation_set')) {
-            $config->set('translation_set', $form_state->getValue('google_analytics_translation_set'))->save();
-        }*/
-
         parent::submitForm($form, $form_state);
     }
-
 }

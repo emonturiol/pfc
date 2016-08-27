@@ -26,7 +26,7 @@ function transferhub_theme_addons_theme($existing, $type, $theme, $path) {
             array(
                 'variables' => array(
                     'text' => null,
-                    'link' => null,
+                    'link' => null,                  
                 ),
                 'template' => 'block--inner--transferhub-video'
             ),
@@ -38,6 +38,14 @@ function transferhub_theme_addons_theme($existing, $type, $theme, $path) {
                     'position' => null,
                 ),
                 'template' => 'block--inner--transferhub-quote'
+            ),
+        'transferhub_promoted_projects' =>
+            array(
+                'variables' => array(
+                    'header_text' => null,
+                    'view' => null,                    
+                ),
+                'template' => 'block--inner--transferhub-promoted-projects'
             ),
     );
 }

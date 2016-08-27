@@ -31,7 +31,10 @@ class TransferhubDevicehubTools {
     
     static function _debug()
     {
-       if (strpos(\Drupal::request()->getHost(), "localhost") !== false || strpos(\Drupal::request()->getHost(), ".dev") !== false)
+       if (strpos(\Drupal::request()->getHost(), "localhost") !== false  //local
+           || strpos(\Drupal::request()->getHost(), ".dev") !== false //local
+           || strpos(\Drupal::request()->getHost(), "transferhub.ereuse.net") !== false) //Test Server
+
            return true;
         else
             return false;
@@ -48,9 +51,8 @@ class TransferhubDevicehubTools {
         $base_url = self::_getBaseURL();
 
         $projectUrl = $base_url . "node/".$node->id();
-        $url = $projectUrl; //todo ??
-        $eventDescription = t("State changed in Transferhub"); //todo
-        $date = date("Y-d-m") . "T00:00:00";
+        $eventDescription = t("State changed in Transferhub");
+        $date = date("Y-m-dTH:i:s");
         $userUrl = $base_url . "user/" . \Drupal::currentUser()->id();
 
         switch ($state)
@@ -80,7 +82,7 @@ class TransferhubDevicehubTools {
         $api = new \Drupal\transferhub_devicehub\TransferhubDevicehubRestClient(self::_debug());
         if (isset($event))
         {
-            $result = $api->projectEvent($event,$projectUrl,$url,$eventDescription,$date,$userUrl);
+            $result = $api->projectEvent($event, $projectUrl, null, $eventDescription, $date, $userUrl);
             
             if ($result) {
                 //LOG
@@ -94,15 +96,21 @@ class TransferhubDevicehubTools {
             return false;
     }
 
-    static function createUser($account) {      
+    static function createUser($account, $password) {
 
-        $base_url = self::_getBaseURL();        
+        $base_url = self::_getBaseURL();
+
+        $role = null;
+        if (array_intersect(["manager","administrator"],array_values($account->getRoles())))
+        {
+            $role = "admin";
+        }
             
         $user_url = $base_url. "user/".$account->id();
 
         $api = new  \Drupal\transferhub_devicehub\TransferhubDevicehubRestClient(self::_debug());
         
-        $api->createUser( $user_url, $account->getEmail());
+        $api->createUser( $user_url, $account->getEmail(), $password, $role);
     }
     
     static function createProject(\Drupal\node\Entity\Node &$node) {

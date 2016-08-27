@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8b7bca3515d7fbc6e718cd5cdc297535",
-    "content-hash": "9e1626178097a1e81da0545001808b26",
+    "hash": "5cf5e56aa6825dfff0d67c0aecf6d5c6",
+    "content-hash": "7472847e657dbb34cdcc1aa6723c2035",
     "packages": [
         {
             "name": "commerceguys/addressing",
@@ -875,12 +875,12 @@
             "version": "5.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/facebook/facebook-php-sdk-v4.git",
+                "url": "https://github.com/facebook/php-graph-sdk.git",
                 "reference": "d1bbd31e606a40d07f9f68ab424bdbe7a6d7e002"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/facebook-php-sdk-v4/zipball/d1bbd31e606a40d07f9f68ab424bdbe7a6d7e002",
+                "url": "https://api.github.com/repos/facebook/php-graph-sdk/zipball/d1bbd31e606a40d07f9f68ab424bdbe7a6d7e002",
                 "reference": "d1bbd31e606a40d07f9f68ab424bdbe7a6d7e002",
                 "shasum": ""
             },
@@ -925,6 +925,7 @@
                 "facebook",
                 "sdk"
             ],
+            "abandoned": "facebook/graph-sdk",
             "time": "2016-08-06 21:30:48"
         },
         {
@@ -1139,6 +1140,47 @@
                 "password"
             ],
             "time": "2014-11-20 16:49:30"
+        },
+        {
+            "name": "leafo/lessphp",
+            "version": "v0.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/leafo/lessphp.git",
+                "reference": "0f5a7f5545d2bcf4e9fad9a228c8ad89cc9aa283"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/leafo/lessphp/zipball/0f5a7f5545d2bcf4e9fad9a228c8ad89cc9aa283",
+                "reference": "0f5a7f5545d2bcf4e9fad9a228c8ad89cc9aa283",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.4.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "lessc.inc.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Leaf Corcoran",
+                    "email": "leafot@gmail.com",
+                    "homepage": "http://leafo.net"
+                }
+            ],
+            "description": "lessphp is a compiler for LESS written in PHP.",
+            "homepage": "http://leafo.net/lessphp/",
+            "time": "2014-11-24 18:39:20"
         },
         {
             "name": "masterminds/html5",

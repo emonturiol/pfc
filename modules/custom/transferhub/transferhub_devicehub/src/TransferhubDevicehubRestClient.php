@@ -23,22 +23,18 @@ class TransferhubDevicehubRestClient
     function __construct($debug = false){
 
         $config = \Drupal::service('config.factory')->getEditable('transferhub_devicehub.settings');
-        
-        //$this->base_url = "http://jsonplaceholder.typicode.com"; //todo llegir de conf
-        $this->base_url = "http://devicehub.ereuse.net"; //todo llegir de conf
-        $this->email = "transferhub@ereuse.org"; //todo llegir de conf
-        $this->password = "random"; //todo llegir de conf
 
-        $this->token = "reutilitza"; //todo llegir de la configuració
-        $this->db = "db1"; //todo llegir de conf
+        $this->base_url = $config->get("server_host"); 
+        $this->email = $config->get("username");
+        $this->password = $config->get("password");
+
+        $this->token = ""; 
+        $this->db = $config->get("default_db");
 
         $this->debug = $debug;
         
         $this->client = new \RestClient([
-            'base_url' => $this->base_url, //todo llegir de configuració
-            //'format' => "json",
-            // https://dev.twitter.com/docs/auth/application-only-auth
-            //'headers' => ['Authorization' => 'Basic '.$this->token],
+            'base_url' => $this->base_url,             
         ]);
     }
 
@@ -85,6 +81,7 @@ class TransferhubDevicehubRestClient
         //debug mode
         if ($this->debug) {
             drupal_set_message("Call to DeviceHub: " . $url);
+            //kint($content);
             drupal_set_message(json_encode($content, JSON_UNESCAPED_SLASHES));
         }
         
@@ -121,13 +118,14 @@ class TransferhubDevicehubRestClient
             
             //debug mode
             if ($this->debug){
+                //kint($result->decode_response());
                 drupal_set_message("Response: " . json_encode($result->decode_response()));
             }
 
             if ($result->info->http_code != 200 && $result->info->http_code != 201)
             {
                 //ERROR
-                //todo better error handling
+                //todo better error handling and loggin
                 /*
                     400 Bad Request –
                     422 Unprocessable Entity – Document fails validation.
@@ -157,13 +155,18 @@ class TransferhubDevicehubRestClient
         }
     }
 
-    function createUser($url,$email)
+    function createUser($url,$email, $password, $role = null)
     {
         $content["@type"] = "Account";
 
         $content["url"] = $url;
         $content["email"] = $email;
-        $content["active"] = true;
+        $content["password"] = $password;
+        if ($role)
+        {
+            $content["role"] = $role;
+        }
+        $content["active"] = false; //todo posar a true quan en xavier ho coregeixi
         $content["organization"] = "ong1";
         $content["isOrganization"] = false;
         $content["databases"] = [$this->db];
@@ -231,7 +234,8 @@ class TransferhubDevicehubRestClient
         $content["description"] = $eventDescription;
         $content["byUser"] = $userUrl;        
         $content["project"] = $projectUrl;
-        $content["url"] = $url;
+        if (isset($url) && !empty($url))        
+            $content["url"] = $url;
 
         switch ($event)
         {
