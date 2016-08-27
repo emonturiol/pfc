@@ -2,7 +2,7 @@ core: 8.x
 type: theme
 base theme: bootstrap
 
-name: 'TransferHub 1.0'
+name: 'TransferHub'
 description: 'Bootstrap Sub-Theme based on Two Doors© template'
 package: 'Bootstrap'
 

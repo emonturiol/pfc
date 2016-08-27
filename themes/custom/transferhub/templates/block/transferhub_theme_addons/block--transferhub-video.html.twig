@@ -6,7 +6,11 @@
                 <h1>{{ label|raw }}</h1>
                <h2>{{ content["#text"] }}</h2>
             </div>
-            {{ content }}
+            <div class="col-sm-6">
+                <a href="{{ content["#link"] }}" data-gallery="prettyPhoto" class="watch-video">
+                    <img class="img-responsive" src="{{ theme.settings.video_image }}" alt=""  />
+                </a>
+            </div>
         </div>
     </div>
 </div>

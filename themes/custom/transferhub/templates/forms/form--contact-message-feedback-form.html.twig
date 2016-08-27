@@ -12,7 +12,6 @@
  * @ingroup themeable
  */
 #}
-
 <div class="row">
     <h3>{% trans %}Say hello !{% endtrans %}</h3>
     <div class="col-sm-6">
@@ -33,13 +32,13 @@
             {% if theme.settings.facebook_url %}
                 <li><a href="{{  theme.settings.facebook_url }}"><i class="fa fa-facebook"></i></a></li>
             {% endif %}
-            {% if google_plus_url %}
+            {% if theme.settings.google_plus_url %}
                 <li><a href="{{ theme.settings.google_plus_url }}"><i class="fa fa-google-plus"></i></a></li>
             {% endif %}
         </ul>
     </div>
     <div class="col-sm-4">
-        <img class="img-responsive" src="themes/custom/transferhub/images/landing/2.png" alt=""> <!--//todo-->
+        <img class="img-responsive" src="{{ theme.settings.contact_image }}" alt="">
     </div>
 </div>
 

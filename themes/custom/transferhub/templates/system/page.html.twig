@@ -121,20 +121,20 @@
                 <ol class="carousel-indicators">
                 </ol>
                 <div class="carousel-inner">
-                    <div class="item active" style="background-image: url({{ base_path ~ directory }}/{{ theme.settings.home_banner.background_image }});">
+                    <div class="item active" style="background-image: url({{ theme.settings.header_bg_image }});">
                         <div class="container carousel-caption">
                             <div class="row">
                                 <div class="col-md-7">
-                                    <h3>{{ theme.settings.home_banner.title }}</h3>
-                                    <h4>{{ theme.settings.home_banner.subtitle }}</h4>
-                                    {% if theme.settings.home_banner.include_button %}
+                                    <h3>{{ theme.settings.title }}</h3>
+                                    <h4>{{ theme.settings.subtitle }}</h4>
+                                    {% if theme.settings.include_button %}
                                         <div class="button-section">
-                                            <a href="{{ theme.settings.home_banner.button_link }}" class="btn btn-primary cloud-download">{{ theme.settings.home_banner.button_caption }}</a>
+                                            <a href="{{ theme.settings.button_link }}" class="btn btn-primary cloud-download">{{ theme.settings.button_caption }}</a>
                                         </div>
                                     {% endif %}
                                 </div>
                                 <div class="col-md-5">
-                                    <img class="img-responsive" src="{{ base_path ~ directory }}/{{ theme.settings.home_banner.side_image }}" alt="" />
+                                    <img class="img-responsive" src="{{ theme.settings.header_side_image }}" alt="" />
                                 </div>
                             </div>
                         </div>
@@ -279,17 +279,17 @@
                 <div class="col-md-2 col-md-offset-0 col-sm-7 col-sm-offset-5">
                     <div class="bottom-socials">
                         <ul>
-                            {%  if theme.settings.social.facebook_url  %}
-                                <li><a href="{{ theme.settings.social.facebook_url }}" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                            {%  if theme.settings.facebook_url  %}
+                                <li><a href="{{ theme.settings.facebook_url }}" target="_blank"><i class="fa fa-facebook"></i></a></li>
                             {% endif %}
-                            {%  if theme.settings.social.twitter_url  %}
-                                <li><a href="{{ theme.settings.social.twitter_url }}" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                            {%  if theme.settings.twitter_url  %}
+                                <li><a href="{{ theme.settings.twitter_url }}" target="_blank"><i class="fa fa-twitter"></i></a></li>
                             {% endif %}
-                            {%  if theme.settings.social.google_plus_url  %}
-                                <li><a href="{{ theme.settings.social.google_plus_url }}" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+                            {%  if theme.settings.google_plus_url  %}
+                                <li><a href="{{ theme.settings.google_plus_url }}" target="_blank"><i class="fa fa-google-plus"></i></a></li>
                             {% endif %}
                             {%  if theme.settings.social.linkedin_url  %}
-                                <li><a href="{{ theme.settings.social.linkedin_url }}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="{{ theme.settings.linkedin_url }}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
                             {% endif %}
                         </ul>
                     </div>

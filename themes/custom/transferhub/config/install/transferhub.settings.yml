@@ -13,12 +13,16 @@
 
 # Disable the CDN provider so compiled LESS source files can be used.
 cdn_provider: ''
-
+primary_color: '#bdc647' #todo
 title: 'Platform for IT equipment donation'
-subtitle: 'We enable the direct donation of IT equipment to organizational and individual intitives'
-background_image: 'images/home_banner/banner-bg.jpg'
-side_image: 'images/home_banner/banner-side-image.png'
-include_button: true
-button_link: '/'
-button_caption: 'How does it work?'
+subtitle: 'We enable the direct donation of IT equipment to organizational and individual initiatives'
+default_bg: true
+default_bg_path: 'themes/custom/transferhub/images/home_banner/banner-bg.jpg'
+default_header_side_image: true
+default_header_side_image_path: 'themes/custom/transferhub/images/home_banner/banner-side-image.png'
+include_button: false
+default_video_image: true
+default_contact_image: true
+
+
 

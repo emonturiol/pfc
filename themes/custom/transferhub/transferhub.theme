@@ -21,11 +21,28 @@ function transferhub_form_system_theme_settings_alter(&$form, Drupal\Core\Form\F
         '#default_tab' => 'edit-slideshow'
     ) ;
 
+    //COLORS
+    $form['colors'] = array(
+        '#type' => 'details',
+        '#title' => t('Theme colors'),
+        '#collapsible' => TRUE,
+        '#collapsed' => FALSE,
+        '#group' => 'transferhub_settings',
+        '#description' => t("Clear cache is required after changing these settings"),
+    );
+
+    $form['colors']['primary_color'] = array(
+        '#type' => 'color',
+        '#title' => t('Primary color'),
+        '#default_value' => theme_get_setting('primary_color'),
+
+    );
+
     //HOME BANNER
     //text
     $form['home_banner'] = array(
         '#type' => 'details',
-        '#title' => t('Home banner'),
+        '#title' => t('Home header'),
         '#collapsible' => TRUE,
         '#collapsed' => FALSE,
         '#group' => 'transferhub_settings',
@@ -33,43 +50,220 @@ function transferhub_form_system_theme_settings_alter(&$form, Drupal\Core\Form\F
     $form['home_banner']['title'] = array(
         '#type' => 'textfield',
         '#title' => t('Title'),
-        '#default_value' => theme_get_setting('title', 'transferhub'),
+        '#default_value' => theme_get_setting('title'),
+        '#weight' => 0
         //'#field_prefix' => '#',
     );
     $form['home_banner']['subtitle'] = array(
         '#type' => 'textfield',
         '#title' => t('Subtitle'),
-        '#default_value' => theme_get_setting('subtitle', 'transferhub'),
+        '#default_value' => theme_get_setting('subtitle'),
+        '#weight' => 1
         //'#field_prefix' => '#',
     );
     //images
-    $form['home_banner']['background_image'] = array(
-        '#type' => 'textfield',
+    // background image
+
+    $form['bg_image_details'] = array(
+        '#type' => 'details',
         '#title' => t('Background image'),
-        '#default_value' => theme_get_setting('background_image', 'transferhub'),
-        '#description' => t("Indicate the path of the uploaded image relative to theme's base path (size: 1600 x 1067 px)"),
+        '#collapsible' => TRUE,
+        '#collapsed' => true,
+        '#group' => 'home_banner',
+        '#weight' => 2
     );
-    $form['home_banner']['side_image'] = array(
+    $form['bg_image_details']['header_bg_image'] = array(
+        '#type' => 'hidden',
+        '#default_value' => theme_get_setting("header_bg_image"),
+    );
+    $form["bg_image_details"]['default_bg'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Use the default background supplied by the theme'),
+        '#default_value' => theme_get_setting('default_bg'),
+        //'#tree' => TRUE,
+    );
+    $form['bg_image_details']['bg_settings'] = array(
+        '#type' => 'container',
+        '#states' => array(
+            // Hide the logo settings when using the default logo.
+            'invisible' => array(
+                'input[name="default_bg"]' => array('checked' => TRUE),
+            ),
+        ),
+    );
+    $form['bg_image_details']['bg_settings']['bg_path'] = array(
         '#type' => 'textfield',
-        '#title' => t('Side image'),
-        '#default_value' => theme_get_setting('side_image', 'transferhub'),
-        '#description' => t("Indicate the path of the uploaded image relative to theme's base path (size: 409 x 532 px)"),
+        '#title' => t('Path to custom background'),
+        '#default_value' => theme_get_setting('bg_path'),
+        '#description' => t("Examples: image.png (for a file in the public filesystem), public://image.png, or themes/custom/transferhub/image.png")
     );
+    $form['bg_image_details']['bg_settings']['bg_upload'] = array(
+        '#type' => 'file',
+        '#title' => t('Upload background image'),
+        '#maxlength' => 40,
+        '#description' => t("If you don't have direct file access to the server, use this field to upload your logo.") . " (" . t("Recomended size: ") . "1600 x 777px)"
+    );
+
+    // header side image
+    $form['side_image_details'] = array(
+        '#type' => 'details',
+        '#title' => t('Side image'),
+        '#collapsible' => TRUE,
+        '#collapsed' => true,
+        '#group' => 'home_banner',
+        '#weight' => 3
+    );
+    $form['side_image_details']['header_side_image'] = array(
+        '#type' => 'hidden',
+        '#default_value' => theme_get_setting("header_side_image"),
+    );
+    $form['side_image_details']['default_header_side_image'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Use the defaut header side image supplied by the theme'),
+        '#default_value' => theme_get_setting('default_header_side_image'),
+        '#tree' => FALSE,
+    );
+    $form['side_image_details']['header_side_image_settings'] = array(
+        '#type' => 'container',
+        '#states' => array(
+            // Hide the logo settings when using the default logo.
+            'invisible' => array(
+                'input[name="default_header_side_image"]' => array('checked' => TRUE),
+            ),
+        ),
+    );
+    $form['side_image_details']['header_side_image_settings']['header_side_image_path'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Path to custom image'),
+        '#default_value' => theme_get_setting('header_side_image_path'),
+        '#description' => t("Examples: image.png (for a file in the public filesystem), public://image.png, or themes/custom/transferhub/image.png")
+    );
+    $form['side_image_details']['header_side_image_settings']['header_side_image_upload'] = array(
+        '#type' => 'file',
+        '#title' => t('Upload an image'),
+        '#maxlength' => 40,
+        '#description' => t("If you don't have direct file access to the server, use this field to upload your logo.") . " (" . t("Recomended size: ") . "530 x 689px)"
+    );
+
     //button
     $form['home_banner']['include_button'] = array(
         '#type' => 'checkbox',
         '#title' => t('Include button'),
-        '#default_value' => theme_get_setting('include_button', 'transferhub'),
+        '#default_value' => theme_get_setting('include_button'),
+        '#weight' => 4
     );
-    $form['home_banner']['button_link'] = array(
+    $form['home_banner']['button_settings'] = array(
+        '#type' => 'container',
+        '#states' => array(
+            // Hide the logo settings when using the default logo.
+            'invisible' => array(
+                'input[name="include_button"]' => array('checked' => false),
+            ),
+        ),
+        '#weight' => 5
+    );
+    $form['home_banner']['button_settings']['button_link'] = array(
         '#type' => 'textfield',
         '#title' => t('Button link'),
-        '#default_value' => theme_get_setting('button_link', 'transferhub'),
+        '#default_value' => theme_get_setting('button_link'),
     );
-    $form['home_banner']['button_caption'] = array(
+    $form['home_banner']['button_settings']['button_caption'] = array(
         '#type' => 'textfield',
         '#title' => t('Button caption'),
-        '#default_value' => theme_get_setting('button_caption', 'transferhub'),
+        '#default_value' => theme_get_setting('button_caption'),
+    );
+
+    //BLOCK IMAGES
+    $form['block_images'] = array(
+        '#type' => 'details',
+        '#title' => t('Block images'),
+        '#collapsible' => TRUE,
+        '#collapsed' => FALSE,
+        '#group' => 'transferhub_settings',
+        '#description' => t("Configure images for default theme blocks"),
+    );
+    // video block image
+    if (Drupal::moduleHandler()->moduleExists('transferhub_theme_addons')) {
+
+        $form['video_image_details'] = array(
+            '#type' => 'details',
+            '#title' => t('Video block image'),
+            '#collapsible' => TRUE,
+            '#collapsed' => true,
+            '#group' => 'block_images',
+            '#weight' => 3
+        );
+        $form['video_image_details']['video_image'] = array(
+            '#type' => 'hidden',
+            '#default_value' => theme_get_setting("video_image"),
+        );
+        $form['video_image_details']['default_video_image'] = array(
+            '#type' => 'checkbox',
+            '#title' => t('Use the defaut image supplied by the theme'),
+            '#default_value' => theme_get_setting('default_video_image'),
+            '#tree' => FALSE,
+        );
+        $form['video_image_details']['video_image_settings'] = array(
+            '#type' => 'container',
+            '#states' => array(
+                // Hide the logo settings when using the default logo.
+                'invisible' => array(
+                    'input[name="default_video_image"]' => array('checked' => TRUE),
+                ),
+            ),
+        );
+        $form['video_image_details']['video_image_settings']['video_image_path'] = array(
+            '#type' => 'textfield',
+            '#title' => t('Path to custom image'),
+            '#default_value' => theme_get_setting('video_image_path'),
+            '#description' => t("Examples: image.png (for a file in the public filesystem), public://image.png, or themes/custom/transferhub/image.png")
+        );
+        $form['video_image_details']['video_image_settings']['video_image_upload'] = array(
+            '#type' => 'file',
+            '#title' => t('Upload an image'),
+            '#maxlength' => 40,
+            '#description' => t("If you don't have direct file access to the server, use this field to upload your logo.") . " (" . t("Recomended size: ") . "518 x 367px)"
+        );
+    }
+    // contact block image
+    $form['contact_image_details'] = array(
+        '#type' => 'details',
+        '#title' => t('Contact block image'),
+        '#collapsible' => TRUE,
+        '#collapsed' => true,
+        '#group' => 'block_images',
+        '#weight' => 3
+    );
+    $form['contact_image_details']['contact_image'] = array(
+        '#type' => 'hidden',
+        '#default_value' => theme_get_setting("contact_image"),
+    );
+    $form['contact_image_details']['default_contact_image'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Use the defaut image supplied by the theme'),
+        '#default_value' => theme_get_setting('default_contact_image'),
+        '#tree' => FALSE,
+    );
+    $form['contact_image_details']['contact_image_settings'] = array(
+        '#type' => 'container',
+        '#states' => array(
+            // Hide the logo settings when using the default logo.
+            'invisible' => array(
+                'input[name="default_contact_image"]' => array('checked' => TRUE),
+            ),
+        ),
+    );
+    $form['contact_image_details']['contact_image_settings']['contact_image_path'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Path to custom image'),
+        '#default_value' => theme_get_setting('contact_image_path'),
+        '#description' => t("Examples: image.png (for a file in the public filesystem), public://image.png, or themes/custom/transferhub/image.png")
+    );
+    $form['contact_image_details']['contact_image_settings']['contact_image_upload'] = array(
+        '#type' => 'file',
+        '#title' => t('Upload an image'),
+        '#maxlength' => 40,
+        '#description' => t("If you don't have direct file access to the server, use this field to upload your logo.") . " (" . t("Recomended size: ") . "360 x 625 px)"
     );
 
     //SOCIAL
@@ -84,94 +278,246 @@ function transferhub_form_system_theme_settings_alter(&$form, Drupal\Core\Form\F
     $form['social']['facebook_url'] = array(
         '#type' => 'textfield',
         '#title' => t('Facebook link'),
-        '#default_value' => theme_get_setting('facebook_url', 'transferhub'),
+        '#default_value' => theme_get_setting('facebook_url'),
         //'#field_prefix' => '#',
     );
     $form['social']['twitter_url'] = array(
         '#type' => 'textfield',
         '#title' => t('Twitter link'),
-        '#default_value' => theme_get_setting('twitter_url', 'transferhub'),
+        '#default_value' => theme_get_setting('twitter_url'),
         //'#field_prefix' => '#',
     );
     $form['social']['google_plus_url'] = array(
         '#type' => 'textfield',
         '#title' => t('Google+ link'),
-        '#default_value' => theme_get_setting('google_plus_url', 'transferhub'),
+        '#default_value' => theme_get_setting('google_plus_url'),
         //'#field_prefix' => '#',
     );
     $form['social']['linkedin_url'] = array(
         '#type' => 'textfield',
         '#title' => t('Linkedin link'),
-        '#default_value' => theme_get_setting('linkedin_url', 'transferhub'),
+        '#default_value' => theme_get_setting('linkedin_url'),
         //'#field_prefix' => '#',
     );
+
+    $form["#validate"][] = "transferhub_theme_settings_validate";
+    $form["#submit"][] = "transferhub_theme_settings_submit";
+}
+
+function transferhub_theme_settings_validate(array &$form, FormStateInterface $form_state)
+{
+    //validate images uploaded in theme settings form
+    //header background
+    $validators = array('file_validate_extensions' => array('png gif jpg jpeg apng svg'));
+    // Check for a new uploaded logo.
+    $file = file_save_upload('bg_upload', $validators, FALSE, 0);
+    if (isset($file)) {
+        // File upload was attempted.
+        if ($file) {
+            // Put the temporary file in form_values so we can save it on submit.
+            $form_state->setValue('bg_upload', $file);
+        }
+        else {
+            // File upload failed.
+            $form_state->setErrorByName('bg_upload', $this->t('The background image could not be uploaded.'));
+        }
+    }
+    //header side image
+    $file = file_save_upload('header_side_image_upload', $validators, FALSE, 0);
+    if (isset($file)) {
+        // File upload was attempted.
+        if ($file) {
+            // Put the temporary file in form_values so we can save it on submit.
+            $form_state->setValue('header_side_image_upload', $file);
+        }
+        else {
+            // File upload failed.
+            $form_state->setErrorByName('header_side_image_upload', $this->t('The header side image could not be uploaded.'));
+        }
+    }
+    //video block image
+    $file = file_save_upload('video_image_upload', $validators, FALSE, 0);
+    if (isset($file)) {
+        // File upload was attempted.
+        if ($file) {
+            // Put the temporary file in form_values so we can save it on submit.
+            $form_state->setValue('video_image_upload', $file);
+        }
+        else {
+            // File upload failed.
+            $form_state->setErrorByName('video_image_upload', $this->t('The video block image could not be uploaded.'));
+        }
+    }
+    //contact block image
+    $file = file_save_upload('contact_image_upload', $validators, FALSE, 0);
+    if (isset($file)) {
+        // File upload was attempted.
+        if ($file) {
+            // Put the temporary file in form_values so we can save it on submit.
+            $form_state->setValue('contact_image_upload', $file);
+        }
+        else {
+            // File upload failed.
+            $form_state->setErrorByName('contact_image_upload', $this->t('The contact block image could not be uploaded.'));
+        }
+    }
+}
+
+function transferhub_theme_settings_submit(array &$form, FormStateInterface $form_state)
+{
+    //SAVE IMAGES uploaded in theme settings form
+
+    //header background
+    $values = $form_state->getValues();
+    if (!empty($values['bg_upload'])) {
+        $filename = file_unmanaged_copy($values['bg_upload']->getFileUri());
+        $form_state->getValues()['default_bg'] = 0;
+        $form_state->getValues()['bg_path'] = $filename;
+    }
+    unset($form_state->getValues()['bg_upload']);
+    //assign final image path as another theme configuration value
+    if ($form_state->getValues()['default_bg'] == 1) {
+        $form_state->getValues()["header_bg_image"] = "themes/custom/transferhub/images/home_banner/banner-bg.jpg"; //default image
+    }
+    else {
+        $path = $form_state->getValues()['bg_path'];
+        if (strpos($path, "public://") !== false)
+            $path = file_create_url($path);
+        else
+            $path = base_path() . $path;
+        $form_state->getValues()["header_bg_image"] = $path;
+    }
+
+    //header side image
+    $values = $form_state->getValues();
+    if (!empty($values['header_side_image_upload'])) {
+        $filename = file_unmanaged_copy($values['header_side_image_upload']->getFileUri());
+        $form_state->getValues()['default_header_side_image'] = 0;
+        $form_state->getValues()['header_side_image_path'] = $filename;
+    }
+    unset($form_state->getValues()['header_side_image_upload']);
+    //assign final image path as another theme configuration value
+    if ($form_state->getValues()['default_header_side_image'] == 1) {
+        $form_state->getValues()["header_side_image"] = "themes/custom/transferhub/images/home_banner/banner-side-image.png"; //default image
+    }
+    else {
+        $path = $form_state->getValues()['header_side_image_path'];
+        if (strpos($path, "public://") !== false)
+            $path = file_create_url($path);
+        else
+            $path = base_path() . $path;
+        $form_state->getValues()["header_side_image"] = $path;
+    }
+
+    //video block image
+    $values = $form_state->getValues();
+    if (!empty($values['video_image_upload'])) {
+        $filename = file_unmanaged_copy($values['video_image_upload']->getFileUri());
+        $form_state->getValues()['default_video_image'] = 0;
+        $form_state->getValues()['video_image_path'] = $filename;
+    }
+    unset($form_state->getValues()['video_image_upload']);
+    //assign final image path as another theme configuration value
+    if ($form_state->getValues()['default_video_image'] == 1) {
+        $form_state->getValues()["video_image"] = "themes/custom/transferhub/images/home/ipad.png"; //default image
+    }
+    else {
+        $path = $form_state->getValues()['video_image_path'];
+        if (strpos($path, "public://") !== false)
+            $path = file_create_url($path);
+        else
+            $path = base_path() . $path;
+        $form_state->getValues()["video_image"] = $path;
+    }
+
+    //contact block image
+    $values = $form_state->getValues();
+    if (!empty($values['contact_image_upload'])) {
+        $filename = file_unmanaged_copy($values['contact_image_upload']->getFileUri());
+        $form_state->getValues()['default_contact_image'] = 0;
+        $form_state->getValues()['contact_image_path'] = $filename;
+    }
+    unset($form_state->getValues()['contact_image_upload']);
+    //assign final image path as another theme configuration value
+    if ($form_state->getValues()['default_contact_image'] == 1) {
+        $form_state->getValues()["contact_image"] = "themes/custom/transferhub/images/home/contact.png"; //default image
+    }
+    else {
+        $path = $form_state->getValues()['contact_image_path'];
+        if (strpos($path, "public://") !== false)
+            $path = file_create_url($path);
+        else
+            $path = base_path() . $path;
+        $form_state->getValues()["contact_image"] = $path;
+    }
+
+    //Generate less variables overrides
+    changeThemeColors(["brand-primary" => $form_state->getValues()['primary_color']]);
+
+}
+
+function changeThemeColors(array $variables) {
+    //creating variable-overrides-color.less
+
+    $file = fopen(dirname(__FILE__) . "/less/variable-overrides-color.less", "w")
+        or die(t("Theme settings: Unable to write or create less file"));
+
+    foreach ($variables as $varname => $value) {
+        fwrite($file, "@" . $varname . ": " . $value . ";\n"  );
+    }
+    fclose($file);
+
+    //Compile less
+    $less = new lessc;
+    try {
+        $less->compileFile(dirname(__FILE__) . "/less/style.less", dirname(__FILE__) . "/css/style.css");
+    } catch (Exception $ex) {
+        echo t("Transferhub: unable to compile less after saving theme settings: ") . $ex->getMessage();
+    }
 }
 
 //Preprocess functions
 function transferhub_preprocess_page(&$variables)
 {
-    //THEME variables
-    //Bootstrap settings
-    if ($variables["theme"]["settings"]["logo"]["use_default"] != 1)
-    {
-        //$variables["theme"]["settings"]["logo"]["realpath"] = \Drupal::service("file_system")->realpath($variables["theme"]["settings"]["logo"]["path"]);
-        $variables["theme"]["settings"]["logo"]["url"] = file_create_url($variables["theme"]["settings"]["logo"]["path"]);
-    }
+    //is node? (otherwise it is system form, node form, workflow node form, view page...)
+    $variables["is_node"] = \Drupal::routeMatch()->getParameter("node") && !in_array(\Drupal::request()->attributes->get("_route"),array("entity.node.edit_form","entity.node.workflow_history"));
 
-    //Transferhub settings
-    //home banner
-    $variables["theme"]["settings"]["home_banner"]['title'] = theme_get_setting('title','transferhub');
-    $variables["theme"]["settings"]["home_banner"]['subtitle'] = theme_get_setting('subtitle','transferhub');    
-    $variables["theme"]["settings"]["home_banner"]['background_image'] = theme_get_setting('background_image','transferhub');
-    $variables["theme"]["settings"]["home_banner"]['side_image'] = theme_get_setting('side_image','transferhub');
-    $variables["theme"]["settings"]["home_banner"]['include_button'] = theme_get_setting('include_button','transferhub');
-    $variables["theme"]["settings"]["home_banner"]['button_link'] = theme_get_setting('button_link','transferhub');
-    $variables["theme"]["settings"]["home_banner"]['button_caption'] = theme_get_setting('button_caption','transferhub');
-    //social
-    $variables["theme"]["settings"]["social"]['facebook_url'] = theme_get_setting('facebook_url','transferhub');
-    $variables["theme"]["settings"]["social"]['twitter_url'] = theme_get_setting('twitter_url','transferhub');
-    $variables["theme"]["settings"]["social"]['google_plus_url'] = theme_get_setting('google_plus_url','transferhub');
-    $variables["theme"]["settings"]["social"]['linkedin_url'] = theme_get_setting('linkedin_url','transferhub');
+    //host
+    $variables["host"] = "http://" . \Drupal::request()->getHost();
 
-    //Search block
-    //$variables['last_projects'] = \Drupal::service('renderer')->render(views_embed_view('projectes','block_1'));
+    //Load search block
     $active_theme = \Drupal::service('theme.manager')->getActiveTheme();
     $block = \Drupal\block\BlockViewBuilder::lazyBuilder($active_theme->getName()."_search","full");
     $variables['search_block'] = Drupal::service('renderer')->render($block);
-
-    //is node? (otherwise it is system form, node form, workflow node form, view page...)
-    //kint(\Drupal::request()->attributes);
-    $variables["is_node"] = \Drupal::routeMatch()->getParameter("node") && !in_array(\Drupal::request()->attributes->get("_route"),array("entity.node.edit_form","entity.node.workflow_history"));
-    //\Drupal::request()->attributes->get("_entity_form") != "node.edit" ;
-    //todo treure xivato
-    /*if ($variables["is_node"])
-        drupal_set_message("page is: node");
-    else
-        drupal_set_message("page is: system, edit, view page... (?)");*/
 }
 
 function transferhub_preprocess_block(&$variables)
 {
-    //make installation base path available in block templates
-    //drupal_set_message($variables["plugin_id"]);
+    //make installation base path available in block templates    
     $variables["base_path"] = base_path();
 
-    //language
-    /*$variables["language"] = \Drupal::languageManager()->getCurrentLanguage()->getId();
-    drupal_set_message(\Drupal::languageManager()->getCurrentLanguage()->getId());*/
-
-    //Disable cache for specific blocks
-    $excluded_blocks = array("views_block:advertisments-block_1");    
-    if (in_array($variables["plugin_id"],$excluded_blocks))
-    {
-       $variables["content"]["#cache"]["max-age"] = 0;
-    }
-
     //process bold font
-    $processTitle = array("views_block:projects-block_1","contact_block");
+    $processTitle = array("views_block:projects-block_1", "contact_block", "transferhub_promoted_projects");
     if (in_array($variables["plugin_id"],$processTitle))
     {
         $variables["label"] = _transferhub_processBoldText($variables["label"]);
+    }
+
+    //load contanct block image from theme settings
+    if ($variables["plugin_id"] == "contact_block")
+    {
+        if (theme_get_setting("default_contact_image"))
+            $image = "themes/custom/transferhub/images/home/contact.png"; //default image
+        else {
+            $path = theme_get_setting('contact_image');
+            if (strpos($path, "public://") !== false)
+                $path = file_create_url($path);
+            else
+                $path = base_path() . "/" . $path;
+
+            $image = $path;
+        }
+        $variables["image"] = $image;
     }
 }
 
@@ -225,7 +571,7 @@ function transferhub_preprocess_node(&$variables)
                         }
                         case "project_workflow_devices_allocated": {
                             $variables["state_lbl_class"] = "label-warning";
-                            $variables["state_text"] = t("Allocated devices");
+                            $variables["state_text"] = t("Assigned devices");
                             break;
                         }
                         case "project_workflow_devices_received": {
@@ -248,7 +594,6 @@ function transferhub_preprocess_node(&$variables)
                             $variables["state_text"] = t("Draft");
                             break;
                         }
-
                     }
                 }
                 break;
