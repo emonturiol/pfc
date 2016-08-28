@@ -85,7 +85,6 @@ function transferhub_form_system_theme_settings_alter(&$form, Drupal\Core\Form\F
     $form['bg_image_details']['bg_settings'] = array(
         '#type' => 'container',
         '#states' => array(
-            // Hide the logo settings when using the default logo.
             'invisible' => array(
                 'input[name="default_bg"]' => array('checked' => TRUE),
             ),
@@ -489,6 +488,23 @@ function transferhub_preprocess_page(&$variables)
     $active_theme = \Drupal::service('theme.manager')->getActiveTheme();
     $block = \Drupal\block\BlockViewBuilder::lazyBuilder($active_theme->getName()."_search","full");
     $variables['search_block'] = Drupal::service('renderer')->render($block);
+
+    //process site logo
+    $logo = $variables["theme"]["settings"]["logo"];
+    if ($logo["use_default"] != 1)
+    {
+        if (!isset($logo["url"]) || empty($logo["url"]))
+        {
+            if (strpos($logo["path"], "public://") !== false)
+            {
+                $variables["logo_path"] = file_create_url($logo["path"]);
+            }
+            else
+                $variables["logo_path"] =  base_path() . $logo["path"];
+        }
+        else
+            $variables["logo_path"] = $logo["url"];
+    }
 }
 
 function transferhub_preprocess_block(&$variables)
@@ -501,23 +517,6 @@ function transferhub_preprocess_block(&$variables)
     if (in_array($variables["plugin_id"],$processTitle))
     {
         $variables["label"] = _transferhub_processBoldText($variables["label"]);
-    }
-
-    //load contanct block image from theme settings
-    if ($variables["plugin_id"] == "contact_block")
-    {
-        if (theme_get_setting("default_contact_image"))
-            $image = "themes/custom/transferhub/images/home/contact.png"; //default image
-        else {
-            $path = theme_get_setting('contact_image');
-            if (strpos($path, "public://") !== false)
-                $path = file_create_url($path);
-            else
-                $path = base_path() . "/" . $path;
-
-            $image = $path;
-        }
-        $variables["image"] = $image;
     }
 }
 

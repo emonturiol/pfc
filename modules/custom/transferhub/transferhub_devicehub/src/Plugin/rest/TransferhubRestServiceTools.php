@@ -27,7 +27,7 @@ class TransferhubRestServiceTools {
             $response["error"] = t($message, $params);
         else
             $response["error"] = t($message);
-        //todo LOG whatchdog
+        
         \Drupal::logger("transferhub_devicehub")->error("REST SERVER: ERROR: ".$response["error"]." | status: ".$status);
         return new ResourceResponse($response, $status);
     }

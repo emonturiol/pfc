@@ -74,7 +74,7 @@ class TransferhubReceiveResource extends ResourceBase {
             $dmanufacturer = $device["manufacturer"];
             $dmodel = $device["model"];
             $durl = $device["url"];
-            $ddonor = $device["donor"]; //TODO this will change!
+            $ddonor = $device["donor"]; //this field is not received yet
 
             $fieldCollectionItem = \Drupal\field_collection\Entity\FieldCollectionItem::create(['field_name' => 'field_received_devices']);
             $fieldCollectionItem->setHostEntity($node);

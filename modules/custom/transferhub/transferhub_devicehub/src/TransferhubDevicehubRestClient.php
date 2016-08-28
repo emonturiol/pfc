@@ -42,7 +42,7 @@ class TransferhubDevicehubRestClient
     {
         try {
             $api = new \RestClient([
-                'base_url' => $this->base_url, //todo llegir de configuració
+                'base_url' => $this->base_url, 
                 //'format' => "json",
             ]);
 
@@ -56,8 +56,7 @@ class TransferhubDevicehubRestClient
                 $values = (array) $result->decode_response();
                 $this->token = $values["token"];
                 $this->db = $values["defaultDatabase"];
-                //TODO save token to module settings
-                //todo save $DB
+
                 return $this->token;
             }
             else {

@@ -100,19 +100,4 @@ class TransferhubAllocateResource extends ResourceBase {
         
         return new ResourceResponse($response, 201);
     }
-
-
-
-    //todo delete tot akest codi de prova d'aquí sota
-    public function get() {
-        $record["status"] = "ok";
-        $record["message"] = "ALLOCATE you rock";
-        return new ResourceResponse($record);
-    }
-
-    public function put($type = null, $request) {
-        $record["status"] = "ok";
-        $record["message"] = "ALLOCATE you rock";
-        return new ResourceResponse($record);
-    }
 }

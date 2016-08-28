@@ -1,17 +1,5 @@
 <?php
 
-//todo això fa algo????
-function transferhub_devicehub_action_info() {
-    return array(
-        'transferhub_devicehub_workflow_action' => array(
-        'type' => 'node',
-        'description' => t('Notify.'),
-        'configurable' => TRUE,
-        'behavior' => array('changes_node_property'),
-        ),
-    );
-}
-
 function transferhub_devicehub_user_insert($account)
 {
     //Create new user in Devicehub
