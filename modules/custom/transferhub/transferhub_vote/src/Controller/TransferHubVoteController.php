@@ -1,9 +1,6 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\loremipsum\Controller\LoremIpsumController
- */
+
 
 namespace Drupal\transferhub_vote\Controller;
 
@@ -11,19 +8,17 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
 // Change following https://www.drupal.org/node/2457593
 use Drupal\Component\Utility\SafeMarkup;
-//use Drupal\Core\Database;
-
 
 
 /**
- * Controller routines for Lorem ipsum pages.
+ * Controller
  */
 class TransferHubVoteController extends ControllerBase {
 
 
     public function login()
     {
-        return new \Symfony\Component\HttpFoundation\RedirectResponse("/reutilitza/user/simple-fb-connect");
+        return new \Symfony\Component\HttpFoundation\RedirectResponse(  base_path() . "user/simple-fb-connect");
     }
 
     public function redirect()

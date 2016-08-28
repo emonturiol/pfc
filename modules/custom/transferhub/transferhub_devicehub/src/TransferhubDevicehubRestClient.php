@@ -70,7 +70,7 @@ class TransferhubDevicehubRestClient
         }
         catch (\Exception $e)
         {
-            \Drupal::logger('transferhub_devicehub')->error("REST CLIENT: exception on login: ". $e->getMessage());
+            \Drupal::logger('transferhub_devicehub')->error("REST CLIENT: exception on login: ". $e->getMessage() . t("CHECK your connection settings at admin/config/transferhub_devicehub"));
             return false;
         }
     }

@@ -25,10 +25,12 @@ robots.txt
 #sites/*/settings.*.php
 #sites/*/services*.yml
 #sites/*/*services.yml
+
 sites/*/settings.php
 sites/*/settings.local.php
 sites/*/services.yml
 sites/*/development.services.yml
+
 !environment_configuration/*/settings.php
 !environment_configuration/*/settings.local.php
 !environment_configuration/*/services.yml

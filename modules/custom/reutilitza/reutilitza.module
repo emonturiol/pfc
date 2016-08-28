@@ -8,7 +8,7 @@ function reutilitza_user_login($account) {
     //Redirect to content overview page
     if (in_array("manager",array_values($account->getRoles())))
     {
-        $response = new Symfony\Component\HttpFoundation\RedirectResponse(base_path()."/project-administration");
+        $response = new Symfony\Component\HttpFoundation\RedirectResponse( base_path() . "project-administration");
         $response->send();
         return;
     }
