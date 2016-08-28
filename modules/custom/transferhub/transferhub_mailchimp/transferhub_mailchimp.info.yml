@@ -1,8 +1,0 @@
-name: TransferHub Mailchimp
-type: module
-description: 'Adds email subscription opt-ins in the Drupal registration form'
-package: TransferHub
-core: 8.x
-#configure: reuse_migrate.form
-
-#dependencies: TransferHub Project, Mailchimp
