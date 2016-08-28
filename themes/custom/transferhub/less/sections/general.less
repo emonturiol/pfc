@@ -99,9 +99,52 @@ form.search-page-form
   display: none;
 }
 
-//quotes
-#testimonial-page .quote-section{
-  padding-bottom: 70px;
-  padding-top: 150px;
+//Cookie notice banner
+//Cookie banner
+#sliding-popup {
+  background-color:  @primary-fade;
 }
 
+//search page
+.user-register-form .search-page-form
+{
+  display: none;
+}
+
+//LANGUAGE SWITCHER - navigation top
+.region-navigation-top .block-language ul li
+{
+  float: left;
+  margin-left: 6px;
+}
+.region-navigation .block-language ul li.is-active,
+.region-navigation-top .block-language ul li.is-active
+{
+  font-weight: bold;
+}
+.region-navigation .block-language ul li
+{
+  float: left;
+  margin-left: -2px;
+}
+.region-navigation .block-language
+{
+  padding: 10px;
+}
+
+//COLLAPSIBLE MENU
+@media (min-width: 768px) {
+  div.region-navigation-collapsible nav {
+    float: left;
+  }
+}
+//LOGIN MENU
+#block-useraccountmenu ul,
+#block-reutilitza-account-menu ul
+{
+  margin-right: 0 !important;
+}
+a.user-dropdown-toggle
+{
+  padding: 0;
+}

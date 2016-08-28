@@ -1,6 +1,7 @@
 // @todo these should be their own CSS files and only included when
 // specific Drupal libraries are used.
 
+//Base theme
 //@import "component/alert";
 //@import "component/ajax";
 //@import "component/field";
@@ -16,61 +17,7 @@
 //@import "component/tabs";
 //@import "component/toolbar";
 
-/*
-// jQuery UI style overrides.
-@import "jquery-ui/autocomplete";
-
-ol, ul {
-  padding-left: 1.5em;
-  .popover &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-// Page header.
-.page-header {
-  margin-top: 0;
-}
-
-// Footer.
-.footer {
-  margin-top: 45px;
-  padding-top: 35px;
-  padding-bottom: 36px;
-  border-top: 1px solid #E5E5E5;
-}
-
-// Paragraphs.
-p:last-child,
-.form-group:last-child,
-.panel:last-child {
-  margin-bottom: 0;
-}
-
-// Help region.
-.region-help {
-  > .glyphicon {
-    font-size: @font-size-large;
-    float: left;
-    margin: -0.05em 0.5em 0 0;
-  }
-  .block {
-    overflow: hidden;
-  }
-}
-
-
-.help-block, .control-group .help-inline {
-  color: @gray-light;
-  font-size: 12px;
-  margin: 5px 0 10px;
-  padding: 0;
-  &:first-child {
-    margin-top: 0;
-  }
-}
-*/
-//TWO DOORS default overrides //todo
+//TWO DOORS default overrides
 @import '../css/two_doors/bootstrap.min.css';
 @import '../css/two_doors/font-awesome.min.css';
 @import '../css/two_doors/font.css';
@@ -79,7 +26,7 @@ p:last-child,
 @import '../css/two_doors/responsive.css';
 
 
-//Transferhub overrides
+//TRANSFERHUB overrides
 @import 'scaffolding.less';
 
 @import 'sections/general.less';
@@ -90,103 +37,3 @@ p:last-child,
 @import 'sections/project-views.less';
 @import 'sections/organization.less';
 @import 'sections/forms.less';
-
-
-//TODO PASSAR A REUTILTIZA
-
-//Pàgina cerca
-.user-register-form .search-page-form
-{
-  display: none;
-}
-
-//LANGUAGE SWITCHER - navigation top
-.region-navigation-top .block-language ul li
-{
-  float: left;
-  margin-left: 6px;
-}
-.region-navigation .block-language ul li.is-active,
-.region-navigation-top .block-language ul li.is-active
-{
-  font-weight: bold;
-}
-.region-navigation .block-language ul li
-{
-  float: left;
-  margin-left: -2px;
-}
-.region-navigation .block-language
-{
-  padding: 10px;
-}
-
-//COLLAPSIBLE MENU
-@media (min-width: 768px) {
-  div.region-navigation-collapsible nav {
-    float: left;
-  }
-}
-//LOGIN MENU
-#block-useraccountmenu ul,
-#block-reutilitza-account-menu ul
-{
-  margin-right: 0 !important;
-}
-a.user-dropdown-toggle
-{
-  padding: 0;
-}
-
-#sliding-popup {
-  background-color:  rgb(69, 124, 44);
-}
-
-
-
-
-//REUTILITZA
-
-//Cookie notice banner
-//Cookie banner
-
-.collaborators
-{
-  background-color: #f5f5f5;
-  padding-bottom: 40px;
-  padding-top: 40px;
-
-  h2 {
-    margin-bottom: 30px;
-  }
-
-  img {
-    width: 70%;
-  }
-
-}
-/*
-
-#service .section-title h2:before {
-  background-image: url(/reutilitza/themes/custom/transferhub/images/home/icons/shop-title-icon2.png); //todo
-}
-//view bloc front
-.path-frontpage #screenshots
-{
-  margin-top: 30px;
-  padding-top: 30px;
-}
-.path-frontpage #screenshots p {
-  font-family: 'Raleway', sans-serif;
-  color: #454545;
-}
-.path-frontpage #screenshots h2 {
-  font-family: 'Raleway', sans-serif;
-
-}
-.path-frontpage #screenshots h2 a
-{
-  font-size: 26px;
-  text-decoration: none;
-}
-*/
