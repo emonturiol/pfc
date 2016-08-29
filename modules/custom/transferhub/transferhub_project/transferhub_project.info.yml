@@ -5,4 +5,9 @@ package: TransferHub
 core: 8.x
 #configure: reuse_migrate.form
 
-#dependencies: workflow, collection, address, inline entity form, field_group
+dependencies:
+  - workflow
+  - field_collection
+  - address
+  - inline_entity_form
+  - field_group
