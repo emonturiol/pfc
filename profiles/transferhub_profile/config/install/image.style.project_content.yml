@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies: {  }
+name: project_content
+label: 'Project content'
+effects:
+  7ad34d53-f26b-4d95-a880-b5c80ddbbcab:
+    uuid: 7ad34d53-f26b-4d95-a880-b5c80ddbbcab
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 680
+      height: 300

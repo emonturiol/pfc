@@ -1,0 +1,9 @@
+langcode: en
+status: '1'
+dependencies: {  }
+id: project_workflow_devices_received
+label: 'Devices received'
+module: null
+wid: project_workflow
+weight: '-5'
+sysid: 0

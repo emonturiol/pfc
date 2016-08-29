@@ -1,0 +1,5 @@
+langcode: en
+status: true
+dependencies: {  }
+id: field_allocated_devices
+label: field_allocated_devices

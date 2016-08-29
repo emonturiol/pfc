@@ -1,0 +1,399 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.project.field_address
+    - field.field.node.project.field_allocated_devices
+    - field.field.node.project.field_computer_monitor
+    - field.field.node.project.field_deadline
+    - field.field.node.project.field_description
+    - field.field.node.project.field_desktop
+    - field.field.node.project.field_desktop_with_peripherals
+    - field.field.node.project.field_facebook
+    - field.field.node.project.field_image
+    - field.field.node.project.field_image_content
+    - field.field.node.project.field_laptop
+    - field.field.node.project.field_last_allocation
+    - field.field.node.project.field_last_reception
+    - field.field.node.project.field_maintenance
+    - field.field.node.project.field_mobile_phone
+    - field.field.node.project.field_organization_existing
+    - field.field.node.project.field_organization_new
+    - field.field.node.project.field_questionary
+    - field.field.node.project.field_received_devices
+    - field.field.node.project.field_reuse_return
+    - field.field.node.project.field_short_description
+    - field.field.node.project.field_slogan
+    - field.field.node.project.field_tablet_computer
+    - field.field.node.project.field_tags
+    - field.field.node.project.field_twitter
+    - field.field.node.project.field_use
+    - field.field.node.project.field_use_existing_organization
+    - field.field.node.project.field_website
+    - field.field.node.project.field_workflow
+    - image.style.thumbnail
+    - node.type.project
+  module:
+    - address
+    - datetime
+    - field_collection
+    - field_group
+    - image
+    - inline_entity_form
+    - link
+    - path
+    - text
+third_party_settings:
+  field_group:
+    group_organization:
+      children:
+        - field_use_existing_organization
+        - field_organization_existing
+        - field_organization_new
+      parent_name: ''
+      weight: 12
+      label: Organization
+      format_type: fieldset
+      format_settings:
+        description: ''
+        classes: ''
+        id: ''
+        required_fields: true
+    group_required_devices:
+      children:
+        - group_computers
+        - group_mobile_devices
+        - group_peripherals
+      parent_name: ''
+      weight: 11
+      label: 'Required devices'
+      format_type: fieldset
+      format_settings:
+        description: ''
+        classes: ''
+        id: ''
+        required_fields: true
+    group_computers:
+      children:
+        - field_desktop
+        - field_desktop_with_peripherals
+        - field_laptop
+      parent_name: group_required_devices
+      weight: 32
+      label: Computers
+      format_type: fieldset
+      format_settings:
+        description: ''
+        classes: ''
+        id: ''
+        required_fields: true
+    group_mobile_devices:
+      children:
+        - field_mobile_phone
+        - field_tablet_computer
+      parent_name: group_required_devices
+      weight: 33
+      label: 'Mobile devices'
+      format_type: fieldset
+      format_settings:
+        description: ''
+        classes: ''
+        id: ''
+        required_fields: true
+    group_peripherals:
+      children:
+        - field_computer_monitor
+      parent_name: group_required_devices
+      weight: 34
+      label: Peripherals
+      format_type: fieldset
+      format_settings:
+        description: ''
+        classes: ''
+        id: ''
+        required_fields: true
+    group_social:
+      children:
+        - field_website
+        - field_facebook
+        - field_twitter
+      parent_name: ''
+      weight: 14
+      label: Social
+      format_type: fieldset
+      format_settings:
+        description: ''
+        classes: ''
+        id: ''
+        required_fields: true
+    group_device_assignation:
+      children:
+        - group_ratings
+        - group_allocation
+        - group_reception
+      parent_name: ''
+      weight: 15
+      label: 'Administration options'
+      format_type: tabs
+      format_settings:
+        label: 'Administration options'
+        direction: horizontal
+        id: ''
+        classes: ''
+    group_allocation:
+      children:
+        - field_last_allocation
+        - field_allocated_devices
+      parent_name: group_device_assignation
+      weight: 29
+      label: Allocation
+      format_type: tab
+      format_settings:
+        formatter: closed
+        description: ''
+        classes: ''
+        id: ''
+        required_fields: true
+    group_reception:
+      children:
+        - field_last_reception
+        - field_received_devices
+      parent_name: group_device_assignation
+      weight: 30
+      label: Reception
+      format_type: tab
+      format_settings:
+        formatter: closed
+        description: ''
+        classes: ''
+        id: ''
+        required_fields: true
+    group_ratings:
+      children:
+        - field_questionary
+        - field_use
+        - field_maintenance
+        - field_reuse_return
+      parent_name: group_device_assignation
+      weight: 28
+      label: Ratings
+      format_type: tab
+      format_settings:
+        formatter: closed
+        description: ''
+        classes: ''
+        id: ''
+        required_fields: true
+id: node.project.default
+targetEntityType: node
+bundle: project
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+  field_address:
+    weight: 13
+    settings:
+      default_country: null
+    third_party_settings: {  }
+    type: address_default
+  field_allocated_devices:
+    weight: 18
+    settings: {  }
+    third_party_settings: {  }
+    type: field_collection_embed
+  field_computer_monitor:
+    weight: 13
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  field_deadline:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+  field_description:
+    weight: 9
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_desktop:
+    weight: 10
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  field_desktop_with_peripherals:
+    weight: 11
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  field_facebook:
+    weight: 22
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_image:
+    weight: 6
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_image_content:
+    weight: 7
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_laptop:
+    weight: 12
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  field_last_allocation:
+    weight: 17
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+  field_last_reception:
+    weight: 35
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+  field_maintenance:
+    weight: 44
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_mobile_phone:
+    weight: 15
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  field_organization_existing:
+    weight: 40
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_organization_new:
+    weight: 41
+    settings:
+      match_operator: CONTAINS
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+  field_questionary:
+    weight: 42
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_received_devices:
+    weight: 36
+    settings: {  }
+    third_party_settings: {  }
+    type: field_collection_embed
+  field_reuse_return:
+    weight: 45
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_short_description:
+    weight: 8
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_slogan:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_tablet_computer:
+    weight: 16
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  field_tags:
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete_tags
+  field_twitter:
+    weight: 23
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_use:
+    weight: 43
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_use_existing_organization:
+    weight: 39
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+  field_website:
+    weight: 21
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  path:
+    type: path
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  field_workflow: true
+  langcode: true
+  promote: true
+  sticky: true
+  translation: true

@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_reuse_return
+    - node.type.project
+  module:
+    - options
+id: node.project.field_reuse_return
+field_name: field_reuse_return
+entity_type: node
+bundle: project
+label: 'Reuse/recycling return'
+description: 'The user returned the divices to the platform for its reuse or recycling.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_integer

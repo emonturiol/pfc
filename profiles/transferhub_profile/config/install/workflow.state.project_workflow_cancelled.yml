@@ -1,0 +1,9 @@
+langcode: ca
+status: '1'
+dependencies: {  }
+id: project_workflow_cancelled
+label: Cancelled
+module: null
+wid: project_workflow
+weight: '-4'
+sysid: 0

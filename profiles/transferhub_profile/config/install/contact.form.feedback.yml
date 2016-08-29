@@ -1,0 +1,9 @@
+langcode: ca
+status: true
+dependencies: {  }
+id: feedback
+label: Feedback
+recipients:
+  - alberthoms@cmail.cat
+reply: ''
+weight: 0

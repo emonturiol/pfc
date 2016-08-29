@@ -1,0 +1,44 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.page.field_background_image
+    - field.field.node.page.field_body
+    - field.field.node.page.field_button_caption
+    - field.field.node.page.field_button_link
+    - field.field.node.page.field_include_button
+    - field.field.node.page.field_include_image_header
+    - field.field.node.page.field_subpage
+    - field.field.node.page.field_subtitle
+    - node.type.page
+  module:
+    - text
+    - user
+id: node.page.default
+targetEntityType: node
+bundle: page
+mode: default
+content:
+  field_body:
+    weight: 108
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_subpage:
+    weight: 109
+    label: hidden
+    settings:
+      link: true
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+hidden:
+  field_background_image: true
+  field_button_caption: true
+  field_button_link: true
+  field_include_button: true
+  field_include_image_header: true
+  field_subtitle: true
+  langcode: true
+  links: true

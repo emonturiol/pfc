@@ -1,0 +1,9 @@
+langcode: ca
+status: '1'
+dependencies: {  }
+id: project_workflow_waiting_for_assignment
+label: 'Waiting for assignment'
+module: null
+wid: project_workflow
+weight: '-7'
+sysid: 0

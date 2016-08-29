@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_allocated_devices
+    - node.type.project
+  module:
+    - field_collection
+id: node.project.field_allocated_devices
+field_name: field_allocated_devices
+entity_type: node
+bundle: project
+label: 'Allocated devices'
+description: ''
+required: false
+translatable: false
+default_value:
+  - {  }
+  - {  }
+default_value_callback: ''
+settings: {  }
+field_type: field_collection

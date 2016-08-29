@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies: {  }
+name: project_main_block
+label: 'Project main block'
+effects:
+  bf0e06a7-f9aa-4cab-8f9f-a454d41d0abb:
+    uuid: bf0e06a7-f9aa-4cab-8f9f-a454d41d0abb
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 262
+      height: 175

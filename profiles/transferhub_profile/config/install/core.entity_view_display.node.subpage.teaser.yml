@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.subpage.body
+    - field.field.node.subpage.field_anchor
+    - field.field.node.subpage.field_background_color
+    - node.type.subpage
+  module:
+    - text
+    - user
+id: node.subpage.teaser
+targetEntityType: node
+bundle: subpage
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+  links:
+    weight: 100
+hidden:
+  field_anchor: true
+  field_background_color: true
+  langcode: true

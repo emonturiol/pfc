@@ -1,0 +1,94 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.project.field_address
+    - field.field.node.project.field_allocated_devices
+    - field.field.node.project.field_computer_monitor
+    - field.field.node.project.field_deadline
+    - field.field.node.project.field_description
+    - field.field.node.project.field_desktop
+    - field.field.node.project.field_desktop_with_peripherals
+    - field.field.node.project.field_facebook
+    - field.field.node.project.field_image
+    - field.field.node.project.field_image_content
+    - field.field.node.project.field_laptop
+    - field.field.node.project.field_last_allocation
+    - field.field.node.project.field_last_reception
+    - field.field.node.project.field_maintenance
+    - field.field.node.project.field_mobile_phone
+    - field.field.node.project.field_organization_existing
+    - field.field.node.project.field_organization_new
+    - field.field.node.project.field_questionary
+    - field.field.node.project.field_received_devices
+    - field.field.node.project.field_reuse_return
+    - field.field.node.project.field_short_description
+    - field.field.node.project.field_slogan
+    - field.field.node.project.field_tablet_computer
+    - field.field.node.project.field_tags
+    - field.field.node.project.field_twitter
+    - field.field.node.project.field_use
+    - field.field.node.project.field_use_existing_organization
+    - field.field.node.project.field_website
+    - field.field.node.project.field_workflow
+    - image.style.project_main_block
+    - node.type.project
+  module:
+    - image
+    - user
+id: node.project.teaser
+targetEntityType: node
+bundle: project
+mode: teaser
+content:
+  field_image:
+    type: image
+    weight: 0
+    label: hidden
+    settings:
+      image_style: project_main_block
+      image_link: content
+    third_party_settings: {  }
+  field_short_description:
+    type: basic_string
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_tags:
+    type: entity_reference_label
+    weight: 2
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+hidden:
+  field_address: true
+  field_allocated_devices: true
+  field_computer_monitor: true
+  field_deadline: true
+  field_description: true
+  field_desktop: true
+  field_desktop_with_peripherals: true
+  field_facebook: true
+  field_image_content: true
+  field_laptop: true
+  field_last_allocation: true
+  field_last_reception: true
+  field_maintenance: true
+  field_mobile_phone: true
+  field_organization_existing: true
+  field_organization_new: true
+  field_questionary: true
+  field_received_devices: true
+  field_reuse_return: true
+  field_slogan: true
+  field_tablet_computer: true
+  field_twitter: true
+  field_use: true
+  field_use_existing_organization: true
+  field_website: true
+  field_workflow: true
+  langcode: true
+  links: true

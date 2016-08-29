@@ -1,0 +1,9 @@
+langcode: ca
+status: true
+dependencies: {  }
+id: project_workflow_cancelled_cancelled
+label: null
+module: null
+from_sid: project_workflow_cancelled
+to_sid: project_workflow_cancelled
+roles: {  }

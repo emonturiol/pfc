@@ -1,0 +1,41 @@
+langcode: ca
+status: true
+dependencies: {  }
+id: workflow_transition_execution
+label: 'Workflow transition execution'
+events:
+  -
+    event_name: 'rules_entity_insert:workflow_transition'
+description: ''
+tags:
+  - ''
+config_version: '3'
+expression:
+  id: rules_rule
+  uuid: a005fe4c-2126-4b26-b135-817488d2b661
+  conditions:
+    id: rules_and
+    uuid: a2f2411b-f444-4f11-8128-aa3d318fa7b1
+    conditions: {  }
+  actions:
+    id: rules_action_set
+    uuid: 3c482310-8ae8-4f63-a285-f4e832b77408
+    actions:
+      -
+        id: rules_action
+        uuid: 19ba507e-b70a-47bd-a10c-489f6f3391e7
+        context_values:
+          entity: entity
+        context_mapping: {  }
+        context_processors: {  }
+        provides_mapping: {  }
+        action_id: rules_syncronize_in_devicehub
+      -
+        id: rules_action
+        uuid: 6a9a32a2-5196-4fe8-9885-abe86133433d
+        context_values:
+          entity: entity
+        context_mapping: {  }
+        context_processors: {  }
+        provides_mapping: {  }
+        action_id: rules_update_publication_status

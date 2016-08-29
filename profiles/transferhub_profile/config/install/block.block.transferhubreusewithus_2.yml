@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - transferhub_theme_addons
+  theme:
+    - transferhub
+id: transferhubreusewithus_2
+theme: transferhub
+region: content_front
+weight: -13
+provider: null
+plugin: transferhub_reuse_with_us
+settings:
+  id: transferhub_reuse_with_us
+  label: 'Reuse with *us*'
+  provider: transferhub_theme_addons
+  label_display: visible
+  first: 'Don''t throw it, became a *donor*'
+  second: 'Grant its new *destiny*'
+  third: '*Vote* for those who need it the most'
+  fourth: '*Order and receive* what you need'
+visibility: {  }

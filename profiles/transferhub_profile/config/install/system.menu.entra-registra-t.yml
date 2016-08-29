@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: entra-registra-t
+label: 'Log in | Sign up'
+description: ''
+locked: false

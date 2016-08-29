@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - transferhub_theme_addons
+  theme:
+    - transferhub
+id: transferhubvideo_2
+theme: transferhub
+region: content_front
+weight: -11
+provider: null
+plugin: transferhub_video
+settings:
+  id: transferhub_video
+  label: 'Opinions on *us*'
+  provider: transferhub_theme_addons
+  label_display: visible
+  text: 'Information about us on the media'
+  link: 'https://vimeo.com/97460488'
+visibility: {  }

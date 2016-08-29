@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies: {  }
+name: project_header
+label: 'Project header'
+effects:
+  dab27930-c706-4e61-ad05-8c135f87f9b7:
+    uuid: dab27930-c706-4e61-ad05-8c135f87f9b7
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 750
+      height: 359

@@ -1,0 +1,273 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.project.field_address
+    - field.field.node.project.field_allocated_devices
+    - field.field.node.project.field_computer_monitor
+    - field.field.node.project.field_deadline
+    - field.field.node.project.field_description
+    - field.field.node.project.field_desktop
+    - field.field.node.project.field_desktop_with_peripherals
+    - field.field.node.project.field_facebook
+    - field.field.node.project.field_image
+    - field.field.node.project.field_image_content
+    - field.field.node.project.field_laptop
+    - field.field.node.project.field_last_allocation
+    - field.field.node.project.field_last_reception
+    - field.field.node.project.field_maintenance
+    - field.field.node.project.field_mobile_phone
+    - field.field.node.project.field_organization_existing
+    - field.field.node.project.field_organization_new
+    - field.field.node.project.field_questionary
+    - field.field.node.project.field_received_devices
+    - field.field.node.project.field_reuse_return
+    - field.field.node.project.field_short_description
+    - field.field.node.project.field_slogan
+    - field.field.node.project.field_tablet_computer
+    - field.field.node.project.field_tags
+    - field.field.node.project.field_twitter
+    - field.field.node.project.field_use
+    - field.field.node.project.field_use_existing_organization
+    - field.field.node.project.field_website
+    - field.field.node.project.field_workflow
+    - image.style.project_content
+    - node.type.project
+  module:
+    - address
+    - datetime
+    - field_collection
+    - image
+    - link
+    - options
+    - text
+    - user
+id: node.project.default
+targetEntityType: node
+bundle: project
+mode: default
+content:
+  field_address:
+    weight: 102
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+  field_allocated_devices:
+    weight: 117
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: field_collection_list
+  field_computer_monitor:
+    weight: 110
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_deadline:
+    weight: 104
+    label: hidden
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+  field_description:
+    weight: 126
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_desktop:
+    weight: 105
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: number_unformatted
+  field_desktop_with_peripherals:
+    weight: 106
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: false
+    third_party_settings: {  }
+    type: number_integer
+  field_facebook:
+    weight: 111
+    label: inline
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+  field_image:
+    weight: 119
+    label: hidden
+    settings:
+      image_style: project_header
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_image_content:
+    weight: 115
+    label: hidden
+    settings:
+      image_style: project_content
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_laptop:
+    weight: 107
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_last_allocation:
+    weight: 116
+    label: hidden
+    settings:
+      timezone_override: ''
+      format_type: short
+    third_party_settings: {  }
+    type: datetime_default
+  field_last_reception:
+    weight: 124
+    label: hidden
+    settings:
+      timezone_override: ''
+      format_type: short
+    third_party_settings: {  }
+    type: datetime_default
+  field_maintenance:
+    weight: 132
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+  field_mobile_phone:
+    weight: 108
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_organization_existing:
+    weight: 127
+    label: hidden
+    settings:
+      view_mode: teaser
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+  field_organization_new:
+    weight: 128
+    label: hidden
+    settings:
+      view_mode: teaser
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+  field_questionary:
+    weight: 130
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+  field_received_devices:
+    weight: 118
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: field_collection_list
+  field_reuse_return:
+    weight: 133
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+  field_short_description:
+    weight: 121
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_slogan:
+    weight: 125
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_tablet_computer:
+    weight: 109
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_tags:
+    weight: 122
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_twitter:
+    weight: 113
+    label: inline
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+  field_use:
+    weight: 131
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+  field_use_existing_organization:
+    weight: 129
+    label: hidden
+    settings:
+      format: true-false
+      format_custom_true: ''
+      format_custom_false: ''
+    third_party_settings: {  }
+    type: boolean
+  field_website:
+    weight: 120
+    label: inline
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+  field_workflow:
+    weight: 134
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  langcode: true

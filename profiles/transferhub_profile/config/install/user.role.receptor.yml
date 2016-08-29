@@ -1,0 +1,7 @@
+langcode: ca
+status: true
+dependencies: {  }
+id: receptor
+label: Receptor
+weight: -6
+is_admin: null

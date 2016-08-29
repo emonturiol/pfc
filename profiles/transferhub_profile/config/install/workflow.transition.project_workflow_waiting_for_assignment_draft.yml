@@ -1,0 +1,12 @@
+langcode: ca
+status: true
+dependencies: {  }
+id: project_workflow_waiting_for_assignment_draft
+label: null
+module: null
+from_sid: project_workflow_waiting_for_assignment
+to_sid: project_workflow_draft
+roles:
+  administrator: administrator
+  workflow_author: 0
+  manager: 0
