@@ -248,7 +248,7 @@ a.user-dropdown-toggle {
   color: #bdc647;
 }
 .path-frontpage #promotion {
-  background-image: url("/reutilitza/themes/custom/transferhub/images/home/video_texture.png") !important;
+  background-image: url("/themes/custom/transferhub/images/home/video_texture.png") !important;
 }
 .path-frontpage #promotion .overlay-bg {
   background-color: rgba(189, 198, 71, 0.8);
