@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: account
-label: 'User account menu'
-description: 'Action links for the active user'
-locked: true

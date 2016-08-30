@@ -1,9 +1,0 @@
-langcode: ca
-status: '1'
-dependencies: {  }
-id: project_workflow_rejected
-label: Rejected
-module: null
-wid: project_workflow
-weight: '-8'
-sysid: 0

@@ -1,9 +1,0 @@
-langcode: en
-status: '1'
-dependencies: {  }
-id: project_workflow_devices_allocated
-label: 'Devices allocated'
-module: null
-wid: project_workflow
-weight: '-6'
-sysid: 0
