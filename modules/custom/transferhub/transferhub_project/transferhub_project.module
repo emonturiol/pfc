@@ -47,3 +47,30 @@ function transferhub_project_preprocess_page(&$variables) {
     }
 
 }
+
+/**
+ * Implements hook_form_FORM_ID_alter() for user_register_form.
+ */
+function transferhub_project_form_user_register_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+    $form['account']['name']['#access'] = FALSE;
+    $random = new \Drupal\Component\Utility\Random();
+    $form['account']['name']['#default_value'] = $random->name();
+
+    array_unshift($form['actions']['submit']['#submit'], 'transferhub_project_autofill_username_in_register_form');
+}
+
+/**
+ * Custom submit callback for user_register_form.
+ */
+function transferhub_project_autofill_username_in_register_form(array &$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+    $mail = $form_state->getValue('mail');
+    $form_state->setValue('name', $mail);
+}
+
+function transferhub_project_form_user_login_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+
+    $form["name"]["#title"] = t("Email");
+    $form["name"]["#description"] = t("Old users may need to enter their username in this field");
+
+    //asdfjlkasdjf
+}
