@@ -52,7 +52,8 @@ class TransferhubDevicehubTools {
 
         $projectUrl = $base_url . "node/".$node->id();
         $eventDescription = t("State changed in Transferhub");
-        $date = date("Y-m-dTH:i:s");
+        $date = gmdate("c");
+        $date = explode("+" , $date)[0];
         $userUrl = $base_url . "user/" . \Drupal::currentUser()->id();
 
         switch ($state)
