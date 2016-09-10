@@ -20,7 +20,7 @@ class TransferhubDevicehubRestClient
     var $token;
     var $debug;
 
-    function __construct($debug = false){
+    function __construct(){
 
         $config = \Drupal::service('config.factory')->getEditable('transferhub_devicehub.settings');
 
@@ -31,7 +31,7 @@ class TransferhubDevicehubRestClient
         $this->token = ""; 
         $this->db = $config->get("default_db");
 
-        $this->debug = $debug;
+        $this->debug = ($config->get("debug_mode") == 1);
         
         $this->client = new \RestClient([
             'base_url' => $this->base_url,             

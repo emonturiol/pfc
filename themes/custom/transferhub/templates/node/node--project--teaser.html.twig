@@ -7,12 +7,6 @@
     <strong>{{ required_devices }} {% trans %}required devices{% endtrans %}</strong>
 </p>
 
-{% if not is_my_projects_page %}
-    <p class="tags">
-        {{ content.field_tags }}
-    </p>
-{% endif %}
-
  {% if is_my_projects_page %}
      <span class="label {{ state_lbl_class }} pull-right">{{ state_text }}</span>
  {% endif %}

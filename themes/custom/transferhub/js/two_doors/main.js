@@ -27,7 +27,8 @@ jQuery(function ($) {
 	// ----------------------------------------------
     // # Preset
     // ----------------------------------------------
-    (function () {
+	/*
+	(function () {
     	$('body').append('<div class="preset-box"></div>');
     	$('.preset-box').append('<div class="preset-btn"><i class="fa fa-cog fa-spin"></i> Colors</div>');
 		$('.preset-box').append('<div class="preset">\
@@ -82,7 +83,7 @@ jQuery(function ($) {
 			});
 		});
 	}());
-	
+	*/
 	// ----------------------------------------------
     // # Dropdown Menu Animation 
     // ----------------------------------------------

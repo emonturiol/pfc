@@ -78,6 +78,13 @@ class TransferhubDevicehubAdminSettingsForm extends ConfigFormBase {
             '#type' => 'textfield',
         ];
 
+        $form['devicehub_debug_mode'] = [
+            '#default_value' => $config->get('debug_mode'),
+            '#description' => $this->t('Activate debug mode'),            
+            '#title' => $this->t('Debug mode'),
+            '#type' => 'checkbox',
+        ];
+        
         return parent::buildForm($form, $form_state);
     }
 
@@ -99,6 +106,7 @@ class TransferhubDevicehubAdminSettingsForm extends ConfigFormBase {
             ->set('username', $form_state->getValue('devicehub_username'))
             ->set('password', $form_state->getValue('devicehub_password'))
             ->set('default_db', $form_state->getValue('devicehub_default_db'))
+            ->set('debug_mode', $form_state->getValue('devicehub_debug_mode'))
             ->save();
 
         parent::submitForm($form, $form_state);

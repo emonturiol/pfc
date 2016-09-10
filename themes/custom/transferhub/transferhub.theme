@@ -318,7 +318,7 @@ function transferhub_theme_settings_validate(array &$form, FormStateInterface $f
         }
         else {
             // File upload failed.
-            $form_state->setErrorByName('bg_upload', $this->t('The background image could not be uploaded.'));
+            $form_state->setErrorByName('bg_upload', t('The background image could not be uploaded.'));
         }
     }
     //header side image
@@ -331,7 +331,7 @@ function transferhub_theme_settings_validate(array &$form, FormStateInterface $f
         }
         else {
             // File upload failed.
-            $form_state->setErrorByName('header_side_image_upload', $this->t('The header side image could not be uploaded.'));
+            $form_state->setErrorByName('header_side_image_upload', t('The header side image could not be uploaded.'));
         }
     }
     //video block image
@@ -344,7 +344,7 @@ function transferhub_theme_settings_validate(array &$form, FormStateInterface $f
         }
         else {
             // File upload failed.
-            $form_state->setErrorByName('video_image_upload', $this->t('The video block image could not be uploaded.'));
+            $form_state->setErrorByName('video_image_upload', t('The video block image could not be uploaded.'));
         }
     }
     //contact block image
@@ -357,7 +357,7 @@ function transferhub_theme_settings_validate(array &$form, FormStateInterface $f
         }
         else {
             // File upload failed.
-            $form_state->setErrorByName('contact_image_upload', $this->t('The contact block image could not be uploaded.'));
+            $form_state->setErrorByName('contact_image_upload', t('The contact block image could not be uploaded.'));
         }
     }
 }
@@ -830,84 +830,3 @@ function _transferhub_processBoldText($text)
     }
     return $final;
 }
-//todo delete
-/*
-function transferhub_theme_suggestions_submit_alter(array &$suggestions, array $variables)
-{
-   // drupal_set_message("submit suggestion alter!!!");
-    if (isset($variables['element']) && isset($variables['element']['#type']) && $variables['element']['#type'] == 'form') {
-
-        $original_theme_hook = $variables['theme_hook_original'];
-        $suggestions[] = $original_theme_hook . '__' . str_replace('-', '_', $variables['element']['#id']);
-
-    }
-}
-
-function transferhub_theme_suggestions_input_alter(array &$suggestions, array $variables)
-{
-    //drupal_set_message("intput suggestion alter!!!");
-
-    //kint($variables["element"]);
-    //drupal_set_message($variables['element']["#value"]["string"]);
-
-
-    if (isset($variables['element']) && isset($variables['element']['#type']) && $variables['element']['#type'] == 'submit') {
-
-      //  drupal_set_message($variables['element']["#value"]["string"]);
-
-    }
-    if (isset($variables['element']) && isset($variables['element']['#type']) && $variables['element']['#type'] == 'form') {
-
-        $original_theme_hook = $variables['theme_hook_original'];
-        $suggestions[] = $original_theme_hook . '__' . str_replace('-', '_', $variables['element']['#id']);
-
-    }
-}
-
-
-function transferhub_theme_suggestions_button_alter(array &$suggestions, array $variables)
-{
-    //drupal_set_message("intput button suggestion alter!!!");
-
-
-    if (isset($variables['element']) && isset($variables['element']['#type']) && $variables['element']['#type'] == 'form') {
-
-        $original_theme_hook = $variables['theme_hook_original'];
-        $suggestions[] = $original_theme_hook . '__' . str_replace('-', '_', $variables['element']['#id']);
-
-    }
-}
-
-
-function transferhub_theme_suggestions_views_view_grid_alter(array &$suggestions, array $variables)
-{
-    drupal_set_message("SUGGESTIONS views grid alter!! *** ");
-
-    drupal_set_message($variables['theme_hook_original']);
-
-    kint($variables["element"]);
-
-    if (isset($variables['element']) && isset($variables['element']['#type']) && $variables['element']['#type'] == 'form') {
-
-
-        $original_theme_hook = $variables['theme_hook_original'];
-        $suggestions[] = $original_theme_hook . '__' . str_replace('-', '_', $variables['element']['#id']);
-
-    }else
-    {
-        drupal_set_message("sí però no");
-    }
-}
-
-function transferhub_preprocess_views_view_grid(&$variables)
-{
-    //kint($variables);
-    drupal_set_message("preprocess grid!!");
-
-    if ($variables["view"]["current_display"] == "block_1")
-    {
-                
-    }
-
-}
-*/

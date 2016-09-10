@@ -189,7 +189,10 @@ form.search-page-form {
   display: none;
 }
 #sliding-popup {
-  background-color: rgba(189, 198, 71, 0.8);
+  background-color: rgba(189, 198, 71, 0.8) !important;
+}
+.sliding-popup-bottom {
+  background-image: none !important;
 }
 .user-register-form .search-page-form {
   display: none;
@@ -221,6 +224,9 @@ form.search-page-form {
 a.user-dropdown-toggle {
   padding: 0;
 }
+.path-frontpage #home-carousel .carousel-caption h3 {
+  font-size: 52px;
+}
 .success-statistics {
   padding-top: 30px;
   padding-bottom: 30px;
@@ -248,7 +254,7 @@ a.user-dropdown-toggle {
   color: #bdc647;
 }
 .path-frontpage #promotion {
-  background-image: url("/themes/custom/transferhub/images/home/video_texture.png") !important;
+  background-image: url("/reutilitza/themes/custom/transferhub/images/home/video_texture.png") !important;
 }
 .path-frontpage #promotion .overlay-bg {
   background-color: rgba(189, 198, 71, 0.8);
@@ -468,6 +474,7 @@ div.field--name-field-tags .field--item a {
 }
 .view-display-id-block_1 .col-sm-3 .field--name-field-image img {
   display: inline;
+  width: 100%;
 }
 .app-section-title h2 {
   font-weight: inherit !important;
@@ -497,5 +504,9 @@ a.icon-before .glyphicon {
 }
 .btn.btn-primary:visited {
   color: white;
+}
+.file-help-description {
+  font-weight: bold;
+  margin-bottom: 15px;
 }
 /*# sourceMappingURL=style.css.map */
