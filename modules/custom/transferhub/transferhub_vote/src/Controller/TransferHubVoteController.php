@@ -51,8 +51,6 @@ class TransferHubVoteController extends ControllerBase {
         return new \Symfony\Component\HttpFoundation\RedirectResponse($returnUrl);
     }
 
-
-
     public static function userAlreadyVoted($userId, $nodeId)
     {
         $db = \Drupal\Core\Database\Database::getConnection();
