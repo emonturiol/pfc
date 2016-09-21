@@ -17,15 +17,12 @@ vendor
 
 #Environment-dependent files
 .htaccess
-!environment_configuration/*/.htaccess
+!modules/custom/reutilitza/environment_configuration/*/.htaccess
+
 robots.txt
-!environment_configuration/*/robots.txt
+!modules/custom/reutilitza/environment_configuration/*/robots.txt
 
 # Ignore configuration files that may contain sensitive information.
-#sites/*/settings.*.php
-#sites/*/services*.yml
-#sites/*/*services.yml
-
 sites/*/settings.local.php
 sites/*/services.yml
 sites/*/development.services.yml
