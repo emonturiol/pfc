@@ -28,11 +28,6 @@ sites/*/services.yml
 sites/*/development.services.yml
 sites/*/settings.php
 
-!modules/custom/reutilitza/environment_configuration/*/settings.local.php
-!modules/custom/reutilitza/environment_configuration/*/services.yml
-!modules/custom/reutilitza/environment_configuration/*/development.services.yml
-!modules/custom/reutilitza/environment_configuration/*/settings.php
-
 # Ignore paths that contain user-generated content.
 sites/*/files
 sites/*/private
