@@ -4,6 +4,7 @@
  */
 
 (function ($) {
+  'use strict';
 
   /**
    * Utility methods for MailChimp campaign management.
@@ -11,17 +12,17 @@
    * the Tokens module.
    */
   Drupal.behaviors.mailchimp_campaign_utils = {
-    attach: function(context, settings) {
+    attach: function (context, settings) {
       // Keep track of which textfield was last selected/focused.
-      $('textarea', context).focus(function() {
+      $('textarea', context).focus(function () {
         drupalSettings.mailchimpCampaignFocusedField = this;
-        console.log('Got text field focus: ' + $(this).attr('id'));
       });
 
       /**
        * Add entity token click handler.
        */
-      $('.add-entity-token-link', context).unbind('click').bind('click', function() {
+      $('.add-entity-token-link', context).unbind('click').bind('click', function (e) {
+        e.preventDefault();
         var element_id = $(this).attr('id');
         var section = element_id.replace('-add-entity-token-link', '');
 
@@ -41,7 +42,7 @@
           entity_id = entity_id_string.replace('[', '').replace(']', '');
         }
 
-        if (entity_id.length == 0) {
+        if (entity_id.length === 0) {
           alert(Drupal.t('Select an entity to import before adding the token.'));
           return;
         }
@@ -58,8 +59,6 @@
 
         // Insert token into last selected text field.
         if (target_element) {
-          console.log('Inserting token: ' + token);
-
           Drupal.behaviors.mailchimp_campaign_utils.addTokenToElement(target_element, token);
         }
         else {
@@ -76,7 +75,8 @@
       /**
        * Add merge var click handler.
        */
-      $('.add-merge-var', context).unbind('click').bind('click', function() {
+      $('.add-merge-var', context).unbind('click').bind('click', function (e) {
+        e.preventDefault();
         // Get the last selected text field.
         var target_element = drupalSettings.mailchimpCampaignFocusedField;
 
@@ -87,8 +87,6 @@
 
         // Insert token into last selected text field.
         if (target_element) {
-          console.log('Inserting token: ' + token);
-
           Drupal.behaviors.mailchimp_campaign_utils.addTokenToElement(target_element, token);
         }
 
@@ -105,8 +103,9 @@
      * @param string token
      *   The token to insert.
      */
-    addTokenToElement: function(target_element, token) {
+    addTokenToElement: function (target_element, token) {
       // IE support.
+      var sel;
       if (document.selection) {
         target_element.focus();
         sel = document.selection.createRange();
@@ -114,16 +113,17 @@
       }
 
       // MOZILLA/NETSCAPE support.
-      else if (target_element.selectionStart || target_element.selectionStart == '0') {
+      else if (target_element.selectionStart || target_element.selectionStart === '0') {
         var startPos = target_element.selectionStart;
         var endPos = target_element.selectionEnd;
         target_element.value = target_element.value.substring(0, startPos)
           + token
           + target_element.value.substring(endPos, target_element.value.length);
-      } else {
+      }
+      else {
         target_element.value += token;
       }
     }
-  }
+  };
 
 })(jQuery);

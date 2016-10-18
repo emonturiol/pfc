@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\mailchimp_campaign\Entity\MailchimpCampaign.
- */
-
 namespace Drupal\mailchimp_campaign\Entity;
 
 use Drupal\Core\Entity\ContentEntityBase;
@@ -41,7 +36,8 @@ use Drupal\mailchimp_campaign\MailchimpCampaignInterface;
  *   },
  *   links = {
  *     "edit-form" = "/admin/config/services/mailchimp/campaign/{mailchimp_campaign}",
- *     "delete-form" = "/admin/config/services/mailchimp/campaign/{mailchimp_campaign}/delete"
+ *     "delete-form" = "/admin/config/services/mailchimp/campaign/{mailchimp_campaign}/delete",
+ *     "canonical" = "/admin/config/services/mailchimp/campaign/{mailchimp_campaign}",
  *   }
  * )
  */
