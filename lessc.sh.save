@@ -1,3 +1,0 @@
-#!/bin/bash
-lessc themes/custom/transferhub/less/style.less > themes/custom/transferhub/css/style.css --source-map=themes/custom/transferhub/css/style.css.map --source-map-basepath=themes/custom/transferhub/css
-
