@@ -52,7 +52,7 @@ sites/simpletest
 # PhpStorm
 .idea/*
 
-#devel files
+#devel files.
 BDbacks/*
 lessc.sh
 index.html.back
